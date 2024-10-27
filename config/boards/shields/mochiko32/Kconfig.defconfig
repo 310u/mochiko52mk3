@@ -1,0 +1,10 @@
+if MOCHIKO32
+
+config ZMK_KEYBOARD_NAME
+    default "mochiko32"
+
+config SPI
+    default y
+
+
+endif

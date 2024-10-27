@@ -1,0 +1,8 @@
+file_format: "1"
+id: mochiko32
+name: MOCHIKO32
+type: shield
+url: https://github.com/310u/mochiko32
+requires: [seeeduino_xiao_ble]
+features:
+  - keys
