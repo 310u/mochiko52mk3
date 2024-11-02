@@ -1,4 +1,4 @@
 ---
 include:
   - board: seeeduino_xiao_ble
-    shield: mochiko32
+    shield: mochiko32 rgbled_adapter
