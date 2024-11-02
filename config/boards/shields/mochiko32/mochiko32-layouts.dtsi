@@ -44,9 +44,9 @@
     };
 };
 
-&layouts_mable_position_map {
-    layout_mable_map: layout_mable {
-        physical-layout = <&mable_physical_layout>;
+&layouts_mochiko32_position_map {
+    layout_mochiko32_map: layout_mable {
+        physical-layout = <&mochiko32_physical_layout>;
         positions
             = < 0  1  2  3  4  5  6  7  8  9>
             , <10 11 12 13 14 15 16 17 18 19>
