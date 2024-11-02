@@ -43,8 +43,6 @@
             ;
     };
 };
-    };
-};
 
 &layouts_mable_position_map {
     layout_mable_map: layout_mable {
