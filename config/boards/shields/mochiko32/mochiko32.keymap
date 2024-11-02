@@ -14,7 +14,7 @@
     quick-tap-ms = <200>;
     require-prior-idle-ms = <150>;
 };
-a
+
 &lt {
     flavor = "balanced";
     tapping-term-ms = <175>;
