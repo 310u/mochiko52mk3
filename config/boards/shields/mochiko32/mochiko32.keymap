@@ -10,6 +10,25 @@
 #define MOD    3
 
 
+&mt {
+    tapping-term-ms = <400>;
+};
+
+/ {
+    keymap {
+        ...
+    };
+};
+
+&lt {
+    tapping-term-ms = <200>;
+};
+
+/ {
+    keymap {
+        ...
+    };
+};
 
 / {
     keymap {
