@@ -23,11 +23,14 @@
     compatible = "mochiko32";
 
     chosen {
-        zmk,kscan = &kscan;
-        zmk,matrix_transform = &transform;
+        zmk,kscan = &kscan0;
+        zmk,physical-layout = &mochiko32_physical_layout;
+        zmk,kscan = &kscan0;
+        transform = <&default_transform>;
+        zmk,matrix_transform = &default_transform;
     };
 
-    transform: transform {
+    default_transform: keymap_transform_0 {
        compatible = "zmk,matrix-transform";
        rows = <4>;
        columns = <10>;
@@ -40,7 +43,7 @@
            >;
     };
 
-    kscan: kscan {
+    kscan0: kscan0 {
            compatible = "zmk,kscan-gpio-matrix";
            label = "KSCAN";
 
