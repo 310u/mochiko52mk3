@@ -1,5 +1,5 @@
 ---
 include:
   - board: seeeduino_xiao_ble
-    shield: mochiko32 rgbled_adapter
+    shield: mochiko32 rgbled_adapter settings_reset
 
