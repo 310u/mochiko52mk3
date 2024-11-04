@@ -53,12 +53,7 @@
             layers = <0>;
         };
         
-        Combo 5 {
-            bindings = <&mo MOD>;
-            key-position = <30 31>;
-            keyers = <0>;
-        };
-    };
+
     };
     
     keymap {
