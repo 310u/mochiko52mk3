@@ -59,7 +59,7 @@
             keyers = <0>;
         };
     };
-    
+    };
     
     keymap {
         compatible = "zmk,keymap";
