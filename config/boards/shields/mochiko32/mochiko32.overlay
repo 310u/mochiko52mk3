@@ -72,4 +72,8 @@
                , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                ;
        };
+         soft_off_wakers {
+    compatible = "zmk,soft-off-wakeup-sources";
+    wakeup-sources = <&kscan0>;
+  };
 };
