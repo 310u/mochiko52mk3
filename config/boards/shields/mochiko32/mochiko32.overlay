@@ -42,7 +42,12 @@
                                            RC(3,4) RC(3,5)
            >;
     };
-
+/ {
+    soft_off_wakers {
+        compatible = "zmk,soft-off-wakeup-sources";
+        wakeup-sources = <&wakeup_scan>;
+    };
+};
     kscan0: kscan0 {
            compatible = "zmk,kscan-gpio-matrix";
     //       label = "KSCAN";
@@ -51,7 +56,7 @@
            debounce-release-ms = <5>;
 
            diode-direction = "col2row";
-
+           wakeup-source;
            // 1 5 4 3 2 6 7 8
            col-gpios
                = <&shift_reg 0 (GPIO_ACTIVE_HIGH)>
