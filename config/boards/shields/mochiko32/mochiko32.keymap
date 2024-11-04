@@ -15,7 +15,7 @@
     require-prior-idle-ms = <150>;
 };
 
-&lt {
+&lt {df
     flavor = "balanced";
     tapping-term-ms = <175>;
     quick-tap-ms = <200>;
@@ -52,6 +52,12 @@
             key-positions = <9 19>;
             layers = <0>;
         };
+        
+        Combo 5 {
+            bindings = <&mo MOD>;
+            key-position = <30 31>;
+            keyers = <0>;
+        };
     };
     
     
@@ -82,7 +88,7 @@
             bindings = <
                 &kp N1       &kp N2      &kp N3      &kp N4      &kp N5     &kp N6       &kp N7      &kp N8         &kp N9         &kp N0
                 &kp F1       &kp F2      &kp F3      &kp F4      &kp F5     &kp F6       &kp F7      &kp F8         &kp F9         &kp SINGLE_QUOTE
-                &trans       &kp MINUS   &kp EQUAL   &kp SLASH   &kp GRAVE  &kp CAPS     &kp F10     &kp F11        &kp F12        &kp BSPC
+                &trans       &kp MINUS   &kp EQUAL   &kp SLASH   &kp GRAVE  &kp CAPS     &kp F10     &kp F11        &kp F12        &lt RSHIFT BSPC
                                                                  &mo MOD                 &trans
             >;
         };
