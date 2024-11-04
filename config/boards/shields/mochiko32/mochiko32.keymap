@@ -53,7 +53,7 @@
 
         Combo4 {
             bindings = <&kp ENTER>;
-            key-positions = <19 29>;
+            key-positions = <18 19>;
             layers = <0>;
         };
          Combo5 {
