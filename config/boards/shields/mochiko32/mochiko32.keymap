@@ -20,6 +20,12 @@
     tapping-term-ms = <175>;
     quick-tap-ms = <200>;
 };
+/ {
+
+  soft_off_wakers {
+    compatible = "zmk,soft-off-wakeup-sources";
+    wakeup-sources = <&kscan0>;
+  };
 
 / {
     combos {
