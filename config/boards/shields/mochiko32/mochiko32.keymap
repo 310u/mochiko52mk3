@@ -57,6 +57,11 @@
             key-positions = <30 31>;
             layers = <0>;
         };
+         Combo6 {
+            bindings = <&kp MINUS>;
+            key-positions = <25 31>;
+            layers = <0>;
+        };
 
     };
     
