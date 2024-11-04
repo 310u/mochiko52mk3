@@ -32,7 +32,7 @@
         Combo1 {
             bindings = <&kp ESCAPE>;
             key-positions = <0 1>;
-            layers = <1>;
+            layers = <0>;
         };
 
         Combo2 {
@@ -52,7 +52,11 @@
             key-positions = <9 19>;
             layers = <0>;
         };
-        
+         Combo5 {
+            bindings = <&mo MOD>;
+            key-positions = <30 31>;
+            layers = <0>;
+        };
 
     };
     
