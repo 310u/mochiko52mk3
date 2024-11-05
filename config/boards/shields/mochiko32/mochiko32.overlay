@@ -71,11 +71,7 @@
                , <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                ;
-       };
-        wakeup_source: wakeup_source {
-        compatible = "zmk,gpio-key-wakeup-trigger";
-        trigger = <&kscan0>;
-        wakeup-source;
+       
        };
         soft_off_wakers {
         compatible = "zmk,soft-off-wakeup-sources";
