@@ -51,7 +51,7 @@
 
            diode-direction = "col2row";
            wakeup-source;
-           // 1 5 4 3 2 6 7 8
+           // 0 1 2 3 4 7 6 5
            col-gpios
                = <&shift_reg 0 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 1 (GPIO_ACTIVE_HIGH)>
