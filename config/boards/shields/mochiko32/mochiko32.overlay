@@ -25,7 +25,6 @@
     chosen {
         zmk,kscan = &kscan0;
         zmk,physical-layout = &mochiko32_physical_layout;
-        zmk,kscan = &kscan0;
         transform = <&default_transform>;
    //     zmk,matrix_transform = &default_transform;
     };
