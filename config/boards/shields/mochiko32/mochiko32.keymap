@@ -106,7 +106,7 @@
             bindings = <
                 &none          &out OUT_USB &none &none &none &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2 &bt BT_SEL 3    &bt BT_PRV
                 &none          &out OUT_BLE &none &none &none &bt BT_DISC 0 &bt BT_DISC 1 &bt BT_DISC 2 &bt BT_DISC 3 &bt BT_CLR
-                &studio_unlock &soft_off    &sys_reset &none &none &none         &none         &none         &none         &bt BT_NXT
+                &studio_unlock &soft_off    &bootloader &none &none &none         &none         &none         &none         &bt BT_NXT
                                                         &none                     &none
             >;
         };
