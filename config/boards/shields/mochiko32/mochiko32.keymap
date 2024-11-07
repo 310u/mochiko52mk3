@@ -87,7 +87,7 @@
                 &kp TAB      &kp HOME    &kp UP      &kp PG_UP   &kp PSCRN  &kp KP_N7    &kp KP_N8   &kp KP_N9      &kp KP_SLASH   &kp KP_MULTIPLY
                 &trans       &kp LEFT    &kp DOWN    &kp RIGHT   &kp C_MUTE &kp KP_N4    &kp KP_N5   &kp KP_N6      &kp KP_MINUS   &kp KP_PLUS
                 &trans       &kp END     &kp INSERT  &kp PG_DN   &kp KP_N0  &kp KP_N1    &kp KP_N2   &kp KP_N3      &kp KP_DOT     &kp KP_EQUAL
-                                                                 &trans                  &mo MOD
+                                                                 &trans                  &kp DELETE
             >;
         };
 
@@ -97,7 +97,7 @@
                 &kp N1       &kp N2      &kp N3      &kp N4      &kp N5     &kp N6       &kp N7      &kp N8         &kp N9         &kp N0
                 &kp F1       &kp F2      &kp F3      &kp F4      &kp F5     &kp F6       &kp F7      &kp F8         &kp F9         &kp SINGLE_QUOTE
                 &trans       &kp MINUS   &kp EQUAL   &kp SLASH   &kp GRAVE  &kp CAPS     &kp F10     &kp F11        &kp F12        &kp RSHIFT
-                                                                 &mo MOD                 &trans
+                                                                 &kp TAB                 &trans
             >;
         };
 
