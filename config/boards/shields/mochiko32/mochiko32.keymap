@@ -66,6 +66,16 @@
             key-positions = <25 31>;
             layers = <0>;
         };
+         Combo7 {
+            bindings = <&kp GRAVE>;
+            key-positions = <7 8>;
+            layers = <2>;
+        };
+         Combo8 {
+            bindings = <&kp BSLH>;
+            key-positions = <8 9>;
+            layers = <2>;
+        };
 
     };
     
