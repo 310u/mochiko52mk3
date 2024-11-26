@@ -6,24 +6,26 @@
 &xiao_spi {
     status = "okay";
 
+    // シフトレジスター（74HC595）の設定
+    shift_reg: 595@0 {
+        compatible = "zmk,gpio-595";
+        status = "okay";
+        gpio-controller;
+        spi-max-frequency = <200000>;         // 最大通信速度: 200kHz
+        reg = <0>;                            // デバイスアドレス: 0
+        #gpio-cells = <2>;
+        ngpios = <8>;                         // GPIO出力数
+        cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>; // CSピン: P0.07
+    };
 
-    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>,<&xiao_d 11 GPIO_ACTIVE_LOW>;
-        shift_reg: 595@0 {
-               compatible = "zmk,gpio-595";
-               status = "okay";
-               gpio-controller;
-               spi-max-frequency = <200000>;
-               reg = <0>;
-               #gpio-cells = <2>;
-               ngpios = <8>;
-       };
-          trackball: trackball@1 {
+    // PMW3610（トラックボール）の設定
+    trackball: trackball@1 {
         compatible = "pixart,pmw3610";
         status = "okay";
         spi-max-frequency = <20000000>;       // 最大通信速度: 20MHz
         reg = <1>;                            // デバイスアドレス: 1
-        // CSピン: P0.11
-        irq-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>; // IRQピン（必要に応じて定義）
+        cs-gpios = <&xiao_d 11 GPIO_ACTIVE_LOW>; // CSピン: P0.11
+        irq-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>; // IRQピン
     };
 };
 
