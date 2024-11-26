@@ -6,7 +6,7 @@
 &xiao_spi {
     status = "okay";
 
-    // シフトレジスター（74HC595）の設定
+    // シフトレジスターの設定
     shift_reg: 595@0 {
         compatible = "zmk,gpio-595";
         status = "okay";
@@ -15,7 +15,7 @@
         reg = <0>;                            // デバイスアドレス: 0
         #gpio-cells = <2>;
         ngpios = <8>;                         // GPIO出力数
-        cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>; // CSピン: P0.07
+        // cs-gpiosを削除
     };
 
     // PMW3610（トラックボール）の設定
@@ -27,7 +27,11 @@
         cs-gpios = <&xiao_d 11 GPIO_ACTIVE_LOW>; // CSピン: P0.11
         irq-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>; // IRQピン
     };
+
+    // SPIのcs-gpiosリストに追加
+    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>, <&xiao_d 11 GPIO_ACTIVE_LOW>;
 };
+
 
 / {
   trackball_listener {
