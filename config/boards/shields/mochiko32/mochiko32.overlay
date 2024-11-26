@@ -17,7 +17,7 @@
                #gpio-cells = <2>;
                ngpios = <8>;
        };
-           pmw3610: trackball@1 {
+          trackball: trackball@1 {
         compatible = "pixart,pmw3610";
         status = "okay";
         spi-max-frequency = <20000000>;       // 最大通信速度: 20MHz
