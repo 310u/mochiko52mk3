@@ -7,7 +7,7 @@
     status = "okay";
 
 
-    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;
+    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>,<&xiao_d 11 GPIO_ACTIVE_LOW>;
         shift_reg: 595@0 {
                compatible = "zmk,gpio-595";
                status = "okay";
@@ -22,7 +22,7 @@
         status = "okay";
         spi-max-frequency = <20000000>;       // 最大通信速度: 20MHz
         reg = <1>;                            // デバイスアドレス: 1
-        cs-gpios = <&xiao_d 11 GPIO_ACTIVE_LOW>; // CSピン: P0.11
+        // CSピン: P0.11
         irq-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>; // IRQピン（必要に応じて定義）
     };
 };
