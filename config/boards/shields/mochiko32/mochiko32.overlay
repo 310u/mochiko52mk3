@@ -16,8 +16,23 @@
                #gpio-cells = <2>;
                ngpios = <8>;
        };
+           pmw3610: trackball@1 {
+        compatible = "pixart,pmw3610";
+        status = "okay";
+        spi-max-frequency = <20000000>;       // 最大通信速度: 20MHz
+        reg = <1>;                            // デバイスアドレス: 1
+        cs-gpios = <&xiao_d 11 GPIO_ACTIVE_LOW>; // CSピン: P0.11
+        irq-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>; // IRQピン（必要に応じて定義）
+    };
 };
 
+/ {
+  trackball_listener {
+    compatible = "zmk,input-listener";
+    device = <&trackball>;
+
+  };
+};
 / {
     model = "mochiko32";
     compatible = "mochiko32";
