@@ -1,7 +1,7 @@
-if MOCHIKO32
+if MOCHIKO52
 
 config ZMK_KEYBOARD_NAME
-    default "mochiko32"
+    default "mochiko52"
 
 config SPI
     default y

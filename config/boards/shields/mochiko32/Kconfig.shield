@@ -1,2 +1,0 @@
-config MOCHIKO32
-    def_bool $(shields_list_contains,mochiko32)
