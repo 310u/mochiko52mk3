@@ -7,16 +7,24 @@
     status = "okay";
 
     // CSピンの設定を複数指定
-    cs-gpios = <&xiao_d 11 GPIO_ACTIVE_LOW>;
-
+    cs-gpios = <&xiao_d y GPIO_ACTIVE_LOW>, <&xiao_d 11 GPIO_ACTIVE_LOW>;
+    shifter: 595@0 {
+        compatible = "zmk,gpio-595";
+        status = "okay";
+        gpio-controller;
+        spi-max-frequency = <200000>;
+        reg = <0>;
+        #gpio-cells = <2>;
+        ngpios = <8>;
+    };
 
 
     // PMW3610 トラックボールの設定
-    trackball: trackball@0 {
+    trackball: trackball@1 {
         compatible = "pixart,pmw3610";
         status = "okay";
         spi-max-frequency = <20000000>; // 通信速度: 20MHz
-        reg = <0>;                      // SPIデバイスアドレス
+        reg = <1>;                      // SPIデバイスアドレス
     };
 };
 
