@@ -15,7 +15,7 @@
         spi-max-frequency = <200000>;
         reg = <0>;
         #gpio-cells = <2>;
-        ngpios = <8>;
+        ngpios = <16>;
     };
 
 
@@ -25,6 +25,7 @@
         status = "okay";
         spi-max-frequency = <20000000>; // 通信速度: 20MHz
         reg = <1>;                      // SPIデバイスアドレス
+        irq-gpios = <&shift_reg 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
 
