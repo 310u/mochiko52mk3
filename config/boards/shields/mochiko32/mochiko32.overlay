@@ -26,7 +26,6 @@
         status = "okay";
         spi-max-frequency = <20000000>; // 通信速度: 20MHz
         reg = <1>;                      // SPIデバイスアドレス
-        irq-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>; // IRQピン: P0.10（必要なら）
     };
 };
 
