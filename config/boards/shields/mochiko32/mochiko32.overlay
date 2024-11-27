@@ -7,25 +7,16 @@
     status = "okay";
 
     // CSピンの設定を複数指定
-    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>, <&xiao_d 11 GPIO_ACTIVE_LOW>;
+    cs-gpios = <&xiao_d 11 GPIO_ACTIVE_LOW>;
 
-    // 74HC595 シフトレジスタの設定
-    shift_reg: 595@0 {
-        compatible = "zmk,gpio-595";
-        status = "okay";
-        gpio-controller;
-        spi-max-frequency = <200000>; // 通信速度: 200kHz
-        reg = <0>;                    // SPIデバイスアドレス0
-        #gpio-cells = <2>;            // GPIOセルの数
-        ngpios = <8>;                 // 出力ピンの数
-    };
+
 
     // PMW3610 トラックボールの設定
-    trackball: trackball@1 {
+    trackball: trackball@0 {
         compatible = "pixart,pmw3610";
         status = "okay";
         spi-max-frequency = <20000000>; // 通信速度: 20MHz
-        reg = <1>;                      // SPIデバイスアドレス
+        reg = <0>;                      // SPIデバイスアドレス
     };
 };
 
