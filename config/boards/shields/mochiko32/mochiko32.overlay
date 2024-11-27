@@ -25,8 +25,7 @@
         compatible = "pixart,pmw3610";
         status = "okay";
         spi-max-frequency = <20000000>; // 通信速度: 20MHz
-        reg = <1>;                      // SPIデバイスアドレス1
-        cs-gpios = <&xiao_d 11 GPIO_ACTIVE_LOW>; // CSピン: P0.11
+        reg = <1>;                      // SPIデバイスアドレス
         irq-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>; // IRQピン: P0.10（必要なら）
     };
 };
