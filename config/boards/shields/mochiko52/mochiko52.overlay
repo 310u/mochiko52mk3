@@ -61,6 +61,8 @@
         irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
+};
+
 
 / {
     // トラックボールのイベントリスナー設定
