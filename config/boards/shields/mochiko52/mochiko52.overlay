@@ -91,13 +91,13 @@ kscan0: kscan0 {
 
     diode-direction = "col2row";
 
-    col-gpios = <&gpio1 6  GPIO_ACTIVE_HIGH>;  // P0.00 (仮のピン番号)
+    col-gpios = <&gpio1 12  GPIO_ACTIVE_HIGH>;  // P0.00 (仮のピン番号)
 
     row-gpios =
-        <&gpio1 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.01 (仮のピン番号)
-        <&gpio1 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.02 (仮のピン番号)
-        <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.03 (仮のピン番号)
-        <&gpio1 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  // P0.04 (仮のピン番号)
+        <&shift_reg 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.01 (仮のピン番号)
+        <&shift_reg 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.02 (仮のピン番号)
+        <&shift_reg 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.03 (仮のピン番号)
+        <&shift_reg 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  // P0.04 (仮のピン番号)
 };
         soft_off_wakers {
         compatible = "zmk,soft-off-wakeup-sources";
