@@ -23,11 +23,16 @@
 };
 
 
-&xiao_spi {
+&spi0 {
     status = "okay";
+       compatible = "nordic,nrf-spim";  // SPIバス互換設定
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
+
     
     // CSピンの設定を複数指定
-    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;
+    cs-gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
 //    shift_reg: 595@0 {
 //        compatible = "zmk,gpio-595";
 //       status = "okay";
@@ -45,7 +50,7 @@
         status = "okay";
         spi-max-frequency = <2000000>; // 通信速度: 20MHz
         reg = <0>;                      // SPIデバイスアドレス
-        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
 
@@ -98,10 +103,10 @@
 
                ;
            row-gpios
-               = <&xiao_d 1  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&xiao_d 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               = <&gpio0 1  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&gpio0 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&gpio0 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&gpio0 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                ;
        
        };
