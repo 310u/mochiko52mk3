@@ -3,9 +3,6 @@
 
 &xiao_serial { status = "disabled"; };
 
-&xiao_spi {
-    status = "okay";
-    
     &pinctrl {
     /* configuration for spi0 device, default state */
     xiao_spi_default: xiao_spi_default {
@@ -30,6 +27,11 @@
     };
 
 };
+
+&xiao_spi {
+    status = "okay";
+    
+
 &xiao_spi0 {
     compatible = "nordic,nrf-spim";
     pinctrl-0 = <&spi0_default>;
