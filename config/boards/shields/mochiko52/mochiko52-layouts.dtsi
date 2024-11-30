@@ -1,0 +1,31 @@
+#include "./position_map.dtsi"
+#include <physical_layouts.dtsi>
+
+/ {
+    mochiko52_physical_layout: mochiko52_physical_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "mochiko52";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
+        keys  //                     w   h    x    y     rot    rx    ry
+            = <&key_physical_attrs 100 100    0    0       0     0     0>
+            , <&key_physical_attrs 100 100  100    0       0     0     0>
+            , <&key_physical_attrs 100 100  200    0       0     0     0>
+            , <&key_physical_attrs 100 100  300    0       0     0     0>
+
+            ;
+    };
+};
+
+&layouts_mochiko52_position_map {
+    layout_mochiko52_map: layout_mable {
+        physical-layout = <&mochiko52_physical_layout>;
+        positions
+            = < 0 >
+            , <1 >
+            , <2 >
+            , < 3>
+            , <4>
+            ;
+    };
+};
