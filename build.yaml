@@ -1,4 +1,4 @@
 ---
 include:
   - board: seeeduino_xiao_ble
-    shield: mochiko52 settings_reset
+    shield: settings_reset
