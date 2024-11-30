@@ -31,21 +31,21 @@
     pinctrl-names = "default", "sleep";
 
     cs-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>,<&gpio1 11  GPIO_ACTIVE_LOW>;  // CSピン: P0.07（D7）
-           shift_reg: 595@0 {
+           shift_reg: 595@1 {
                compatible = "zmk,gpio-595";
                status = "okay";
                gpio-controller;
                spi-max-frequency = <200000>;
-               reg = <0>;
+               reg = <1>;
                #gpio-cells = <2>;
                ngpios = <8>;
        };
 
-    trackball: trackball@1 {
+    trackball: trackball@0 {
         compatible = "pixart,pmw3610";
         status = "okay";
         spi-max-frequency = <2000000>;  // 通信速度: 2MHz
-        reg = <1>;  // SPIデバイスのアドレス（0で問題なし）
+        reg = <0>;  // SPIデバイスのアドレス（0で問題なし）
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // MOTIONピン: P0.06（D6）
     };
 };
