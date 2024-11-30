@@ -6,17 +6,17 @@
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,  // SCK: P1.13 (D8)
-                    <NRF_PSEL(SPIM_MOSI, 1, 15)>, // MOSI: P1.15 (D10)
-                    <NRF_PSEL(SPIM_MISO, 0, 18)>; // MISO: 未接続（保持）
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,  // SCK: P1.13 (D8)
+                    <NRF_PSEL(SPIM_MOSI, 0, 4)>, // MOSI: P1.15 (D10)
+                    <NRF_PSEL(SPIM_MISO, 0, 4)>; // MISO: 未接続（保持）
         };
     };
 
     spi0_sleep: spi0_sleep {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,  // SCK: P1.13 (D8)
-                    <NRF_PSEL(SPIM_MOSI, 1, 15)>, // MOSI: P1.15 (D10)
-                    <NRF_PSEL(SPIM_MISO, 0, 18)>; // MISO: 未接続（保持）
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,  // SCK: P1.13 (D8)
+                    <NRF_PSEL(SPIM_MOSI, 0, 4>, // MOSI: P1.15 (D10)
+                    <NRF_PSEL(SPIM_MISO, 0, 4)>; // MISO: 未接続（保持）
             low-power-enable;
         };
     };
@@ -30,14 +30,14 @@
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
 
-    cs-gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;  // CSピン: P0.07（D7）
+    cs-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;  // CSピン: P0.07（D7）
 
     trackball: trackball@0 {
         compatible = "pixart,pmw3610";
         status = "okay";
         spi-max-frequency = <2000000>;  // 通信速度: 2MHz
         reg = <0>;  // SPIデバイスのアドレス（0で問題なし）
-        irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // MOTIONピン: P0.06（D6）
+        irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // MOTIONピン: P0.06（D6）
     };
 };
 
@@ -85,10 +85,10 @@ kscan0: kscan0 {
     col-gpios = <&gpio0 0 GPIO_ACTIVE_HIGH>;  // P0.00 (仮のピン番号)
 
     row-gpios =
-        <&gpio0 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.01 (仮のピン番号)
-        <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.02 (仮のピン番号)
-        <&gpio0 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.03 (仮のピン番号)
-        <&gpio0 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  // P0.04 (仮のピン番号)
+        <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.01 (仮のピン番号)
+        <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.02 (仮のピン番号)
+        <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.03 (仮のピン番号)
+        <&gpio0 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  // P0.04 (仮のピン番号)
 };
         soft_off_wakers {
         compatible = "zmk,soft-off-wakeup-sources";
