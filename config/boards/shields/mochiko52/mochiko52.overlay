@@ -91,7 +91,7 @@ kscan0: kscan0 {
 
     diode-direction = "col2row";
 
-    col-gpios = <&gpio_d 7  GPIO_ACTIVE_HIGH>;  // P0.00 (仮のピン番号)
+    col-gpios = <&xiao_d 7  GPIO_ACTIVE_HIGH>;  // P0.00 (仮のピン番号)
 
     row-gpios =
         <&shift_reg 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.01 (仮のピン番号)
