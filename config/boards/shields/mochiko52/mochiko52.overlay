@@ -30,13 +30,22 @@
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
 
-    cs-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;  // CSピン: P0.07（D7）
+    cs-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>,<&gpio1 11  GPIO_ACTIVE_LOW>;  // CSピン: P0.07（D7）
+           shift_reg: 595@0 {
+               compatible = "zmk,gpio-595";
+               status = "okay";
+               gpio-controller;
+               spi-max-frequency = <200000>;
+               reg = <0>;
+               #gpio-cells = <2>;
+               ngpios = <8>;
+       };
 
-    trackball: trackball@0 {
+    trackball: trackball@1 {
         compatible = "pixart,pmw3610";
         status = "okay";
         spi-max-frequency = <2000000>;  // 通信速度: 2MHz
-        reg = <0>;  // SPIデバイスのアドレス（0で問題なし）
+        reg = <1>;  // SPIデバイスのアドレス（0で問題なし）
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // MOTIONピン: P0.06（D6）
     };
 };
@@ -82,13 +91,13 @@ kscan0: kscan0 {
 
     diode-direction = "col2row";
 
-    col-gpios = <&gpio0 6  GPIO_ACTIVE_HIGH>;  // P0.00 (仮のピン番号)
+    col-gpios = <&gpio1 6  GPIO_ACTIVE_HIGH>;  // P0.00 (仮のピン番号)
 
     row-gpios =
-        <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.01 (仮のピン番号)
-        <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.02 (仮のピン番号)
-        <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.03 (仮のピン番号)
-        <&gpio0 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  // P0.04 (仮のピン番号)
+        <&gpio1 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.01 (仮のピン番号)
+        <&gpio1 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.02 (仮のピン番号)
+        <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  // P0.03 (仮のピン番号)
+        <&gpio1 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  // P0.04 (仮のピン番号)
 };
         soft_off_wakers {
         compatible = "zmk,soft-off-wakeup-sources";
