@@ -23,7 +23,7 @@
     trackball: trackball@0 {
         compatible = "pixart,pmw3610";
         status = "okay";
-        spi-max-frequency = <20000000>; // 通信速度: 20MHz
+        spi-max-frequency = <2000000>; // 通信速度: 20MHz
         reg = <0>;                      // SPIデバイスアドレス
         irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
