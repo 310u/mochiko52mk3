@@ -1,6 +1,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/outputs.h>
 
 #define BASE   0
@@ -87,10 +88,10 @@
 
         default_layer {
             bindings = <
-&kp Q         &kp W       &kp E               &kp R  &kp T            &kp Y               &kp U  &kp I           &kp O          &kp P
-&mt LCTRL A   &kp S       &kp D               &kp F  &kp G            &kp H               &kp J  &kp K           &kp L          &kp ENTER
-&mt LSHIFT Z  &mt LGUI X  &mt LEFT_CONTROL C  &kp V  &kp B            &kp N               &kp M  &mt RALT COMMA  &mt RCTRL DOT  &mt RSHIFT SLASH
-                                                     &lt LOWER SPACE  &lt RISE BACKSPACE
+&kp Q         &kp W       &kp E      &kp R  &kp T            &kp Y               &kp U  &kp I           &kp O          &kp P
+&mt LCTRL A   &kp S       &kp D      &kp F  &kp G            &kp H               &kp J  &kp K           &kp L          &kp ENTER
+&mt LSHIFT Z  &mt LGUI X  &mkp LCLK  &kp V  &kp B            &kp N               &kp M  &mt RALT COMMA  &mt RCTRL DOT  &mt RSHIFT SLASH
+                                            &lt LOWER SPACE  &lt RISE BACKSPACE
             >;
         };
 
