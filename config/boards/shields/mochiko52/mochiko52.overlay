@@ -46,7 +46,7 @@
         spi-max-frequency = <20000>;
         reg = <1>;
         #gpio-cells = <2>;
-        ngpios = <16>;
+        ngpios = <8>;
     };
 
 
@@ -96,13 +96,13 @@
           
            // 0 1 2 3 4 7 6 5
            col-gpios
-               = <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               = <&xiao_d 4 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 0 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 1 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 2 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 3 (GPIO_ACTIVE_HIGH)>
-               , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&xiao_d 5 (GPIO_ACTIVE_HIGH)>
+               , <&xiao_d 6 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 4 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 5 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 6 (GPIO_ACTIVE_HIGH)>
