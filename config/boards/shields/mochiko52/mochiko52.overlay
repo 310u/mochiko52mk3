@@ -43,7 +43,7 @@
         compatible = "zmk,gpio-595";
         status = "okay";
         gpio-controller;
-        spi-max-frequency = <10000>;
+        spi-max-frequency = <20000>;
         reg = <1>;
         #gpio-cells = <2>;
         ngpios = <16>;
@@ -109,7 +109,6 @@
                ;
            row-gpios
                = <&shift_reg 7  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&shift_reg 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                , <&xiao_d 1  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                , <&xiao_d 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                , <&xiao_d 3  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
