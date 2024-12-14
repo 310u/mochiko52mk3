@@ -96,22 +96,22 @@
           
            // 0 1 2 3 4 7 6 5
            col-gpios
-               = <&xiao_d 4 (GPIO_ACTIVE_HIGH)>
+               = <&gpio0 4 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 0 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 1 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 2 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 3 (GPIO_ACTIVE_HIGH)>
-               , <&xiao_d 5 (GPIO_ACTIVE_HIGH)>
-               , <&xiao_d 6 (GPIO_ACTIVE_HIGH)>
+               , <&gpio0 5 (GPIO_ACTIVE_HIGH)>
+               , <&gpio1 11(GPIO_ACTIVE_HIGH)>
                , <&shift_reg 4 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 5 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 6 (GPIO_ACTIVE_HIGH)>
                ;
            row-gpios
                = <&shift_reg 7  (GPIO_ACTIVE_HIGH)>
-               , <&xiao_d 1  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&xiao_d 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&xiao_d 3  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&gpio0 3  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&gpio0 28  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&gpio0 29  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                ;
        
        };
