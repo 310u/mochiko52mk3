@@ -30,16 +30,15 @@
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
 
-//   cs-gpios = <&gpio1 13 GPIO_ACTIVE_LOW>,<&gpio1 12 GPIO_ACTIVE_LOW>;
-     cs-gpios = <&gpio1 12 GPIO_ACTIVE_LOW>;
+  cs-gpios = <&gpio1 13 GPIO_ACTIVE_LOW>,<&gpio1 12 GPIO_ACTIVE_LOW>;
     
-//        trackball: trackball@0 {
-//        compatible = "pixart,pmw3610";
-//        status = "okay";	
-//        spi-max-frequency = <2000000>;
-//        reg = <0>;
-//        irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-//    };
+        trackball: trackball@0 {
+        compatible = "pixart,pmw3610";
+        status = "okay";	
+        spi-max-frequency = <2000000>;
+        reg = <0>;
+        irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    };
         shift_reg: 595@0 {
         compatible = "zmk,gpio-595";
         status = "okay";
@@ -56,11 +55,11 @@
 
 // / {
     // トラックボールのイベントリスナー設定
-//    trackball_listener {
-//        compatible = "zmk,input-listener";
-//        device = <&trackball>;
-//    };
-// };
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+    };
+ };
 
 / {
     model = "mochiko52";
@@ -69,7 +68,9 @@
     chosen {
         zmk,kscan = &kscan0;
         zmk,physical-layout = &mochiko52_physical_layout;
-        transform = <&default_transform>;
+        zmk,soft-off-wakeup-sources = <&kscan0>;
+        zmk,transform = &default_transform;
+        zmk,sensor = &pmw3610;
    //     zmk,matrix_transform = &default_transform;
     };
 
