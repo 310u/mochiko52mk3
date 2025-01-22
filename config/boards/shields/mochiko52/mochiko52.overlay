@@ -70,7 +70,7 @@
         zmk,physical-layout = &mochiko52_physical_layout;
         zmk,soft-off-wakeup-sources = <&kscan0>;
         zmk,transform = &default_transform;
-        zmk,sensor = &pmw3610;
+
    //     zmk,matrix_transform = &default_transform;
     };
 
