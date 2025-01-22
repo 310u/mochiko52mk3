@@ -30,7 +30,7 @@
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
 
-  cs-gpios = <&xiao_d 8 GPIO_ACTIVE_LOW>,<&xiao_d 7 GPIO_ACTIVE_LOW>;
+  cs-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>,<&xiao_d 7 GPIO_ACTIVE_LOW>;
     
         trackball: trackball@0 {
         compatible = "pixart,pmw3610";
