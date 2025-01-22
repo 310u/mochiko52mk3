@@ -6,3 +6,4 @@ url: https://github.com/310u/mochiko52mk3
 requires: [seeeduino_xiao_ble]
 features:
   - keys
+  - pointer
