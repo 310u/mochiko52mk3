@@ -51,7 +51,7 @@
 };
 
 
-/ {
+// / {
     // トラックボールのイベントリスナー設定
 //    trackball_listener {
 //        compatible = "zmk,input-listener";
