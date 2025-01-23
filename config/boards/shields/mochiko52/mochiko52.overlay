@@ -29,21 +29,21 @@
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-//    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>,<&xiao_d 0 GPIO_ACTIVE_LOW>;
-      cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;  
-//        trackball: trackball@0 {
-//        compatible = "pixart,pmw3610";
-//        status = "okay";	
-//        spi-max-frequency = <2000000>;
-//        reg = <0>;
-//        irq-gpios = <&xiao_d 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-//    };
+   cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>,<&xiao_d 0 GPIO_ACTIVE_LOW>;
+//      cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;  
+        trackball: trackball@0 {
+        compatible = "pixart,pmw3610";
+        status = "okay";	
+        spi-max-frequency = <2000000>;
+        reg = <0>;
+        irq-gpios = <&xiao_d 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    };
         shift_reg: 595@0 {
         compatible = "zmk,gpio-595";
         status = "okay";
         gpio-controller;
         spi-max-frequency = <2000000>;
-        reg = <1>;
+        reg = <0>;
         #gpio-cells = <2>;
         ngpios = <8>;
     };
@@ -51,13 +51,13 @@
 };
 
 
-// / {
+ / {
     // トラックボールのイベントリスナー設定
-//    trackball_listener {
-//        compatible = "zmk,input-listener";
-//        device = <&trackball>;
-//    };
-// };
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+    };
+ };
 
 / {
     model = "mochiko52";
