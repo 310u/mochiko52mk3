@@ -38,12 +38,12 @@
         reg = <0>;
         irq-gpios = <&xiao_d 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
-        shift_reg: 595@0 {
+        shift_reg: 595@1 {
         compatible = "zmk,gpio-595";
         status = "okay";
         gpio-controller;
         spi-max-frequency = <2000000>;
-        reg = <0>;
+        reg = <1>;
         #gpio-cells = <2>;
         ngpios = <8>;
     };
