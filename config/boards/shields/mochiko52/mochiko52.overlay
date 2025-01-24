@@ -29,21 +29,23 @@
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-   cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>,<&xiao_d 7 GPIO_ACTIVE_LOW>;
+    cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW> , <&xiao_d 7 GPIO_ACTIVE_LOW>;
 //      cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;  
-        trackball: trackball@1 {
+
+        trackball: trackball@0 {
+        status = "okay";
         compatible = "pixart,pmw3610";
-        status = "okay";	
-        spi-max-frequency = <2000000>;
-        reg = <1>;
+        reg = <0>;
+        spi-max-frequency = <1000000>;
         irq-gpios = <&xiao_d 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
-        shift_reg: 595@0 {
-        compatible = "zmk,gpio-595";
+    
+        shift_reg: 595@1 {
         status = "okay";
+        compatible = "zmk,gpio-595";
         gpio-controller;
         spi-max-frequency = <200000>;
-        reg = <0>;
+        reg = <1>;
         #gpio-cells = <2>;
         ngpios = <8>;
     };
