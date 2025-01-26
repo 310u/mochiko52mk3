@@ -111,6 +111,6 @@ cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>;
        
        };
   };
-};
+
 
 
