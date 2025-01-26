@@ -3,6 +3,7 @@
 
 &xiao_serial { status = "disabled"; };
 
+
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
@@ -29,6 +30,7 @@
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
+    
 //    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW> , <&xiao_d 0 GPIO_ACTIVE_LOW>;
 cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>;
 
@@ -63,13 +65,13 @@ cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>;
         zmk,kscan = &kscan0;
         zmk,physical-layout = &mochiko52_physical_layout;
         zmk,soft-off-wakeup-sources = <&kscan0>;
-        zmk,transform = &default_transform;
-
+        transform = <&default_transform>;
+//        zmk,transform = &default_transform;
     };
 
     default_transform: keymap_transform_0 {
        compatible = "zmk,matrix-transform";
-      rows = <4>;
+       rows = <4>;
        columns = <10>;
 
        map = <
@@ -85,34 +87,29 @@ cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>;
            wakeup-source;
            debounce-press-ms = <1>;
            debounce-release-ms = <5>;
-
            diode-direction = "col2row";
           
            // 0 1 2 3 4 7 6 5
            col-gpios
-               = <&xiao_d 9 (GPIO_ACTIVE_HIGH)>
-               , <&shift_reg 0 (GPIO_ACTIVE_HIGH)>
+               = <&shift_reg 0 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 1 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 2 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 3 (GPIO_ACTIVE_HIGH)>
-               , <&xiao_d 8 (GPIO_ACTIVE_HIGH)>
-               , <&xiao_d 6 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 4 (GPIO_ACTIVE_HIGH)>
-               , <&shift_reg 5 (GPIO_ACTIVE_HIGH)>
+               , <&shift_reg 7 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 6 (GPIO_ACTIVE_HIGH)>
+               , <&shift_reg 5 (GPIO_ACTIVE_HIGH)>
+               , <&xiao_d 0 (GPIO_ACTIVE_HIGH)>
+               , <&xiao_d 1(GPIO_ACTIVE_HIGH)>
                ;
            row-gpios
-               = <&shift_reg 7 (GPIO_ACTIVE_HIGH)>
-               , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               = <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                ;
        
        };
-       
-        soft_off_wakers {
-        compatible = "zmk,soft-off-wakeup-sources";
-        wakeup-sources = <&kscan0>;
   };
 };
 
