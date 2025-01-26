@@ -3,5 +3,8 @@ if MOCHIKO52
 config ZMK_KEYBOARD_NAME
     default "mochiko52"
 
+config SPI
+    default y
+
 
 endif
