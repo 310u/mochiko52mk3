@@ -38,48 +38,6 @@
             key-positions = <0 1>;
             layers = <0>;
         };
-
-        Combo2 {
-            bindings = <&kp LEFT_BRACKET>;
-            key-positions = <8 7>;
-            layers = <0>;
-        };
-
-        Combo3 {
-            bindings = <&kp RIGHT_BRACKET>;
-            key-positions = <8 9>;
-            layers = <0>;
-        };
-
-        Combo4 {
-            bindings = <&kp SEMICOLON>;
-            key-positions = <18 19>;
-            layers = <0>;
-        };
-
-        Combo5 {
-            bindings = <&mo MOD>;
-            key-positions = <30 31>;
-            layers = <0>;
-        };
-
-        Combo6 {
-            bindings = <&kp MINUS>;
-            key-positions = <25 31>;
-            layers = <0>;
-        };
-
-        Combo7 {
-            bindings = <&kp GRAVE>;
-            key-positions = <7 8>;
-            layers = <2>;
-        };
-
-        Combo8 {
-            bindings = <&kp BSLH>;
-            key-positions = <8 9>;
-            layers = <2>;
-        };
     };
 
     keymap {
