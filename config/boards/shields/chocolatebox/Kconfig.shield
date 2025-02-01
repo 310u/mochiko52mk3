@@ -1,0 +1,2 @@
+config chocolatebox
+    def_bool $(shields_list_contains,chocolatebox)

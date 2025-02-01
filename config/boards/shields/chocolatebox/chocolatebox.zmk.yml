@@ -1,6 +1,6 @@
 file_format: "1"
-id: mochiko52
-name: MOCHIKO52
+id: chocolatebox
+name: CHOCOLATEBOX
 type: shield
 url: https://github.com/310u/mochiko52mk3
 requires: [seeeduino_xiao_ble]

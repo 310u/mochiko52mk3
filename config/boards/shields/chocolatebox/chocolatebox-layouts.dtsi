@@ -2,9 +2,9 @@
 #include <physical_layouts.dtsi>
 
 / {
-    mochiko52_physical_layout: mochiko52_physical_layout {
+    chocolatebox_physical_layout: chocolatebox_physical_layout {
         compatible = "zmk,physical-layout";
-        display-name = "Mochiko52";
+        display-name = "Chocolatebox";
         transform = <&default_transform>;
         kscan = <&kscan0>;
         keys  //                     w   h    x    y     rot    rx    ry
@@ -44,9 +44,9 @@
     };
 };
 
-&layouts_mochiko52_position_map {
-    layout_mochiko52_map: layout_mable {
-        physical-layout = <&mochiko52_physical_layout>;
+&layouts_chocolatebox_position_map {
+    layout_chocolatebox_map: layout_mable {
+        physical-layout = <&chocolatebox_physical_layout>;
         positions
             = < 0  1  2  3  4     5  6  7  8  9>
             , <10 11 12 13 14    15 16 17 18 19>

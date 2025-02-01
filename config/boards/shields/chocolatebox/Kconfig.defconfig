@@ -1,7 +1,7 @@
-if MOCHIKO52
+if CHOCOLATEBOX
 
 config ZMK_KEYBOARD_NAME
-    default "mochiko52"
+    default "chocolatebox"
 
 config SPI
     default y
