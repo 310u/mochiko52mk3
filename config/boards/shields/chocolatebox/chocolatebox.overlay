@@ -7,7 +7,7 @@
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 13)>, //SCLK
+            psels = <NRF_PSEL(SPIM_SCK, 1, 14)>, //SCLK
                     <NRF_PSEL(SPIM_MOSI, 1, 15)>, //SDIO
                     <NRF_PSEL(SPIM_MISO, 1, 15)>; //SDIO
         };
@@ -15,9 +15,25 @@
 
     spi0_sleep: spi0_sleep {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 13)>, //SCLK
+            psels = <NRF_PSEL(SPIM_SCK, 1, 14)>, //SCLK
                     <NRF_PSEL(SPIM_MOSI, 1, 15)>, //SDIO
                     <NRF_PSEL(SPIM_MISO, 1, 15)>; //SDIO
+            low-power-enable;
+        };
+    };
+     spi1_default: spi1_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 2)>, //SCLK
+                    <NRF_PSEL(SPIM_MOSI, 0, 3)>, //SDIO
+                    <NRF_PSEL(SPIM_MISO, 0, 3)>; //SDIO
+        };
+    };
+
+    spi1_sleep: spi1_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 2)>, //SCLK
+                    <NRF_PSEL(SPIM_MOSI, 0, 3)>, //SDIO
+                    <NRF_PSEL(SPIM_MISO, 0, 3)>; //SDIO
             low-power-enable;
         };
     };
@@ -30,18 +46,25 @@
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-    
-//        cs-gpios = <&xiao_d 9 GPIO_ACTIVE_LOW> , <&xiao_d 0 GPIO_ACTIVE_LOW>;
-      cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;
+    cs-gpios = <&xiao_d 8 GPIO_ACTIVE_LOW>
 
-//        trackball: trackball@0 {
-//        status = "okay";
-//        compatible = "pixart,pmw3610";
-//        reg = <0>;
-//        spi-max-frequency = <1000000>;
-//        irq-gpios = <&xiao_d 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-//    };
-    
+
+        trackball: trackball@0 {
+        status = "okay";
+        compatible = "pixart,pmw3610";
+        reg = <0>;
+        spi-max-frequency = <1000000>;
+        irq-gpios = <&xiao_d 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    };
+};
+&spi1 {
+    status = "okay";
+    compatible = "nordic,nrf-spim";
+    pinctrl-2 = <&spi1_default>;
+    pinctrl-3 = <&spi1_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&xiao_d 2 GPIO_ACTIVE_LOW>
+
         shift_reg: 595@0 {
         status = "okay";
         compatible = "zmk,gpio-595";
@@ -86,7 +109,7 @@
            debounce-release-ms = <5>;
            diode-direction = "col2row";
           
-           // 0 1 2 3 4 7 6 5
+      
            col-gpios
                = <&shift_reg 0 (GPIO_ACTIVE_HIGH)>
                , <&shift_reg 1 (GPIO_ACTIVE_HIGH)>
@@ -102,10 +125,10 @@
                , <&shift_reg 11 (GPIO_ACTIVE_HIGH)>
                ;
            row-gpios
-               = <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               = <&shift_reg 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&shift_reg 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&shift_reg 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&shfit_reg 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                ;
        
