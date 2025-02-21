@@ -57,11 +57,12 @@
         irq-gpios = <&xiao_d 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
+
 &spi1 {
     status = "okay";
     compatible = "nordic,nrf-spim";
-    pinctrl-2 = <&spi1_default>;
-    pinctrl-3 = <&spi1_sleep>;
+    pinctrl-0 = <&spi1_default>;
+    pinctrl-1 = <&spi1_sleep>;
     pinctrl-names = "default", "sleep";
     cs-gpios = <&xiao_d 2 GPIO_ACTIVE_LOW>;
 
