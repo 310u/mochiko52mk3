@@ -63,7 +63,7 @@
     pinctrl-2 = <&spi1_default>;
     pinctrl-3 = <&spi1_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&xiao_d 2 GPIO_ACTIVE_LOW>
+    cs-gpios = <&xiao_d 2 GPIO_ACTIVE_LOW>;
 
         shift_reg: 595@0 {
         status = "okay";
