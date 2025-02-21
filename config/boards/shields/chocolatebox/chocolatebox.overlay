@@ -128,7 +128,7 @@
                = <&shift_reg 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                , <&shift_reg 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                , <&shift_reg 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-               , <&shfit_reg 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+               , <&shift_reg 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
                ;
        
