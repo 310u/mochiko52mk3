@@ -1,18 +1,16 @@
 manifest:
   remotes:
-    ...
-    # START #####
-    - name: badjeff
-      url-base: https://github.com/badjeff
-    # END #######
-    ...
+    - name: zmkfirmware
+      url-base: https://github.com/petejohanson
+    - name: inorichi
+      url-base: https://github.com/inorichi
   projects:
-    ...
-    # START #####
+    - name: zmk
+      remote: zmkfirmware
+      revision: feat/pointers-move-scroll
+      import: app/west.yml
     - name: zmk-pmw3610-driver
-      remote: badjeff
+      remote: inorichi
       revision: main
-    # END #######
-    ...
   self:
     path: config
