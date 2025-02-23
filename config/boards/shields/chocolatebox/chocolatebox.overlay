@@ -77,13 +77,7 @@
 //    };
 
 };
-/ {
-  trackball_listener {
-    compatible = "zmk,input-listener";
-    device = <&trackball>;
 
-  };
-};
 / {
     model = "chocolatebox";
     compatible = "chocolatebox";
@@ -142,3 +136,10 @@
        
        };
   };
+/ {
+  trackball_listener {
+    compatible = "zmk,input-listener";
+    device = <&trackball>;
+
+  };
+};
