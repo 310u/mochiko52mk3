@@ -21,22 +21,22 @@
             low-power-enable;
         };
     };
-//    spi1_default: spi1_default {
-//     group1 {
-//         psels = <NRF_PSEL(SPIM_SCK, 0, 2)>, //SCLK
-//            <NRF_PSEL(SPIM_MOSI, 0, 3)>, //SDIO
-//                 <NRF_PSEL(SPIM_MISO, 0, 3)>; //SDIO
-//     };
-// };
-//
-//  spi1_sleep: spi1_sleep {
-//      group1 {
-//          psels = <NRF_PSEL(SPIM_SCK, 0, 2)>, //SCLK
-//                  <NRF_PSEL(SPIM_MOSI, 0, 3)>, //SDIO
-//                  <NRF_PSEL(SPIM_MISO, 0, 3)>; //SDIO
-//            low-power-enable;
-//        };
-//    };
+    spi1_default: spi1_default {
+     group1 {
+         psels = <NRF_PSEL(SPIM_SCK, 0, 2)>, //SCLK
+            <NRF_PSEL(SPIM_MOSI, 0, 3)>, //SDIO
+                 <NRF_PSEL(SPIM_MISO, 0, 3)>; //SDIO
+     };
+ };
+
+  spi1_sleep: spi1_sleep {
+      group1 {
+          psels = <NRF_PSEL(SPIM_SCK, 0, 2)>, //SCLK
+                  <NRF_PSEL(SPIM_MOSI, 0, 3)>, //SDIO
+                  <NRF_PSEL(SPIM_MISO, 0, 3)>; //SDIO
+            low-power-enable;
+        };
+    };
 };
 
 
@@ -58,25 +58,24 @@
     };
 };
 
-//&spi1 {
-//    status = "okay";
-//    compatible = "nordic,nrf-spim";
-//    pinctrl-0 = <&spi1_default>;
-//    pinctrl-1 = <&spi1_sleep>;
-//    pinctrl-names = "default", "sleep";
-//    cs-gpios = <&xiao_d 2 GPIO_ACTIVE_LOW>;
-//
-//        shift_reg: 595@0 {
-//        status = "okay";
-//        compatible = "zmk,gpio-595";
-//        gpio-controller;
-//        spi-max-frequency = <200000>;
-//        reg = <0>;
-//        #gpio-cells = <2>;
-//        ngpios = <16>;
-//    };
+&spi1 {
+    status = "okay";
+    compatible = "nordic,nrf-spim";
+    pinctrl-0 = <&spi1_default>;
+    pinctrl-1 = <&spi1_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&xiao_d 2 GPIO_ACTIVE_LOW>;
 
-//};
+        shift_reg: 595@0 {
+        status = "okay";
+        compatible = "zmk,gpio-595";
+        gpio-controller;
+        spi-max-frequency = <200000>;
+        reg = <0>;
+        #gpio-cells = <2>;
+        ngpios = <16>;
+    };
+};
 
 / {
     model = "chocolatebox";
