@@ -76,7 +76,7 @@
 //        ngpios = <16>;
 //    };
 
-};
+//};
 
 / {
     model = "chocolatebox";
