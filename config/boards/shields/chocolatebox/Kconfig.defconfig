@@ -3,8 +3,30 @@ if CHOCOLATEBOX
 config ZMK_KEYBOARD_NAME
     default "chocolatebox"
 
-config SPI
+config ZMK_MOUSE
     default y
 
+config ZMK_MOUSE_PMW3610
+    default y
+
+config ZMK_DISPLAY
+    default y
+
+config ZMK_KSCAN
+    default y
+
+config ZMK_KSCAN_GPIO_MATRIX
+    default y
+
+# バッテリー駆動のための省電力設定
+config ZMK_IDLE_TIMEOUT
+    default 30000  # 30秒でスリープ
+
+config ZMK_IDLE_POWERDOWN
+    default y
+
+# ディスプレイのスリープ設定（省電力用）
+config ZMK_DISPLAY_TIMEOUT
+    default 5000  # 5秒でディスプレイOFF
 
 endif
