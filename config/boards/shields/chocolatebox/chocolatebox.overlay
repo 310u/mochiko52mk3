@@ -60,7 +60,7 @@
         // int-gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
     };
 
-    display@3c {
+    display: display@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
         width = <128>;
