@@ -44,7 +44,7 @@
 
 &i2c0 {
 status = "okay";
-	expander: mcp23017@20 {
+	mcp23017: mcp23017@20 {
 	    compatible = "microchip,mcp230xx";
         status = "okay";
         gpio-controller;
