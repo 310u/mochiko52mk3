@@ -50,15 +50,14 @@
     mcp23017: mcp23017@20 {
         compatible = "microchip,mcp23017";
         reg = <0x20>;
-        status = "okay";  // 明示的に有効化
+        status = "okay";
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-        interrupt-parent = <&gpio0>;  // &xiao_d を &gpio0 に修正（ボード依存を確認）
-        interrupts = <2 GPIO_ACTIVE_LOW>;  // D2ピンの割り込み
-        int-gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;  // D2, INTA
+        interrupt-parent = <&gpio0>;
+        interrupts = <2 GPIO_ACTIVE_LOW>;
+        int-gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
     };
-
 
     display@3c {
         compatible = "solomon,ssd1306fb";
@@ -134,4 +133,9 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
     };
+};
+
+// オーバーレイで GPIO ノードを修正
+&gpio0 {
+    #interrupt-cells = <2>;  // nRF52840のGPIO用
 };
