@@ -69,6 +69,7 @@
         segment-offset = <0>; // 必須プロパティを追加（通常は0で動作）
         page-offset = <0>;    // 必須プロパティを追加
         display-offset = <0>; // 必須プロパティを追加
+        multiplex-ratio = <63>;  // 必須プロパティ（128x64用、データシート確認）
     };
 };
 
