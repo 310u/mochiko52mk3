@@ -49,12 +49,13 @@
 };
 
 &i2c0 {
-    status = "disabled"; // I2C0を無効化
+    status = "disabled"; // I2C0を明示的に無効化
 };
 
 &i2c1 {
     status = "okay";
     compatible = "nordic,nrf-twim";
+    reg = <0x40005000 0x1000>; // I2C1のアドレスを明示的に指定
     pinctrl-0 = <&i2c1_default>;
     pinctrl-names = "default";
     clock-frequency = <I2C_BITRATE_STANDARD>;
