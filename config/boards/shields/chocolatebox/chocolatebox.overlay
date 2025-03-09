@@ -86,6 +86,7 @@
         zmk,physical-layout = &chocolatebox_physical_layout;
         zmk,soft-off-wakeup-sources = <&kscan0>;
         transform = <&default_transform>;
+        zephyr,display = &display; 
     };
 
     default_transform: keymap_transform_0 {
