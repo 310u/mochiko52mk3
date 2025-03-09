@@ -137,5 +137,6 @@
 
 // オーバーレイで GPIO ノードを修正
 &gpio0 {
-    #interrupt-cells = <2>;  // nRF52840のGPIO用
+    #interrupt-cells = <2>;
+    interrupt-controller;  // 割り込みコントローラとして動作することを明示
 };
