@@ -54,10 +54,11 @@
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-        interrupt-parent = <&xiao_d>;  // 割り込みコントローラを指定
+        interrupt-parent = <&gpio0>;  // &xiao_d を &gpio0 に修正（ボード依存を確認）
         interrupts = <2 GPIO_ACTIVE_LOW>;  // D2ピンの割り込み
-        int-gpios = <&xiao_d 2 GPIO_ACTIVE_LOW>; // D2, INTA
+        int-gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;  // D2, INTA
     };
+
 
     display@3c {
         compatible = "solomon,ssd1306fb";
