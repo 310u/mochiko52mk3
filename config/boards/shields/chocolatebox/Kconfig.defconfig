@@ -66,6 +66,4 @@ endchoice
 
 endif # LVGL
 
-endif
-
-endif
+endif # CHOCOLATEBOX
