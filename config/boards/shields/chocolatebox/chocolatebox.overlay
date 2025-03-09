@@ -66,6 +66,8 @@
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
+        interrupt-parent = <&gpio0>; // 必要に応じて割り込み親を設定
+        interrupts = <15 IRQ_TYPE_EDGE_FALLING>; // 例：GPIO15で割り込み
     };
 
     display: display@3c {
