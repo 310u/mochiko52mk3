@@ -61,15 +61,19 @@
     };
 
     display: display@3c {
+          oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
         width = <128>;
         height = <64>;
-        reset-gpios = <&xiao_d 6 GPIO_ACTIVE_LOW>; // D6, optional
-        segment-offset = <0>; // 必須プロパティを追加（通常は0で動作）
-        page-offset = <0>;    // 必須プロパティを追加
-        display-offset = <0>; // 必須プロパティを追加
-        multiplex-ratio = <63>;  // 必須プロパティ（128x64用、データシート確認）
+        segment-offset = <0>;
+        page-offset = <0>;
+        display-offset = <0>;
+        multiplex-ratio = <63>;
+        segment-remap;
+        com-invdir;
+        inversion-on;
+        prechargep = <0x22>;
     };
 };
 
