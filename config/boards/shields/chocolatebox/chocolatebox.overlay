@@ -3,8 +3,6 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "./chocolatebox-layouts.dtsi"
 
-
-
 &xiao_serial { status = "disabled"; };
 
 &pinctrl {
@@ -52,9 +50,12 @@
     mcp23017: mcp23017@20 {
         compatible = "microchip,mcp23017";
         reg = <0x20>;
+        status = "okay";  // 明示的に有効化
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
+        interrupt-parent = <&xiao_d>;  // 割り込みコントローラを指定
+        interrupts = <2 GPIO_ACTIVE_LOW>;  // D2ピンの割り込み
         int-gpios = <&xiao_d 2 GPIO_ACTIVE_LOW>; // D2, INTA
     };
 
