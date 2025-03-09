@@ -67,7 +67,8 @@
         height = <64>;
         reset-gpios = <&xiao_d 6 GPIO_ACTIVE_LOW>; // D6, optional
         segment-offset = <0>; // 必須プロパティを追加（通常は0で動作）
-         page-offset = <0>;    // 必須プロパティを追加
+        page-offset = <0>;    // 必須プロパティを追加
+        display-offset = <0>; // 必須プロパティを追加
     };
 };
 
