@@ -60,12 +60,12 @@
         int-gpios = <&xiao_d 2 GPIO_ACTIVE_LOW>; // D2, INTA
     };
 
-    display: display@3c {
-          oled: ssd1306@3c {
+    display@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
         width = <128>;
         height = <64>;
+        reset-gpios = <&xiao_d 6 GPIO_ACTIVE_LOW>; // D6, optional
         segment-offset = <0>;
         page-offset = <0>;
         display-offset = <0>;
