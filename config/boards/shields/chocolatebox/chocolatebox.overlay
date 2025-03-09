@@ -22,7 +22,13 @@
             low-power-enable;
         };
     };
-    // SPI1は削除（74HC595不要）
+
+    i2c1_default: i2c1_default { // I2C1用のピンの設定
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 26)>, // SDAピン（例：P0.26）
+                    <NRF_PSEL(TWIM_SCL, 0, 27)>; // SCLピン（例：P0.27）
+        };
+    };
 };
 
 &spi0 {
@@ -43,21 +49,23 @@
 };
 
 &i2c0 {
+    status = "disabled"; // I2C0を無効化
+};
+
+&i2c1 {
     status = "okay";
-    pinctrl-0 = <&i2c0_default>;  // 復元
-    clock-frequency = <I2C_BITRATE_STANDARD>;  // 復元
+    compatible = "nordic,nrf-twim";
+    pinctrl-0 = <&i2c1_default>;
+    pinctrl-names = "default";
+    clock-frequency = <I2C_BITRATE_STANDARD>;
 
     mcp23017: mcp23017@20 {
-        compatible = "microchip,mcp230xx";
+        compatible = "microchip,mcp23017";
         reg = <0x20>;
         status = "okay";
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-        // 割り込み設定は一旦コメントアウト（動作確認後に復元可能）
-        // interrupt-parent = <&gpio0>;
-        // interrupts = <2 GPIO_ACTIVE_LOW>;
-        // int-gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
     };
 
     display: display@3c {
@@ -65,7 +73,7 @@
         reg = <0x3c>;
         width = <128>;
         height = <64>;
-        reset-gpios = <&xiao_d 6 GPIO_ACTIVE_LOW>; // D6, optional
+        reset-gpios = <&xiao_d 6 GPIO_ACTIVE_LOW>;
         segment-offset = <0>;
         page-offset = <0>;
         display-offset = <0>;
@@ -86,7 +94,7 @@
         zmk,physical-layout = &chocolatebox_physical_layout;
         zmk,soft-off-wakeup-sources = <&kscan0>;
         transform = <&default_transform>;
-        zephyr,display = &display; 
+        zephyr,display = &display;
     };
 
     default_transform: keymap_transform_0 {
@@ -100,7 +108,7 @@
                     RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10) RC(0,11)
             RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9) RC(3,10)
                     RC(4,1) RC(4,2)         RC(4,4) RC(4,5) RC(4,6) RC(4,7)         RC(4,9) RC(4,10)
-        >;  // ここで';'が必要
+        >;
     };
 
     kscan0: kscan0 {
@@ -137,8 +145,7 @@
     };
 };
 
-// オーバーレイで GPIO ノードを修正
 &gpio0 {
     #interrupt-cells = <2>;
-    interrupt-controller;  // 割り込みコントローラとして動作することを明示
+    interrupt-controller;
 };
