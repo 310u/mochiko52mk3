@@ -1,5 +1,3 @@
-// my_keyboard.overlay
-
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "./chocolatebox-layouts.dtsi"
 
@@ -45,14 +43,14 @@
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>; // D0, PMW3610 NCS
+    cs-gpios = <&gpio0 0 GPIO_ACTIVE_LOW>; // D0, PMW3610 NCS (変更)
 
     trackball: trackball@0 {
         status = "okay";
         compatible = "pixart,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
-        irq-gpios = <&xiao_d 3 GPIO_ACTIVE_LOW>; // D3, MOTION
+        irq-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>; // D3, MOTION (変更)
     };
 };
 
@@ -105,33 +103,33 @@
         >;
     };
 
-kscan0: kscan0 {
-    compatible = "zmk,kscan-gpio-matrix";
-    wakeup-source;
-    debounce-press-ms = <1>;
-    debounce-release-ms = <5>;
-    diode-direction = "col2row";
+    kscan0: kscan0 {
+        compatible = "zmk,kscan-gpio-matrix";
+        wakeup-source;
+        debounce-press-ms = <1>;
+        debounce-release-ms = <5>;
+        diode-direction = "col2row";
 
-    col-gpios =
-        <&mcp23017 0 GPIO_ACTIVE_HIGH>,  // 列0
-        <&mcp23017 1 GPIO_ACTIVE_HIGH>,  // 列1
-        <&mcp23017 2 GPIO_ACTIVE_HIGH>,  // 列2
-        <&mcp23017 3 GPIO_ACTIVE_HIGH>,  // 列3
-        <&mcp23017 4 GPIO_ACTIVE_HIGH>,  // 列4
-        <&mcp23017 5 GPIO_ACTIVE_HIGH>,  // 列5
-        <&mcp23017 6 GPIO_ACTIVE_HIGH>,  // 列6
-        <&mcp23017 7 GPIO_ACTIVE_HIGH>,  // 列7
-        <&mcp23017 8 GPIO_ACTIVE_HIGH>,  // 列8
-        <&mcp23017 9 GPIO_ACTIVE_HIGH>,  // 列9
-        <&mcp23017 10 GPIO_ACTIVE_HIGH>, // 列10
-        <&gpio0 7 GPIO_ACTIVE_HIGH>;     // D7, 列11 (xiao_d → gpio0)
-    row-gpios =
-        <&mcp23017 11 GPIO_ACTIVE_LOW>,  // 行0
-        <&mcp23017 12 GPIO_ACTIVE_LOW>,  // 行1
-        <&mcp23017 13 GPIO_ACTIVE_LOW>,  // 行2
-        <&mcp23017 14 GPIO_ACTIVE_LOW>,  // 行3
-        <&mcp23017 15 GPIO_ACTIVE_LOW>;  // 行4
-};
+        col-gpios =
+            <&mcp23017 0 GPIO_ACTIVE_HIGH>,  // 列0
+            <&mcp23017 1 GPIO_ACTIVE_HIGH>,  // 列1
+            <&mcp23017 2 GPIO_ACTIVE_HIGH>,  // 列2
+            <&mcp23017 3 GPIO_ACTIVE_HIGH>,  // 列3
+            <&mcp23017 4 GPIO_ACTIVE_HIGH>,  // 列4
+            <&mcp23017 5 GPIO_ACTIVE_HIGH>,  // 列5
+            <&mcp23017 6 GPIO_ACTIVE_HIGH>,  // 列6
+            <&mcp23017 7 GPIO_ACTIVE_HIGH>,  // 列7
+            <&mcp23017 8 GPIO_ACTIVE_HIGH>,  // 列8
+            <&mcp23017 9 GPIO_ACTIVE_HIGH>,  // 列9
+            <&mcp23017 10 GPIO_ACTIVE_HIGH>, // 列10
+            <&gpio0 7 GPIO_ACTIVE_HIGH>;     // D7, 列11
+        row-gpios =
+            <&mcp23017 11 GPIO_ACTIVE_LOW>,  // 行0
+            <&mcp23017 12 GPIO_ACTIVE_LOW>,  // 行1
+            <&mcp23017 13 GPIO_ACTIVE_LOW>,  // 行2
+            <&mcp23017 14 GPIO_ACTIVE_LOW>,  // 行3
+            <&mcp23017 15 GPIO_ACTIVE_LOW>;  // 行4
+    };
 
     trackball_listener {
         compatible = "zmk,input-listener";
@@ -140,6 +138,7 @@ kscan0: kscan0 {
 };
 
 &gpio0 {
+    status = "okay"; // 追加
     #interrupt-cells = <2>;
     interrupt-controller;
 };
