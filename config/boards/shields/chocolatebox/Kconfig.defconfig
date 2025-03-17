@@ -1,5 +1,9 @@
 if CHOCOLATEBOX
 
+config I2C
+    bool
+    default y
+
 config ZMK_KEYBOARD_NAME
     default "chocolatebox"
 
@@ -11,10 +15,6 @@ config ZMK_MOUSE_PMW3610
     bool
     default y
 
-config ZMK_DISPLAY
-    bool
-    default y
-
 config ZMK_KSCAN
     bool
     default y
@@ -23,70 +23,17 @@ config ZMK_KSCAN_GPIO_MATRIX
     bool
     default y
 
-# MCP23017のサポートを追加
 config GPIO_MCP23017
     bool "Enable MCP23017 GPIO Expander"
     default y
-    depends on I2C
-    help
-        Enable support for the MCP23017 I2C GPIO expander.
+    depends on I2C && CHOCOLATEBOX
 
-# バッテリー駆動のための省電力設定
 config ZMK_IDLE_TIMEOUT
     int
-    default 30000  # 30秒でスリープ
+    default 30000
 
 config ZMK_IDLE_POWERDOWN
     bool
     default y
-
-# ディスプレイのスリープ設定（省電力用）
-config ZMK_DISPLAY_TIMEOUT
-    int
-    default 5000  # 5秒でディスプレイOFF
-  
-if ZMK_DISPLAY
-
-config I2C
-    bool
-    default y
-
-config SSD1306
-    bool
-    default y
-
-config SSD1306_REVERSE_MODE
-    bool
-    default y
-
-endif # ZMK_DISPLAY
-
-if LVGL
-
-config LVGL_HOR_RES_MAX
-    int
-    default 128
-
-config LVGL_VER_RES_MAX
-    int
-    default 32
-
-config LVGL_VDB_SIZE
-    int
-    default 64
-
-config LVGL_DPI
-    int
-    default 148
-
-config LVGL_BITS_PER_PIXEL
-    int
-    default 1
-
-config LVGL_COLOR_DEPTH
-    int
-    default 1
-
-endif # LVGL
 
 endif # CHOCOLATEBOX
