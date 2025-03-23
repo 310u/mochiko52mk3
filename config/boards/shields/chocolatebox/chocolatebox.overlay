@@ -34,6 +34,11 @@
     };
 };
 
+&gpio0 {
+    interrupt-controller;
+    #interrupt-cells = <2>; // ピンの番号とフラグ
+};
+
 &spi0 {
     status = "okay";
     compatible = "nordic,nrf-spim";
@@ -68,7 +73,7 @@
         ngpios = <16>;
         interrupt-controller;
         #interrupt-cells = <2>;
-        interrupt-parent = <&gpio0>; // XIAO の GPIO コントローラ
+        interrupt-parent = <&gpio0>;
         interrupts = <10 2>, <28 2>; // D1 (P0.10), D2 (P0.28), 2=ACTIVE_LOW
     };
 };
