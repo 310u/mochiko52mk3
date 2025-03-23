@@ -66,9 +66,6 @@
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-        interrupt-controller;
-        #interrupt-cells = <2>;
-        interrupts-extended = <&gpio0 10 2>, <&gpio0 28 2>; // D1 (P0.10), D2 (P0.28), 2=ACTIVE_LOW
     };
 };
 
