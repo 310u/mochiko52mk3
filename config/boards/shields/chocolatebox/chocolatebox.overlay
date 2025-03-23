@@ -1,5 +1,6 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "./chocolatebox-layouts.dtsi"
+#include <zephyr/dt-bindings/input/input-event-codes.h>
 
 &xiao_serial { status = "disabled"; };
 
@@ -8,7 +9,6 @@
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 1, 14)>,  // D8
                     <NRF_PSEL(SPIM_MOSI, 1, 15)>; // D9 (SDIO)
-            // MISO は指定しない（3線式）
         };
     };
     spi0_sleep: spi0_sleep {
@@ -39,13 +39,18 @@
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>;
+    cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>; // D0
     trackball: trackball@0 {
         status = "okay";
         compatible = "pixart,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
-        irq-gpios = <&xiao_d 3 GPIO_ACTIVE_LOW>;
+        irq-gpios = <&xiao_d 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // D1
+        cpi = <600>;
+        evt-type = <INPUT_EV_REL>;          // 必須: 相対移動イベント
+        x-input-code = <INPUT_REL_X>;       // X軸移動
+        y-input-code = <INPUT_REL_Y>;       // Y軸移動
+        force-awake;                        // オプション: 常に起動
     };
 };
 
