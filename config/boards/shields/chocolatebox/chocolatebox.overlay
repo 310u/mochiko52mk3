@@ -8,16 +8,19 @@
     spi0_default: spi0_default {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 1, 14)>,  // D9 (P1.14)
-                    <NRF_PSEL(SPIM_MOSI, 1, 15)>; // D10 (P1.15)
+                    <NRF_PSEL(SPIM_MOSI, 1, 15)>, // D10 (P1.15)
+                    <NRF_PSEL(SPIM_MISO, 1, 15)>;
         };
     };
     spi0_sleep: spi0_sleep {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 1, 14)>,
-                    <NRF_PSEL(SPIM_MOSI, 1, 15)>;
+                    <NRF_PSEL(SPIM_MOSI, 1, 15)>,
+                    <NRF_PSEL(SPIM_MISo, 1, 15)>;
             low-power-enable;
         };
     };
+    
     i2c1_default: i2c1_default {
         group1 {
             psels = <NRF_PSEL(TWIM_SDA, 0, 4)>,
@@ -40,12 +43,13 @@
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
     cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>; // D0 (P0.02)
+    
     trackball: trackball@0 {
         status = "okay";
         compatible = "pixart,pmw3610";
         reg = <0>;
-        spi-max-frequency = <1000000>;
-        irq-gpios = <&xiao_d 1 GPIO_ACTIVE_LOW>; // D1 (P0.03)
+        spi-max-frequency = <2000000>;
+        irq-gpios = <&xiao_d 1 GPIO_ACTIVE_LOW | GPIO_PULL_UP>; // D1 (P0.03)
     };
 };
 
