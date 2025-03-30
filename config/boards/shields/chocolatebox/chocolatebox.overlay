@@ -7,8 +7,8 @@
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 14)>,  // D8
-                    <NRF_PSEL(SPIM_MOSI, 1, 15)>; // D9 (SDIO)
+            psels = <NRF_PSEL(SPIM_SCK, 1, 14)>,  // D9 (P1.14)
+                    <NRF_PSEL(SPIM_MOSI, 1, 15)>; // D10 (P1.15)
         };
     };
     spi0_sleep: spi0_sleep {
@@ -39,18 +39,18 @@
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>; // D0
+    cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>; // D0 (P0.02)
     trackball: trackball@0 {
         status = "okay";
         compatible = "pixart,pmw3610";
         reg = <0>;
-        spi-max-frequency = <2000000>;
-        irq-gpios = <&xiao_d 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // D1
+        spi-max-frequency = <1000000>;
+        irq-gpios = <&xiao_d 1 GPIO_ACTIVE_LOW>; // D1 (P0.03)
         cpi = <600>;
-        evt-type = <INPUT_EV_REL>;          // 必須: 相対移動イベント
-        x-input-code = <INPUT_REL_X>;       // X軸移動
-        y-input-code = <INPUT_REL_Y>;       // Y軸移動
-        force-awake;                        // オプション: 常に起動
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+        force-awake;
     };
 };
 
