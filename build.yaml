@@ -2,4 +2,4 @@
 include:
   - board: seeeduino_xiao_ble
     shield: chocolatebox
-    snippet: 
+    snippet: zmk-usb-logging 
