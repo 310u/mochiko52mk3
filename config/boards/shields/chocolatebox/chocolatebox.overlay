@@ -16,7 +16,7 @@
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 1, 14)>,
                     <NRF_PSEL(SPIM_MOSI, 1, 15)>,
-                    <NRF_PSEL(SPIM_MISo, 1, 15)>;
+                    <NRF_PSEL(SPIM_MISO, 1, 15)>;
             low-power-enable;
         };
     };
