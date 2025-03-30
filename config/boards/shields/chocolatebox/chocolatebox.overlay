@@ -49,7 +49,7 @@
         compatible = "pixart,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
-        irq-gpios = <&xiao_d 1 GPIO_ACTIVE_LOW | GPIO_PULL_UP>; // D1 (P0.03)
+        irq-gpios = <&xiao_d 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // D1 (P0.03)
     };
 };
 
