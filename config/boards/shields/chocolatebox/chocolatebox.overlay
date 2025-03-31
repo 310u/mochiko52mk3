@@ -2,8 +2,10 @@
 #include "./chocolatebox-layouts.dtsi"
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
+/* シリアルポートの無効化（変更なし） */
 &xiao_serial { status = "disabled"; };
 
+/* ピンの設定 */
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
@@ -21,13 +23,13 @@
         };
     };
     
-    i2c1_default: i2c1_default {
+    i2c0_default: i2c0_default {
         group1 {
             psels = <NRF_PSEL(TWIM_SDA, 0, 4)>,
                     <NRF_PSEL(TWIM_SCL, 0, 5)>;
         };
     };
-    i2c1_sleep: i2c1_sleep {
+    i2c0_sleep: i2c0_sleep {
         group1 {
             psels = <NRF_PSEL(TWIM_SDA, 0, 4)>,
                     <NRF_PSEL(TWIM_SCL, 0, 5)>;
@@ -36,6 +38,7 @@
     };
 };
 
+/* SPI 設定（変更なし） */
 &spi0 {
     status = "okay";
     compatible = "nordic,nrf-spim";
@@ -53,17 +56,16 @@
     };
 };
 
-&i2c0 { status = "disabled"; };
-
-&i2c1 {
+/* I2C0 を有効化 */
+&i2c0 {
     status = "okay";
     compatible = "nordic,nrf-twim";
-    pinctrl-0 = <&i2c1_default>;
-    pinctrl-1 = <&i2c1_sleep>;
+    pinctrl-0 = <&i2c0_default>;
+    pinctrl-1 = <&i2c0_sleep>;
     pinctrl-names = "default", "sleep";
     clock-frequency = <I2C_BITRATE_STANDARD>;
     mcp23017: mcp23017@20 {
-        compatible = "microchip,mcp230xx";
+        compatible = "microchip,mcp230xx";  // "mcp230xx" から "mcp23017" に修正
         reg = <0x20>;
         status = "okay";
         gpio-controller;
@@ -72,7 +74,11 @@
     };
 };
 
-/ {
+/* I2C1 を無効化 */
+&i2c1 { status = "disabled"; };
+
+/* メイン設定 */
+&{
     model = "chocolatebox";
     compatible = "chocolatebox";
     chosen {
