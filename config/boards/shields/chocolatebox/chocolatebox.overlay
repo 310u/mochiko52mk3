@@ -57,7 +57,7 @@
 };
 
 /* I2C0 を有効化 */
-&i2c0 {
+&i2c1 {
     status = "okay";
     compatible = "nordic,nrf-twim";
     pinctrl-0 = <&i2c0_default>;
@@ -74,7 +74,7 @@
     };
 };
 
-&i2c1 { status = "disabled"; };
+&i2c0 { status = "disabled"; };
 
 
 /{
