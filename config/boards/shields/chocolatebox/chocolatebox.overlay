@@ -74,10 +74,9 @@
     };
 };
 
-/* I2C1 を無効化 */
 &i2c1 { status = "disabled"; };
 
-/* メイン設定 */
+
 &{
     model = "chocolatebox";
     compatible = "chocolatebox";
