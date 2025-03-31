@@ -77,7 +77,7 @@
 &i2c1 { status = "disabled"; };
 
 
-&{
+/&{
     model = "chocolatebox";
     compatible = "chocolatebox";
     chosen {
