@@ -1,135 +1,101 @@
-#include <dt-bindings/zmk/matrix_transform.h>
-#include "./chocolatebox-layouts.dtsi"
-#include <zephyr/dt-bindings/input/input-event-codes.h>
+/*
+ * chocolatebox.overlay - Verification Overlay for I2C0/MCP23017
+ *
+ * 目的: I2C0 と MCP23017 の認識だけに絞って問題を確認するための
+ * 一時的な検証用ファイルです。
+ * 他の機能 (SPIトラックボール、キーマトリックス等) は無効化しています。
+ */
 
+// kscan や matrix_transform に関連しないヘッダーのみ残す
+// #include <dt-bindings/zmk/matrix_transform.h> // kscan無効化のため不要
+// #include "./chocolatebox-layouts.dtsi" // kscan無効化のため不要
+#include <zephyr/dt-bindings/input/input-event-codes.h> // GPIOフラグ等で使われる可能性があるので残す
 
-&xiao_serial { status = "disabled"; };
+// --- マクロ定義は不要になりました ---
+// #define MATRIX_TRANSFORM_NO_OP 0xFFFF
+// #define RC(r, c) (((r) & 0xFF) | (((c) & 0xFF) << 8))
 
+/ { // ルートノード
+    // chosen ノードから kscan, matrix_transform, pointing_device などを一時的に削除
+    chosen {
+         // I2C0 をデバッグしやすくするために明示的に指定 (必須ではない)
+        zmk,zephyr_i2c_label = "I2C_0";
+    };
 
+    // --- default_transform, kscan0, sensors などを一時的にコメントアウト ---
+    /*
+    model = "chocolatebox";
+    compatible = "chocolatebox";
+    default_transform: keymap_transform_0 { ... };
+    kscan0: kscan0 { ... };
+    trackball_listener { ... }; // sensors ノードも無効化
+    */
+};
+
+/* シリアルポートの無効化 */
+&xiao_serial {
+    status = "disabled";
+};
+
+/* ピン制御設定 */
 &pinctrl {
-    spi1_default: spi1_default {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 29)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 28)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 28)>;
-        };
-    };
-    spi1_sleep: spi1_sleep {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 29)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 28)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 28)>;
-            low-power-enable;
-        };
-    };
-    
+    // --- SPI1 ピン設定は一時的にコメントアウト ---
+    /*
+    spi1_default: spi1_default { ... };
+    spi1_sleep: spi1_sleep { ... };
+    */
+
+    // +++ I2C0 ピン設定 (P0.04=SDA0, P0.05=SCL0) を定義 +++
+    // MCP23017 をこれらのピンに接続していることを確認
     i2c0_default: i2c0_default {
         group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0, 4) | GPIO_PULL_UP>,
-                    <NRF_PSEL(TWIM_SCL, 0, 5) | GPIO_PULL_UP>;
+            psels = <NRF_PSEL(TWIM_SDA, 0, 4)>, // P0.04 (XIAO D4)
+                    <NRF_PSEL(TWIM_SCL, 0, 5)>; // P0.05 (XIAO D5)
+            // 外部プルアップ抵抗を付けたので、内部プルアップは削除
         };
     };
     i2c0_sleep: i2c0_sleep {
         group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0, 4) | GPIO_PULL_UP>,
-                    <NRF_PSEL(TWIM_SCL, 0, 5) | GPIO_PULL_UP>;
+            psels = <NRF_PSEL(TWIM_SDA, 0, 4)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 5)>;
             low-power-enable;
         };
     };
 };
 
-
-&spi1 {
-    status = "okay";
-    compatible = "nordic,nrf-spim";
-    pinctrl-0 = <&spi1_default>;
-    pinctrl-1 = <&spi1_sleep>;
-    pinctrl-names = "default", "sleep";
-    cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>; // D0 (P0.02)
-    
-    trackball: trackball@0 {
-        status = "okay";
-        compatible = "pixart,pmw3610";
-        reg = <0>;
-        spi-max-frequency = <2000000>;
-        irq-gpios = <&xiao_d 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-    };
-};
-
+/* SPI0 は無効化 */
 &spi0 {
     status = "disabled";
 };
 
+/* I2C1 は無効化 */
+&i2c1 {
+    status = "disabled";
+};
 
+/* SPI1 は無効化 (トラックボールも一時的に無効化) */
+&spi1 {
+    status = "disabled";
+};
+
+
+/* I2C0 を有効化 (MCP23017 用) */
 &i2c0 {
-    status = "okay";
+    status = "okay"; // ★ I2C インスタンス 0 を使用
     compatible = "nordic,nrf-twim";
-    pinctrl-0 = <&i2c0_default>;
+    pinctrl-0 = <&i2c0_default>; // ★ i2c0 用の pinctrl を参照
     pinctrl-1 = <&i2c0_sleep>;
     pinctrl-names = "default", "sleep";
     clock-frequency = <I2C_BITRATE_STANDARD>;
+
+    // ★ MCP23017 の定義
     mcp23017: mcp23017@20 {
-        compatible = "microchip,mcp230xx";
-        reg = <0x20>;
+        // compatible = "microchip,mcp230xx"; // 元の設定
+        compatible = "microchip,mcp23017"; // ★ より具体的な compatible 文字列を試す
+        reg = <0x20>; // I2Cアドレス
         status = "okay";
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-    };
-};
-
-&i2c1 { status = "disabled"; };
-
-
-/{
-    model = "chocolatebox";
-    compatible = "chocolatebox";
-    chosen {
-        zmk,kscan = &kscan0;
-        zmk,physical-layout = &chocolatebox_physical_layout;
-        zmk,soft-off-wakeup-sources = <&kscan0>;
-        transform = <&default_transform>;
-    };
-    default_transform: keymap_transform_0 {
-        compatible = "zmk,matrix-transform";
-        rows = <5>;
-        columns = <12>;
-        map = <
-            RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9) RC(0,10) RC(0,11)
-                    RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9) RC(1,10)
-                    RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10) RC(0,11)
-            RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9) RC(3,10)
-                    RC(4,1) RC(4,2)         RC(4,4) RC(4,5) RC(4,6) RC(4,7)         RC(4,9) RC(4,10)
-        >;
-    };
-    kscan0: kscan0 {
-        compatible = "zmk,kscan-gpio-matrix";
-        wakeup-source;
-        debounce-press-ms = <1>;
-        debounce-release-ms = <5>;
-        diode-direction = "col2row";
-        col-gpios =
-            <&mcp23017 0 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 1 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 2 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 3 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 4 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 5 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 6 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 7 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 8 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 9 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 10 GPIO_ACTIVE_HIGH>,
-            <&xiao_d 7 GPIO_ACTIVE_HIGH>;
-        row-gpios =
-            <&mcp23017 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&mcp23017 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&mcp23017 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&mcp23017 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&mcp23017 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
-    };
-    trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
     };
 };
