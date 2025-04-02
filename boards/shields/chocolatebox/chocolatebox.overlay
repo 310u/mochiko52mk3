@@ -8,6 +8,13 @@
 #include "./chocolatebox-layouts.dtsi" // このファイルが存在することを確認
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
+// --- Workaround for potential include issues in build environment ---
+// Define macros directly in case the include fails to be processed before dtc runs.
+// ビルド環境でのインクルード問題を回避するため、マクロを直接定義します。
+#define MATRIX_TRANSFORM_NO_OP 0xFFFF
+#define RC(r, c) (((r) & 0xFF) | (((c) & 0xFF) << 8))
+// --- End Workaround ---
+
 / { // ルートノード
     model = "chocolatebox"; // キーボードモデル名
 
