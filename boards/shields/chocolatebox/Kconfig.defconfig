@@ -7,14 +7,6 @@ config I2C
 config ZMK_KEYBOARD_NAME
     default "chocolatebox"
 
-config ZMK_MOUSE
-    bool
-    default y
-
-config ZMK_MOUSE_PMW3610
-    bool
-    default y
-
 config ZMK_KSCAN
     bool
     default y
@@ -27,13 +19,5 @@ config GPIO_MCP23017
     bool "Enable MCP23017 GPIO Expander"
     default y
     depends on I2C && CHOCOLATEBOX
-
-config ZMK_IDLE_TIMEOUT
-    int
-    default 30000
-
-config ZMK_IDLE_POWERDOWN
-    bool
-    default y
 
 endif # CHOCOLATEBOX
