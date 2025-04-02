@@ -1,71 +1,164 @@
+/*
+ * Copyright (c) 2024 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 #include <dt-bindings/zmk/matrix_transform.h>
-#include "./chocolatebox-layouts.dtsi"
+#include "./chocolatebox-layouts.dtsi" // このファイルが存在することを確認
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
+/ { // ルートノード
+    model = "chocolatebox"; // キーボードモデル名
 
-&xiao_serial { status = "disabled"; };
+    chosen {
+        zmk,kscan = &kscan0;                       // キーボードスキャンに kscan0 を使用
+        zmk,matrix_transform = &default_transform; // キー位置変換に default_transform を使用
+        zmk,pointing_device = &trackball;          // ポインティングデバイスとして trackball を使用 (&spi1 内のものを参照)
+    };
 
+    // デフォルトのキー位置変換 (5x12 Matrix)
+    // map 配列は 60 個の要素 (RC() または MATRIX_TRANSFORM_NO_OP) である必要があります
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        rows = <5>;
+        columns = <12>;
+        map = <
+            // Row 0
+            RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9) RC(0,10) RC(0,11)
+            // Row 1
+            MATRIX_TRANSFORM_NO_OP RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9) RC(1,10) MATRIX_TRANSFORM_NO_OP
+            // Row 2
+            MATRIX_TRANSFORM_NO_OP RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10) MATRIX_TRANSFORM_NO_OP
+            // Row 3
+            RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9) RC(3,10) MATRIX_TRANSFORM_NO_OP
+            // Row 4
+            MATRIX_TRANSFORM_NO_OP RC(4,1) RC(4,2) MATRIX_TRANSFORM_NO_OP RC(4,4) RC(4,5) RC(4,6) RC(4,7) MATRIX_TRANSFORM_NO_OP RC(4,9) RC(4,10) MATRIX_TRANSFORM_NO_OP
+        >;
+    };
 
+    // キーボードスキャン設定 (MCP23017 を使用)
+    kscan0: kscan0 {
+        compatible = "zmk,kscan-gpio-matrix";
+        wakeup-source; // スリープからの復帰に必要
+        debounce-press-ms = <1>;
+        debounce-release-ms = <5>;
+        diode-direction = "col2row"; // ダイオードの向きに合わせて col2row または row2col を指定
+
+        // 列ピン (MCP23017 の 0-10 番ピンと XIAO の D7 を使用)
+        col-gpios =
+            <&mcp23017 0 GPIO_ACTIVE_HIGH>, // Col 0 (MCP23017 @ I2C0 を参照)
+            <&mcp23017 1 GPIO_ACTIVE_HIGH>, // Col 1
+            <&mcp23017 2 GPIO_ACTIVE_HIGH>, // Col 2
+            <&mcp23017 3 GPIO_ACTIVE_HIGH>, // Col 3
+            <&mcp23017 4 GPIO_ACTIVE_HIGH>, // Col 4
+            <&mcp23017 5 GPIO_ACTIVE_HIGH>, // Col 5
+            <&mcp23017 6 GPIO_ACTIVE_HIGH>, // Col 6
+            <&mcp23017 7 GPIO_ACTIVE_HIGH>, // Col 7
+            <&mcp23017 8 GPIO_ACTIVE_HIGH>, // Col 8
+            <&mcp23017 9 GPIO_ACTIVE_HIGH>, // Col 9
+            <&mcp23017 10 GPIO_ACTIVE_HIGH>,// Col 10
+            <&xiao_d 7 GPIO_ACTIVE_HIGH>;    // Col 11 (D7, P0.26)
+
+        // 行ピン (MCP23017 の 11-15 番ピンを使用)
+        // col2row の場合、Row は入力。プルダウン抵抗と組み合わせるのが一般的。
+        row-gpios =
+            <&mcp23017 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>, // Row 0 (MCP23017 @ I2C0 を参照)
+            <&mcp23017 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>, // Row 1
+            <&mcp23017 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>, // Row 2
+            <&mcp23017 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>, // Row 3
+            <&mcp23017 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // Row 4
+    };
+
+    // センサー設定 (トラックボール用)
+    sensors: sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&trackball>;          // 使用するセンサーデバイス (&spi1 内の trackball を参照)
+        triggers-per-rotation = <12>;   // 1回転あたりのトリガー数 (スクロール感度)
+     };
+};
+
+/* シリアルポートの無効化 */
+&xiao_serial {
+    status = "disabled";
+};
+
+/* ピン制御設定 */
 &pinctrl {
-    spi0_default: spi0_default {
+    // --- SPI0 ピン設定は削除またはコメントアウト ---
+    /*
+    spi0_default: spi0_default { ... };
+    spi0_sleep: spi0_sleep { ... };
+    */
+
+    // --- I2C1 ピン設定は削除またはコメントアウト ---
+    /*
+    i2c1_default: i2c1_default { ... };
+    i2c1_sleep: i2c1_sleep { ... };
+    */
+
+    // +++ I2C0 ピン設定 (P0.04=SDA0, P0.05=SCL0) を定義 +++
+    // MCP23017 をこれらのピンに接続していることを確認
+    i2c0_default: i2c0_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 14)>,
-                    <NRF_PSEL(SPIM_MOSI, 1, 15)>,
-                    <NRF_PSEL(SPIM_MISO, 1, 15)>;
+            psels = <NRF_PSEL(TWIM_SDA, 0, 4)>, // P0.04 (XIAO D4)
+                    <NRF_PSEL(TWIM_SCL, 0, 5)>; // P0.05 (XIAO D5)
+            // 外部プルアップ抵抗がある場合は、以下のフラグは不要
+            // | GPIO_PULL_UP
         };
     };
-    spi0_sleep: spi0_sleep {
+    i2c0_sleep: i2c0_sleep {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 14)>,
-                    <NRF_PSEL(SPIM_MOSI, 1, 15)>,
-                    <NRF_PSEL(SPIM_MISO, 1, 15)>;
+            psels = <NRF_PSEL(TWIM_SDA, 0, 4)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 5)>;
             low-power-enable;
         };
     };
-    
-    i2c1_default: i2c1_default {
+
+    // +++ SPI1 ピン設定 (例: P0.29=SCK1, P0.28=SDIO1) を定義 +++
+    // !!! トラックボールをこれらのピンに接続し直す必要があります !!!
+    // !!! 実際の配線に合わせてピン番号 (P0.xx または P1.xx) を必ず確認・修正してください !!!
+    spi1_default: spi1_default {
         group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0, 4)>,
-                    <NRF_PSEL(TWIM_SCL, 0, 5)>;
+            // 2線式 (SDIO) の場合、MOSI と MISO に同じピンを指定
+            psels = <NRF_PSEL(SPIM_SCK, 0, 29)>,  // 例: P0.29 (XIAO D2) - SCK1
+                    <NRF_PSEL(SPIM_MOSI, 0, 28)>, // 例: P0.28 (XIAO D3) - SDIO1
+                    <NRF_PSEL(SPIM_MISO, 0, 28)>; // 例: P0.28 (XIAO D3) - SDIO1
         };
     };
-    i2c1_sleep: i2c1_sleep {
+    spi1_sleep: spi1_sleep {
         group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0, 4)>,
-                    <NRF_PSEL(TWIM_SCL, 0, 5)>;
+            psels = <NRF_PSEL(SPIM_SCK, 0, 29)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 28)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 28)>;
             low-power-enable;
         };
     };
 };
 
-
+/* SPI0 は無効化 */
 &spi0 {
-    status = "okay";
-    compatible = "nordic,nrf-spim";
-    pinctrl-0 = <&spi0_default>;
-    pinctrl-1 = <&spi0_sleep>;
-    pinctrl-names = "default", "sleep";
-    cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>; // D0 (P0.02)
-    
-    trackball: trackball@0 {
-        status = "okay";
-        compatible = "pixart,pmw3610";
-        reg = <0>;
-        spi-max-frequency = <2000000>;
-        irq-gpios = <&xiao_d 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-    };
+    status = "disabled";
 };
 
+/* I2C1 は無効化 */
 &i2c1 {
-    status = "okay";
+    status = "disabled";
+};
+
+/* I2C0 を有効化 (MCP23017 用) */
+&i2c0 {
+    status = "okay"; // ★ I2C インスタンス 0 を使用
     compatible = "nordic,nrf-twim";
-    pinctrl-0 = <&i2c1_default>;
-    pinctrl-1 = <&i2c1_sleep>;
+    pinctrl-0 = <&i2c0_default>; // ★ i2c0 用の pinctrl を参照
+    pinctrl-1 = <&i2c0_sleep>;
     pinctrl-names = "default", "sleep";
     clock-frequency = <I2C_BITRATE_STANDARD>;
+
+    // ★ MCP23017 の定義を I2C0 の中に移動
     mcp23017: mcp23017@20 {
-        compatible = "microchip,mcp230xx";
-        reg = <0x20>;
+        compatible = "microchip,mcp23017"; // より具体的な compatible 文字列を使用
+        reg = <0x20>; // I2Cアドレス
         status = "okay";
         gpio-controller;
         #gpio-cells = <2>;
@@ -73,58 +166,28 @@
     };
 };
 
-&i2c0 { status = "disabled"; };
+/* SPI1 を有効化 (トラックボール PMW3610 用) */
+&spi1 {
+    status = "okay"; // ★ SPI インスタンス 1 を使用
+    compatible = "nordic,nrf-spim";
+    pinctrl-0 = <&spi1_default>; // ★ spi1 用の pinctrl を参照
+    pinctrl-1 = <&spi1_sleep>;
+    pinctrl-names = "default", "sleep";
+    // !!! CS ピンが P0.02 (XIAO D0) で正しいか確認 !!!
+    // もし CS ピンも変更した場合は、ここのピン番号 (&xiao_d X の X) も修正してください
+    cs-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>; // D0 (P0.02)
 
-
-/{
-    model = "chocolatebox";
-    compatible = "chocolatebox";
-    chosen {
-        zmk,kscan = &kscan0;
-        zmk,physical-layout = &chocolatebox_physical_layout;
-        zmk,soft-off-wakeup-sources = <&kscan0>;
-        transform = <&default_transform>;
-    };
-    default_transform: keymap_transform_0 {
-        compatible = "zmk,matrix-transform";
-        rows = <5>;
-        columns = <12>;
-        map = <
-            RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9) RC(0,10) RC(0,11)
-                    RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9) RC(1,10)
-                    RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10) RC(0,11)
-            RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9) RC(3,10)
-                    RC(4,1) RC(4,2)         RC(4,4) RC(4,5) RC(4,6) RC(4,7)         RC(4,9) RC(4,10)
-        >;
-    };
-    kscan0: kscan0 {
-        compatible = "zmk,kscan-gpio-matrix";
-        wakeup-source;
-        debounce-press-ms = <1>;
-        debounce-release-ms = <5>;
-        diode-direction = "col2row";
-        col-gpios =
-            <&mcp23017 0 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 1 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 2 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 3 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 4 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 5 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 6 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 7 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 8 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 9 GPIO_ACTIVE_HIGH>,
-            <&mcp23017 10 GPIO_ACTIVE_HIGH>,
-            <&xiao_d 7 GPIO_ACTIVE_HIGH>;
-        row-gpios =
-            <&mcp23017 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&mcp23017 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&mcp23017 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&mcp23017 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&mcp23017 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
-    };
-    trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
+    // ★ トラックボールの定義を SPI1 の中に移動
+    trackball: trackball@0 {
+        status = "okay";
+        compatible = "pixart,pmw3610";
+        reg = <0>; // SPI デバイスのレジスタ (通常 0)
+        spi-max-frequency = <2000000>; // SPI クロック周波数
+        // !!! IRQ ピンが P0.03 (XIAO D1) で正しいか確認 !!!
+        // もし IRQ ピンも変更した場合は、ここのピン番号 (&xiao_d X の X) も修正してください
+        irq-gpios = <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; // D1 (P0.03)
+        // ↑ PMW3610 の IRQ ピンの極性に合わせて GPIO_ACTIVE_LOW or GPIO_ACTIVE_HIGH を設定
+        //    データシートや動作確認済みの設定を参考にしてください。
+        //    プルアップ/プルダウンも必要に応じて設定 (GPIO_PULL_UP or GPIO_PULL_DOWN)
     };
 };
