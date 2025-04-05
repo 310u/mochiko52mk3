@@ -1,5 +1,4 @@
 ---
 include:
   - board: seeeduino_xiao_ble
-    shield: chocolatebox
-    snippet: zmk-usb-logging 
+    shield: chocolatebox rgbled_adapter
