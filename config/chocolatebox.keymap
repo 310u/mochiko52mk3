@@ -50,6 +50,7 @@
                         &mt LCTRL A   &kp S       &kp D      &kp F      &kp G     &kp H    &kp J    &kp K      &kp L    &kp SEMICOLON   &kp ENTER
             &kp LSHIFT  &kp Z         &kp X       &kp C      &kp V      &kp B     &kp N    &kp M    &kp COMMA  &kp DOT  &mt RSHIFT SLASH
             &kp LGUI                  &kp LALT       &kp SPACE     &lt MOD1 TAB     &lt MOD2 LANG5   &kp BSPC   &kp RALT &kp RCTRL
+            &mkp LCLK   &mkp MCLK     &mkp RCLK    &mkp MB4
             >;
         };
 
@@ -61,6 +62,7 @@
                         &kp LCTRL     &kp LEFT    &kp DOWN   &kp RIGHT  &trans      &kp N4   &kp N5   &kp N6     &trans    &kp SQT   &trans
             &trans      &trans        &kp END     &kp INS    &kp PG_DN  &trans      &kp N1   &kp N2   &kp N3     &kp N0    &kp RSHIFT
             &kp CAPS         &trans       &trans        &trans                      &trans      &kp DELETE          &trans    &trans
+            &trans      &trans        &trans      &trans
             >;
         };
 
@@ -72,6 +74,7 @@
                         &kp LCTRL     &kp LEFT    &kp DOWN   &kp RIGHT  &trans      &kp N4   &kp N5   &kp N6     &trans    &kp SQT   &trans
             &trans      &trans        &kp END     &kp INS    &kp PG_DN  &trans      &kp N1   &kp N2   &kp N3     &kp N0    &kp RSHIFT
             &kp CAPS         &trans       &trans        &trans                      &trans      &kp DELETE          &trans    &trans
+            &trans      &trans        &trans      &trans
             >;
         };
 
