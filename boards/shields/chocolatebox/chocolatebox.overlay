@@ -155,11 +155,11 @@
         compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
         
-        input-gpios
-            =<&shift_reg 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
-             <&shift_reg 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
-             <&shift_reg 14 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
-             <&shift_reg 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        input-gpios = 
+             <&shift_reg 12 GPIO_ACTIVE_HIGH>,
+             <&shift_reg 13 GPIO_ACTIVE_HIGH>,
+             <&shift_reg 14 GPIO_ACTIVE_HIGH>,
+             <&shift_reg 15 GPIO_ACTIVE_HIGH>;
     };
     
             
