@@ -4,7 +4,7 @@
 / {
     chocolatebox_physical_layout: chocolatebox_physical_layout {
         compatible = "zmk,physical-layout";
-        display-name = "chocolatebox";
+        display-name = "Chocolatebox";
         transform = <&default_transform>;
         kscan = <&kscan0>;
         keys  //                     w   h    x    y     rot    rx    ry

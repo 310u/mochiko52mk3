@@ -2,5 +2,3 @@
 include:
   - board: seeeduino_xiao_ble
     shield: chocolatebox rgbled_adapter
-  - board: seeeduino_xiao_ble
-    shield: settings_reset
