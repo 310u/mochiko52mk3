@@ -1,5 +1,5 @@
 config SHEILD_CHOCOLATEBOX
-    def_bool $(sheild_list_contains,chocolatebox)
+    def_bool $(sheilds_list_contains,chocolatebox)
     default y
     help
         Enable support for the Chocolatebox keyboard shield.
