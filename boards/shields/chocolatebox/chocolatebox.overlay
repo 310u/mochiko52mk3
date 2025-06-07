@@ -141,7 +141,9 @@
         device = <&trackball>;
 
     //    input-processors = <&zip_temp_layer 3 1000>;
-          input-processors = <&zip_xy_to_scroll_mapper &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)>;
+          input-processors = <&zip_xy_to_scroll_mapper
+                              &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
+                              &zip_scroll_scaler 1 2>;
 
     //    scroll_layer_override {
     //    layers = <4>;
