@@ -141,7 +141,6 @@
 &keymap {
     mouse_layer_node: layer_3 {};
     };
-    
             
     trackball_listener {
         compatible = "zmk,input-listener";
@@ -150,3 +149,4 @@
         release-after-ms = <1000>;
  
     };
+};
