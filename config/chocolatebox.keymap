@@ -8,6 +8,7 @@
 #define MOD1   1
 #define MOD2   2
 #define MOUSE  3
+#define SCROLL 4
 
 
 &mt {
@@ -83,9 +84,20 @@
             bindings = <
             &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans       &trans
                         &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
-                        &trans        &trans      &trans     &trans     &mb3      &mb4   &trans   &trans     &trans   &trans       &trans
+                        &trans        &trans      &trans     &trans     &mkp mb3      &mkp mb4   &trans   &trans     &trans   &trans       &trans
             &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
-            &trans                    &trans       &trans     &mb1     &mb2        &trans       &trans   &trans
+            &trans                    &trans       &trans     &mkp mb1     &mkp mb2        &trans       &trans   &trans
+            >;
+        };
+        
+        mouse_layer {
+            display-name = "SCROLL";
+            bindings = <
+            &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans       &trans
+                        &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
+                        &trans        &trans      &trans     &trans     &mkp mb3      &mkp mb4   &trans   &trans     &trans   &trans       &trans
+            &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
+            &trans                    &trans       &trans     &mkp mb1     &mkp mb2        &trans       &trans   &trans
             >;
         };
 
