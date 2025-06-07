@@ -149,7 +149,7 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        layer = <&keymap _MOUSE>;
+        layer = <&keymap MOUSE>;
         release-after-ms = <1000>;
  
     };
