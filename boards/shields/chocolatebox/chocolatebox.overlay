@@ -1,7 +1,8 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "./chocolatebox-layouts.dtsi"
 #include <zephyr/dt-bindings/input/input-event-codes.h>
-#include <input/processors.dtsi> // ★ Input Processors を使うため、この行を追加
+#include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
 
 
 &xiao_serial { status = "disabled"; };
