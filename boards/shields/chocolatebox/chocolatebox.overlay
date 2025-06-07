@@ -139,7 +139,6 @@
             <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
     
-};
  
 &keymap {
     mouse_layer_node: layer_3 {};
@@ -152,4 +151,4 @@
         release-after-ms = <1000>;
  
     };
-
+};
