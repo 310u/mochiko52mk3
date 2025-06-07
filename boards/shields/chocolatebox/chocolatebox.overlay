@@ -114,14 +114,6 @@
         matrix {
               kscan = <&kscan1>;
               };
-        
-        direct {
-              kscan = <&kscan2>;
-              row-offset = <5>;
-              };
-        };
-    
-    
     
     
     kscan1: kscan_matrix {
@@ -151,20 +143,14 @@
             <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
  
-    kscan2: kscan_direct {
-        compatible = "zmk,kscan-gpio-direct";
-        wakeup-source;
-        
-        input-gpios = 
-             <&shift_reg 12 GPIO_ACTIVE_HIGH>,
-             <&shift_reg 13 GPIO_ACTIVE_HIGH>,
-             <&shift_reg 14 GPIO_ACTIVE_HIGH>,
-             <&shift_reg 15 GPIO_ACTIVE_HIGH>;
-    };
+
     
             
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
+        layer = <&keymap _MOUSE>;
+        release-after-ms = <1000>;
+ 
     };
 };
