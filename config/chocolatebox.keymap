@@ -90,7 +90,7 @@
             >;
         };
         
-        mouse_layer {
+        scroll_layer {
             display-name = "SCROLL";
             bindings = <
             &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans       &trans
