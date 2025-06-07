@@ -137,11 +137,6 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        layer = <&mouse_layer_node>;
-        release-after-ms = <1000>;
-    };
-
-    &keymap {
-        mouse_layer_node: layer_3 {};
+        input-processors = <&zip_temp_layer 3 1000>;
     };
 };
