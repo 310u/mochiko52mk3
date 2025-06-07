@@ -1,6 +1,7 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "./chocolatebox-layouts.dtsi"
 #include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <input/processors.dtsi> // ★ Input Processors を使うため、この行を追加
 
 
 &xiao_serial { status = "disabled"; };
@@ -137,6 +138,15 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
+        
+        // オートマウスレイヤー（ベースのプロセッサ）
         input-processors = <&zip_temp_layer 3 1000>;
+        
+        // ★★★ 追加部分 ★★★
+        // レイヤー4がアクティブな時だけ適用されるルール
+        scroll_layer_override {
+            layers = <4>; // レイヤー4をターゲット
+            input-processors = <&zip_xy_to_scroll_mapper>; // 動きをスクロールに変換
+        };
     };
 };
