@@ -95,9 +95,10 @@
         transform = <&default_transform>;
 
     };
+    
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
-        rows = <6>;
+        rows = <5>;
         columns = <12>;
         map = <
             RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9) RC(0,10) RC(0,11)
@@ -105,18 +106,18 @@
                     RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10) RC(0,11)
             RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9) RC(3,10)
                     RC(4,1) RC(4,2)         RC(4,4) RC(4,5) RC(4,6) RC(4,7)         RC(4,9) RC(4,10)
-                    RC(5,0) RC(5,1) RC(5,2) RC(5,3)
         >;
     };
 
     
     
-    kscan0: kscan_matrix {
+    kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
         debounce-press-ms = <1>;
         debounce-release-ms = <5>;
         diode-direction = "col2row";
+        
         col-gpios =
             <&shift_reg 0 GPIO_ACTIVE_HIGH>,
             <&shift_reg 1 GPIO_ACTIVE_HIGH>,
@@ -137,6 +138,8 @@
             <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
             <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
+    
+};
  
 &keymap {
     mouse_layer_node: layer_3 {};
@@ -149,4 +152,4 @@
         release-after-ms = <1000>;
  
     };
-};
+
