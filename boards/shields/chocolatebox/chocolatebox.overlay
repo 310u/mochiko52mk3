@@ -138,16 +138,13 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        
-        // オートマウスレイヤー（ベースのプロセッサ）
+
     //    input-processors = <&zip_temp_layer 3 1000>;
           input-processors = <&zip_xy_to_scroll_mapper>;
-        
-        // ★★★ 追加部分 ★★★
-        // レイヤー4がアクティブな時だけ適用されるルール
+
     //    scroll_layer_override {
-      //      layers = <4>; // レイヤー4をターゲット
-        //    input-processors = <&zip_xy_to_scroll_mapper>; // 動きをスクロールに変換
+    //    layers = <4>;
+    //    input-processors = <&zip_xy_to_scroll_mapper>;
         };
     };
 };
