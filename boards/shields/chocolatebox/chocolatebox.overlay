@@ -145,7 +145,7 @@
  
 &keymap {
     mouse_layer_node: layer_3 {};
-    
+    };
     
             
     trackball_listener {
