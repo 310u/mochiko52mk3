@@ -140,8 +140,8 @@
         layer = <&mouse_layer_node>;
         release-after-ms = <1000>;
     };
-};
 
-&keymap {
-    mouse_layer_node: layer_3 {};
-};
+    &keymap {
+        mouse_layer_node: layer_3 {};
+    };
+}
