@@ -143,13 +143,15 @@
             <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
  
-
+&keymap {
+    mouse_layer_node: layer_3 {};
+    
     
             
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        layer = <&keymap MOUSE>;
+        layer = <&mouse_layer_node>;
         release-after-ms = <1000>;
  
     };
