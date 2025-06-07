@@ -84,9 +84,9 @@
             bindings = <
             &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans       &trans
                         &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
-                        &trans        &trans      &trans     &trans     &mkp mb3      &mkp mb4   &trans   &trans     &trans   &trans       &trans
+                        &trans        &trans      &trans     &trans     &mkp MB3  &mkp MB4 &trans   &trans     &trans   &trans       &trans
             &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
-            &trans                    &trans       &trans     &mkp mb1     &mkp mb2        &trans       &trans   &trans
+            &trans                    &trans       &trans     &mkp BM1     &mkp MB2        &trans       &trans   &trans
             >;
         };
         
@@ -95,9 +95,9 @@
             bindings = <
             &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans       &trans
                         &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
-                        &trans        &trans      &trans     &trans     &mkp mb3      &mkp mb4   &trans   &trans     &trans   &trans       &trans
+                        &trans        &trans      &trans     &trans     &mkp MB3      &mkp MB4   &trans   &trans     &trans   &trans       &trans
             &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
-            &trans                    &trans       &trans     &mkp mb1     &mkp mb2        &trans       &trans   &trans
+            &trans                    &trans       &trans     &mkp MB1     &mkp MB2        &trans       &trans   &trans
             >;
         };
 
