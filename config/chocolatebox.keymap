@@ -79,7 +79,7 @@
         };
         
         mouse_layer {
-            display-name = "MOUSE"
+            display-name = "MOUSE";
             bindings = <
             &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans       &trans
                         &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
