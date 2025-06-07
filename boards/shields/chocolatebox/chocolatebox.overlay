@@ -138,7 +138,10 @@
             <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
             <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
-    
+
+&keymap {
+    mouse_layer_node: layer_3 {};
+};
 
     trackball_listener {
         compatible = "zmk,input-listener";
