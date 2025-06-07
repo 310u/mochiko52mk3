@@ -108,15 +108,10 @@
                     RC(5,0) RC(5,1) RC(5,2) RC(5,3)
         >;
     };
-    kscan0: kscan_composite {
-        compatible = "zmk,kscan-composite";
-        
-        matrix {
-              kscan = <&kscan1>;
-              };
+
     
     
-    kscan1: kscan_matrix {
+    kscan0: kscan_matrix {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
         debounce-press-ms = <1>;
