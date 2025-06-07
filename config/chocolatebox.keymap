@@ -79,6 +79,7 @@
         };
         
         mouse_layer {
+            display-name = "MOUSE"
             bindings = <
             &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans       &trans
                         &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
@@ -90,4 +91,8 @@
 
 
     };
+};
+
+&keymap {
+    mouse_layer_node: layer_3 {};
 };
