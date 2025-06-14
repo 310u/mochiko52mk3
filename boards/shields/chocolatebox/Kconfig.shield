@@ -1,6 +1,7 @@
+# Copyright (c) 2024 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
 config SHIELD_CHOCOLATEBOX
     bool "Chocolatebox shield"
     select I2C                 # I2Cバス機能を有効にする
     select ZMK_KSCAN_MCP23017 # MCP23017キースキャンドライバを有効にする
-    help
-      Enable support for the Chocolatebox keyboard shield with an MCP23017 IO expander.
