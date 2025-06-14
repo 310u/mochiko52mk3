@@ -1,0 +1,5 @@
+# MCP23017ドライバーを有効にする
+CONFIG_ZMK_KSCAN_MCP23017=y
+
+# I2Cバス機能を有効にする
+CONFIG_I2C=y
