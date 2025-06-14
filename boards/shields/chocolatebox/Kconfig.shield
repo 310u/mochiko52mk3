@@ -1,7 +1,12 @@
 # Copyright (c) 2024 The ZMK Contributors
 # SPDX-License-Identifier: MIT
 
+# シンボル名を「SHIELD_CHOCOLATEBOX」に修正します
 config SHIELD_CHOCOLATEBOX
-    bool "Chocolatebox shield"
-    select I2C                 # I2Cバス機能を有効にする
-    select ZMK_KSCAN_MCP23017 # MCP23017キースキャンドライバを有効にする
+    # このシールドがビルドで使われた時に、この設定を有効にします
+    def_bool $(shields_list_contains,chocolatebox)
+    
+    # このシールドが必要とするドライバーを、ここでビルドシステムに宣言します
+    select GPIO
+    select I2C
+    select ZMK_KSCAN_MCP23017
