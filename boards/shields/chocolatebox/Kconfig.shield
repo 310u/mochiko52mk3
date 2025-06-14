@@ -1,5 +1,6 @@
-config CHOCOLATEBOX
+config SHIELD_CHOCOLATEBOX
     bool "Chocolatebox shield"
-    default y
+    select I2C                 # I2Cバス機能を有効にする
+    select ZMK_KSCAN_MCP23017 # MCP23017キースキャンドライバを有効にする
     help
-        Enable support for the Chocolatebox keyboard shield.
+      Enable support for the Chocolatebox keyboard shield with an MCP23017 IO expander.
