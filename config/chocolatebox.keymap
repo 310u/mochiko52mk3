@@ -106,7 +106,7 @@
             bindings = <
 &kp F1  &kp F2     &kp F3    &kp F4    &kp F5     &kp F6       &kp F7           &kp F8           &kp F9           &kp F10   &kp F11     &kp F12
         &kp TAB    &kp HOME  &kp UP    &kp PG_UP  &kp KP_NLCK  &kp KP_NUMBER_7  &kp KP_N8        &kp KP_NUMBER_9  &kp LBKT  &kp RBKT    &trans
-        &kp LCTRL  &kp LEFT  &kp DOWN  &kp RIGHT  &trans       &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &trans    &kp SQT
+        &kp LCTRL  &kp LEFT  &kp DOWN  &kp RIGHT  &mo 4        &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &trans    &kp SQT
 &trans  &trans     &kp END   &kp INS   &kp PG_DN  &trans       &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp N0    &kp RSHIFT
         &kp CAPS   &trans              &trans     &trans       &trans           &kp DELETE                        &trans    &trans
             >;
