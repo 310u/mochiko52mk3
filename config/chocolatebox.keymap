@@ -117,7 +117,7 @@
             bindings = <
 &kp F1  &kp F2     &kp F3    &kp F4    &kp F5     &kp F6       &kp F7  &kp F8      &kp F9  &kp F10   &kp F11     &kp F12
         &kp TAB    &kp HOME  &kp UP    &kp PG_UP  &kp KP_NLCK  &kp N7  &kp N8      &kp N9  &kp LBKT  &kp RBKT    &trans
-        &kp LCTRL  &kp LEFT  &kp DOWN  &kp RIGHT  &trans       &kp N4  &kp N5      &kp N6  &trans    &kp SQT
+        &kp LCTRL  &kp LEFT  &kp DOWN  &kp RIGHT  &mo 4        &kp N4  &kp N5      &kp N6  &trans    &kp SQT
 &trans  &trans     &kp END   &kp INS   &kp PG_DN  &trans       &kp N1  &kp N2      &kp N3  &kp N0    &kp RSHIFT
         &kp CAPS   &trans              &trans     &trans       &trans  &kp DELETE          &trans    &trans
             >;
