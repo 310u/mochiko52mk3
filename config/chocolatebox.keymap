@@ -1,15 +1,13 @@
-#include <behaviors.dtsi>
-#include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/mouse.h>
-#include <dt-bindings/zmk/outputs.h>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/pointing.h>
 
 #define BASE   0
 #define MOD1   1
 #define MOD2   2
 #define MOUSE  3
 #define SCROLL 4
-
 
 &mt {
     flavor = "tap-preferred";
@@ -31,6 +29,16 @@
             #binding-cells = <0>;
             hold-time-ms = <3000>;
         };
+
+        lt2atok: lt2atok {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LT2ATOK";
+            bindings = <&lt>, <&atok>;
+
+            #binding-cells = <2>;
+            hold-trigger-key-positions = <48>;
+            tapping-term-ms = <180>;
+        };
     };
 
     combos {
@@ -41,6 +49,43 @@
             key-positions = <0 1>;
             layers = <0>;
         };
+
+        rbkt {
+            bindings = <&kp RBKT>;
+            key-positions = <20 21>;
+        };
+
+        lbkt {
+            bindings = <&kp LBKT>;
+            key-positions = <19 20>;
+        };
+
+        grave {
+            bindings = <&kp GRAVE>;
+            key-positions = <9 10>;
+        };
+
+        backslash {
+            bindings = <&kp BSLH>;
+            key-positions = <10 11>;
+        };
+    };
+
+    macros {
+        atok: atok {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&macro_press>,
+                <&kp LCTRL>,
+                <&macro_tap>,
+                <&kp SPACE>,
+                <&macro_press>,
+                <&macro_release>,
+                <&kp LCTRL>;
+
+            label = "ATOK";
+        };
     };
 
     keymap {
@@ -48,60 +93,56 @@
 
         default_layer {
             bindings = <
-            &kp N1      &kp N2        &kp N3      &kp N4     &kp N5     &kp N6    &kp N7   &kp N8   &kp N9     &kp N0   &kp MINUS       &kp EQUAL
-                        &kp Q         &kp W       &kp E      &kp R      &kp T     &kp Y    &kp U    &kp I      &kp O    &kp P           &kp ENTER
-                        &mt LCTRL A   &kp S       &kp D      &kp F      &kp G     &kp H    &kp J    &kp K      &kp L    &kp SEMICOLON   
-            &kp LSHIFT  &kp Z         &kp X       &kp C      &kp V      &kp B     &kp N    &kp M    &kp COMMA  &kp DOT  &mt RSHIFT SLASH
-            &kp LGUI                  &kp LALT       &kp SPACE     &lt MOD1 TAB     &lt MOD2 LANG5   &kp BSPC   &kp RALT &kp RCTRL
+&kp N1      &kp N2       &kp N3    &kp N4  &kp N5     &kp N6        &kp N7        &kp N8    &kp N9     &kp N0    &kp MINUS         &kp EQUAL
+            &kp Q        &kp W     &kp E   &kp R      &kp T         &kp Y         &kp U     &kp I      &kp O     &kp P             &kp ENTER
+            &mt LCTRL A  &kp S     &kp D   &kp F      &kp G         &kp H         &kp J     &kp K      &kp L     &kp SEMICOLON
+&kp LSHIFT  &kp Z        &kp X     &kp C   &kp V      &kp B         &kp N         &kp M     &kp COMMA  &kp DOT   &mt RSHIFT SLASH
+            &kp LGUI     &kp LALT          &kp SPACE  &lt MOD1 TAB  &lt2atok 2 0  &kp BSPC             &kp RALT  &kp RCTRL
             >;
         };
 
         lower_layer {
             display-name = "MOD1";
             bindings = <
-            &kp F1      &kp F2        &kp F3      &kp F4     &kp F5     &kp F6      &kp F7   &kp F8   &kp F9     &kp F10   &kp F11         &kp F12
-                        &kp TAB       &kp HOME    &kp UP     &kp PG_UP  &kp KP_NLCK &kp N7   &kp N8   &kp N9     &kp LBKT  &kp RBKT        &trans
-                        &kp LCTRL     &kp LEFT    &kp DOWN   &kp RIGHT  &trans      &kp N4   &kp N5   &kp N6     &trans    &kp SQT   
-            &trans      &trans        &kp END     &kp INS    &kp PG_DN  &trans      &kp N1   &kp N2   &kp N3     &kp N0    &kp RSHIFT
-            &kp CAPS                  &trans        &trans        &trans           &trans      &kp DELETE           &trans    &trans
+&kp F1  &kp F2     &kp F3    &kp F4    &kp F5     &kp F6       &kp F7  &kp F8      &kp F9  &kp F10   &kp F11     &kp F12
+        &kp TAB    &kp HOME  &kp UP    &kp PG_UP  &kp KP_NLCK  &kp N7  &kp N8      &kp N9  &kp LBKT  &kp RBKT    &trans
+        &kp LCTRL  &kp LEFT  &kp DOWN  &kp RIGHT  &trans       &kp N4  &kp N5      &kp N6  &trans    &kp SQT
+&trans  &trans     &kp END   &kp INS   &kp PG_DN  &trans       &kp N1  &kp N2      &kp N3  &kp N0    &kp RSHIFT
+        &kp CAPS   &trans              &trans     &trans       &trans  &kp DELETE          &trans    &trans
             >;
         };
 
         rise_layer {
             display-name = "MOD2";
             bindings = <
-            &kp F1      &kp F2        &kp F3      &kp F4     &kp F5     &kp F6      &kp F7   &kp F8   &kp F9     &kp F10   &kp F11         &kp F12
-                        &kp TAB       &kp HOME    &kp UP     &kp PG_UP  &kp KP_NLCK &kp N7   &kp N8   &kp N9     &kp LBKT  &kp RBKT        &trans
-                        &kp LCTRL     &kp LEFT    &kp DOWN   &kp RIGHT  &trans      &kp N4   &kp N5   &kp N6     &trans    &kp SQT   
-            &trans      &trans        &kp END     &kp INS    &kp PG_DN  &trans      &kp N1   &kp N2   &kp N3     &kp N0    &kp RSHIFT
-            &kp CAPS                  &trans       &trans                &trans      &trans      &kp DELETE       &trans    &trans
-
+&kp F1  &kp F2     &kp F3    &kp F4    &kp F5     &kp F6       &kp F7  &kp F8      &kp F9  &kp F10   &kp F11     &kp F12
+        &kp TAB    &kp HOME  &kp UP    &kp PG_UP  &kp KP_NLCK  &kp N7  &kp N8      &kp N9  &kp LBKT  &kp RBKT    &trans
+        &kp LCTRL  &kp LEFT  &kp DOWN  &kp RIGHT  &trans       &kp N4  &kp N5      &kp N6  &trans    &kp SQT
+&trans  &trans     &kp END   &kp INS   &kp PG_DN  &trans       &kp N1  &kp N2      &kp N3  &kp N0    &kp RSHIFT
+        &kp CAPS   &trans              &trans     &trans       &trans  &kp DELETE          &trans    &trans
             >;
         };
-        
+
         mouse_layer {
             display-name = "MOUSE";
             bindings = <
-            &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans       &trans
-                        &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans       &trans
-                        &trans        &trans      &trans     &trans     &mkp MB3  &mkp MB4 &trans   &trans     &trans   &trans       
-            &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
-            &trans                    &trans       &trans     &mkp MB1     &mkp MB2        &trans       &trans   &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans  &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &trans  &trans    &trans    &trans  &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &trans  &mkp MB3  &mkp MB4  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans  &trans  &trans  &trans
+        &trans  &trans          &trans  &mkp MB1  &mkp MB2  &trans          &trans  &trans
             >;
         };
-        
+
         scroll_layer {
             display-name = "SCROLL";
             bindings = <
-            &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans       &trans
-                        &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans       &trans
-                        &trans        &trans      &trans     &trans     &mkp MB3      &mkp MB4   &trans   &trans     &trans   &trans       
-            &trans      &trans        &trans      &trans     &trans     &trans    &trans   &trans   &trans     &trans   &trans
-            &trans                    &trans       &trans     &mkp MB1     &mkp MB2        &trans       &trans   &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans  &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &trans  &trans    &trans    &trans  &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &trans  &mkp MB3  &mkp MB4  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans  &trans  &trans  &trans
+        &trans  &trans          &trans  &mkp MB1  &mkp MB2  &trans          &trans  &trans
             >;
         };
-
-
     };
 };
-
