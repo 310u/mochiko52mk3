@@ -75,6 +75,11 @@
             bindings = <&mo 4>;
             key-positions = <47 48>;
         };
+
+        scroll_layer {
+            bindings = <&mo 3>;
+            key-positions = <38 47>;
+        };
     };
 
     macros {
