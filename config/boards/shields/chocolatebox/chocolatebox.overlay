@@ -135,7 +135,7 @@
             <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
             <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
-    
+
     /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
@@ -155,7 +155,7 @@
         layers = <3>;
         input-processors = <&zip_xy_to_scroll_mapper
                             &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
-                            &zip_scroll_scaler 1 10>;
+                            &zip_scroll_scaler 1 20>;
        };
     };
 };
