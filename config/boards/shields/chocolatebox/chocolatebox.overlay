@@ -135,11 +135,16 @@
             <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
             <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
+    
+    /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
+        compatible = "zmk,input-processor-temp-layer";
+        #input-processor-cells = <2>;
+        require-prior-idle-ms = <200>;
+    };
 
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-
         input-processors = <&zip_xy_scaler 2 3 
                             &zip_temp_layer 2 1000>;
     //      input-processors = <&zip_xy_to_scroll_mapper
