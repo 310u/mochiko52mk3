@@ -119,7 +119,7 @@
         &kp TAB    &kp HOME  &kp UP    &kp PG_UP  &kp KP_NLCK  &kp KP_NUMBER_7  &kp KP_N8        &kp KP_NUMBER_9  &kp LBKT  &kp RBKT    &trans
         &kp LCTRL  &kp LEFT  &kp DOWN  &kp RIGHT  &trans       &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &trans    &kp SQT
 &trans  &trans     &kp END   &kp INS   &kp PG_DN  &mo 3        &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp N0    &kp RSHIFT
-        &kp CAPS   &trans              &trans     &trans       &trans           &kp DELETE                        &trans    &trans
+        &kp CAPS   &trans              &trans     &kp TAB      &atok            &kp DELETE                        &trans    &trans
             >;
         };
 
