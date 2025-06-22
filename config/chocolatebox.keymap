@@ -80,6 +80,12 @@
             bindings = <&mo 3>;
             key-positions = <38 47>;
         };
+
+        esc_mouse {
+            bindings = <&kp ESCAPE>;
+            key-positions = <0 1>;
+            layers = <2>;
+        };
     };
 
     macros {
