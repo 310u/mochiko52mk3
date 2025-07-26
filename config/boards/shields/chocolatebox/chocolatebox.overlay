@@ -76,11 +76,12 @@
     pinctrl-names = "default", "sleep";
     cs-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>;
 
-    mcp23s17_0: mcp23s17@0 {
-        compatible = "microchip,mcp23s17";
+    mcp23s17_0: mcp23sxx@0 {
+        compatible = "microchip,mcp23sxx";
         status = "okay";
         spi-max-frequency = <4000000>;
         reg = <0>;
+        label = "MCP23S17";
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
