@@ -99,9 +99,10 @@
     chosen {
         zmk,kscan = &kscan0;
         zmk,physical-layout = &chocolatebox_physical_layout;
+        zmk,soft-off-wakeup-sources = <&kscan0>;
         transform = <&default_transform>;
     };
-    
+     
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         rows = <5>;
@@ -121,20 +122,20 @@
         debounce-press-ms = <1>;
         debounce-release-ms = <5>;
         diode-direction = "col2row";
-       
+        
         col-gpios =
-            <&mcp23s17_0 0 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 1 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 9 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 8 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 7 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 6 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 5 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 4 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 3 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 2 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 10 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 11 GPIO_ACTIVE_HIGH>;
+            <&shift_reg 0 GPIO_ACTIVE_HIGH>,
+            <&shift_reg 1 GPIO_ACTIVE_HIGH>,
+            <&shift_reg 9 GPIO_ACTIVE_HIGH>,
+            <&shift_reg 8 GPIO_ACTIVE_HIGH>,
+            <&shift_reg 7 GPIO_ACTIVE_HIGH>,
+            <&shift_reg 6 GPIO_ACTIVE_HIGH>,
+            <&shift_reg 5 GPIO_ACTIVE_HIGH>,
+            <&shift_reg 4 GPIO_ACTIVE_HIGH>,
+            <&shift_reg 3 GPIO_ACTIVE_HIGH>,
+            <&shift_reg 2 GPIO_ACTIVE_HIGH>,
+            <&shift_reg 10 GPIO_ACTIVE_HIGH>,
+            <&shift_reg 11 GPIO_ACTIVE_HIGH>;
         row-gpios =
             <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
             <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
@@ -143,7 +144,6 @@
             <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
 
-    // リスナー周りの設定は、お兄様の元のファイルから持ってきたよ！
     /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
@@ -154,13 +154,16 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
         input-processors = <&zip_xy_scaler 2 3 
-                              &zip_temp_layer 2 1000>;
+                            &zip_temp_layer 2 1000>;
+    //      input-processors = <&zip_xy_to_scroll_mapper
+    //                        &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
+    //                        &zip_scroll_scaler 1 2>;
 
         scroll_layer_override {
-            layers = <3>;
-            input-processors = <&zip_xy_to_scroll_mapper
-                                &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
-                                &zip_scroll_scaler 1 20>;
-        };
+        layers = <3>;
+        input-processors = <&zip_xy_to_scroll_mapper
+                            &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
+                            &zip_scroll_scaler 1 20>;
+       };
     };
 };
