@@ -4,11 +4,10 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
-
 &xiao_serial { status = "disabled"; };
 
-
 &pinctrl {
+    // spi1 (トラックボール用) の設定は変更なし
     spi1_default: spi1_default {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
@@ -25,6 +24,7 @@
         };
     };
     
+    // spi0 (IOエキスパンダー用) の設定は変更なし
     spi0_default: spi0_default {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 0, 10)>,
@@ -43,6 +43,7 @@
     };
 };
 
+// トラックボール(&spi1)の設定は変更なし
 &spi1 {
     status = "okay";
     compatible = "nordic,nrf-spim";
@@ -65,6 +66,7 @@
     };
 };
 
+// IOエキスパンダー(&spi0)の設定をMCP23S17用に変更
 &spi0 {
     status = "okay";
     compatible = "nordic,nrf-spim";
@@ -73,14 +75,17 @@
     pinctrl-names = "default", "sleep";
 
     cs-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>;
-        shift_reg: 595@0 {
-            compatible = "zmk,gpio-595";
-            status = "okay";
-            gpio-controller;
-            spi-max-frequency = <200000>;
-            reg = <0>;
-            #gpio-cells = <2>;
-            ngpios = <16>;
+
+    // ここをMCP23S17の定義に書き換える
+    mcp23s17_0: mcp23s17@0 {
+        compatible = "microchip,mcp23s17"; // ★ 互換性のあるデバイス名に変更
+        status = "okay";
+        spi-max-frequency = <4000000>;
+        reg = <0>; // MCP23S17のハードウェアアドレス(A0-A2)を0に設定した場合
+        gpio-controller;
+        #gpio-cells = <2>;
+        ngpios = <16>;
+        interrupts = <&xiao_d 8 (GPIO_ACTIVE_LOW)>; // ★ 割り込みピンの指定を追加
     };
 };
 
@@ -114,20 +119,21 @@
         debounce-press-ms = <1>;
         debounce-release-ms = <5>;
         diode-direction = "col2row";
-        
+       
         col-gpios =
-            <&shift_reg 0 GPIO_ACTIVE_HIGH>,
-            <&shift_reg 1 GPIO_ACTIVE_HIGH>,
-            <&shift_reg 9 GPIO_ACTIVE_HIGH>,
-            <&shift_reg 8 GPIO_ACTIVE_HIGH>,
-            <&shift_reg 7 GPIO_ACTIVE_HIGH>,
-            <&shift_reg 6 GPIO_ACTIVE_HIGH>,
-            <&shift_reg 5 GPIO_ACTIVE_HIGH>,
-            <&shift_reg 4 GPIO_ACTIVE_HIGH>,
-            <&shift_reg 3 GPIO_ACTIVE_HIGH>,
-            <&shift_reg 2 GPIO_ACTIVE_HIGH>,
-            <&shift_reg 10 GPIO_ACTIVE_HIGH>,
-            <&shift_reg 11 GPIO_ACTIVE_HIGH>;
+            // &shift_reg を &mcp23s17_0 に書き換える
+            <&mcp23s17_0 0 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 1 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 9 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 8 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 7 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 6 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 5 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 4 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 3 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 2 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 10 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 11 GPIO_ACTIVE_HIGH>;
         row-gpios =
             <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
             <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
@@ -136,6 +142,7 @@
             <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
 
+    // リスナー周りの設定は変更なし
     /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
@@ -146,16 +153,13 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
         input-processors = <&zip_xy_scaler 2 3 
-                            &zip_temp_layer 2 1000>;
-    //      input-processors = <&zip_xy_to_scroll_mapper
-    //                        &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
-    //                        &zip_scroll_scaler 1 2>;
+                              &zip_temp_layer 2 1000>;
 
         scroll_layer_override {
-        layers = <3>;
-        input-processors = <&zip_xy_to_scroll_mapper
-                            &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
-                            &zip_scroll_scaler 1 20>;
-       };
+            layers = <3>;
+            input-processors = <&zip_xy_to_scroll_mapper
+                                &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
+                                &zip_scroll_scaler 1 20>;
+        };
     };
 };
