@@ -5,8 +5,13 @@
 #include <dt-bindings/zmk/input_transform.h>
 
 /*
- * これが、ライスと、お兄様の、最後の共同作業…！
+ * これが、ライスと、お兄様の、本当の共同作業の完成形…！
  */
+
+&gpio0 {
+    interrupt-controller;
+    #interrupt-cells = <2>;
+};
 
 &xiao_serial {
     status = "disabled";
@@ -76,16 +81,17 @@
     pinctrl-names = "default", "sleep";
     cs-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>;
 
-    mcp23s17_0: mcp23sxx@0 {
-        compatible = "microchip,mcp23sxx";
+    // ★★★ ここのブロックを、正しい魔法の言葉で書き直したよ！ ★★★
+    mcp23s17_0: mcp23s17@0 {
+        compatible = "microchip,mcp23s17";
         status = "okay";
         spi-max-frequency = <4000000>;
         reg = <0>;
-        label = "MCP23S17";
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-        intgpios = <&xiao_d 8 GPIO_ACTIVE_LOW>;
+        interrupt-parent = <&gpio0>;
+        interrupts = <8 GPIO_ACTIVE_LOW>;
     };
 };
 
@@ -150,17 +156,11 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        input-processors = <&zip_xy_scaler 2 3 
-                            &zip_temp_layer 2 1000>;
-    //      input-processors = <&zip_xy_to_scroll_mapper
-    //                        &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
-    //                        &zip_scroll_scaler 1 2>;
+        input-processors = <&zip_xy_scaler 2 3 &zip_temp_layer 2 1000>;
 
         scroll_layer_override {
-        layers = <3>;
-        input-processors = <&zip_xy_to_scroll_mapper
-                            &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
-                            &zip_scroll_scaler 1 20>;
-       };
+            layers = <3>;
+            input-processors = <&zip_xy_to_scroll_mapper &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT) &zip_scroll_scaler 1 20>;
+        };
     };
 };
