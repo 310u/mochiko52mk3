@@ -29,8 +29,8 @@
     pinctrl-names = "default", "sleep";
 
     // MCP23S17の定義
-    mcp23s17_0: mcp23s17@0 {
-        compatible = "microchip,mcp23s17";
+    mcp23s17_0: mcp23sxx@0 {
+        compatible = "microchip,mcp23sxx";
         status = "okay";
         reg = <0>;
         spi-max-frequency = <4000000>;
