@@ -24,6 +24,7 @@
 &spi0 {
     compatible = "nordic,nrf-spim";
     status = "okay";
+    cs-gpios = <&xiao_d 1 GPIO_ACTIVE_LOW>, <&xiao_d 8 GPIO_ACTIVE_LOW>;
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
@@ -33,8 +34,8 @@
         compatible = "microchip,mcp23sxx";
         status = "okay";
         reg = <0>;
-        spi-max-frequency = <4000000>;
-        cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>; // D7をCSに設定
+        spi-max-frequency = <1000000>;
+
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
@@ -46,8 +47,8 @@
         compatible = "pixart,pmw3610";
         status = "okay";
         reg = <1>;
-        spi-max-frequency = <2000000>;
-        cs-gpios = <&xiao_d 8 GPIO_ACTIVE_LOW>; // D8をCSに設定
+        spi-max-frequency = <1000000>;
+
         irq-gpios = <&xiao_d 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // D10をIRQに設定
         cpi = <600>;
         evt-type = <INPUT_EV_REL>;
@@ -102,7 +103,7 @@
     kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
-       
+       あ
         col-gpios =
             <&mcp23s17_0 0 GPIO_ACTIVE_HIGH>, <&mcp23s17_0 1 GPIO_ACTIVE_HIGH>,
             <&mcp23s17_0 2 GPIO_ACTIVE_HIGH>, <&mcp23s17_0 3 GPIO_ACTIVE_HIGH>,
