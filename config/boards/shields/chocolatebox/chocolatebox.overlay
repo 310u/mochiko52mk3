@@ -102,7 +102,7 @@
         zmk,soft-off-wakeup-sources = <&kscan0>;
         transform = <&default_transform>;
     };
-     
+    
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         rows = <5>;
@@ -122,7 +122,7 @@
         debounce-press-ms = <1>;
         debounce-release-ms = <5>;
         diode-direction = "col2row";
-        
+       
         col-gpios =
             <&mcp23s17_0 0 GPIO_ACTIVE_HIGH>,
             <&mcp23s17_0 1 GPIO_ACTIVE_HIGH>,
@@ -153,17 +153,13 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        input-processors = <&zip_xy_scaler 2 3 
-                            &zip_temp_layer 2 1000>;
-    //      input-processors = <&zip_xy_to_scroll_mapper
-    //                        &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
-    //                        &zip_scroll_scaler 1 2>;
+        // ★ここを、一行にまとめたよ！
+        input-processors = <&zip_xy_scaler 2 3 &zip_temp_layer 2 1000>;
 
         scroll_layer_override {
-        layers = <3>;
-        input-processors = <&zip_xy_to_scroll_mapper
-                            &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
-                            &zip_scroll_scaler 1 20>;
-       };
+            layers = <3>;
+            // ★こっちも、一行にまとめたよ！
+            input-processors = <&zip_xy_to_scroll_mapper &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT) &zip_scroll_scaler 1 20>;
+        };
     };
 };
