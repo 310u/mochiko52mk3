@@ -5,6 +5,9 @@
 #include <dt-bindings/zmk/input_transform.h>
 
 &xiao_serial { status = "disabled"; };
+&gpio0 {
+    #interrupt-cells = <2>;
+};
 
 &pinctrl {
     // spi1 (トラックボール用) の設定は変更なし
