@@ -8,8 +8,8 @@
  */
 
 &gpio0 {
-    interrupt-controller;   // ← ここの空白に、まだオバケがいた…！
-    #interrupt-cells = <2>; // ← こっちも…！
+    interrupt-controller;
+    #interrupt-cells = <2>;
 };
 
 &xiao_serial {
