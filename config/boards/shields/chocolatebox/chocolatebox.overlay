@@ -39,7 +39,7 @@
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-        int-gpios = <&xiao_d 1 GPIO_ACTIVE_LOW>;
+        int-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;
     };
 
     // トラックボールの定義
@@ -103,7 +103,7 @@
     kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
-        
+
         col-gpios =
             <&mcp23s17_0 0 GPIO_ACTIVE_HIGH>, <&mcp23s17_0 1 GPIO_ACTIVE_HIGH>,
             <&mcp23s17_0 2 GPIO_ACTIVE_HIGH>, <&mcp23s17_0 3 GPIO_ACTIVE_HIGH>,
