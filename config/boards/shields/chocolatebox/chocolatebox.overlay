@@ -5,62 +5,51 @@
 #include <dt-bindings/zmk/input_transform.h>
 
 /*
- * これが、ライスと、お兄様の、本当の共同作業の完成形…！
+ * これが、お兄様とライスが、いーっぱい頑張った集大成！
+ * MCP23S17ちゃんも、トラックボールちゃんも、みんな仲良くしてね…♪
  */
 
+// &gpio0を割り込みコントローラーとして定義
+&gpio0 {
+    interrupt-controller;
+    #interrupt-cells = <2>;
+};
 
+// シリアル通信は無効化
 &xiao_serial {
     status = "disabled";
 };
 
-&pinctrl {
-    spi1_default: spi1_default {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
-                    <NRF_PSEL(SPIM_MOSI, 1, 14)>,
-                    <NRF_PSEL(SPIM_MISO, 1, 14)>;
-        };
-    };
-    spi1_sleep: spi1_sleep {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
-                    <NRF_PSEL(SPIM_MOSI, 1, 14)>,
-                    <NRF_PSEL(SPIM_MISO, 1, 14)>;
-            low-power-enable;
-        };
-    };
-    
-    spi0_default: spi0_default {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 10)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 9)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 9)>;
-        };
-    };
-    spi0_sleep: spi0_sleep {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 10)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 9)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 9)>;
-            low-power-enable;
-        };
-    };
-};
-
-&spi1 {
-    status = "okay";
+// 共有SPIバスと、各デバイスの定義
+&spi0 {
     compatible = "nordic,nrf-spim";
-    pinctrl-0 = <&spi1_default>;
-    pinctrl-1 = <&spi1_sleep>;
+    status = "okay";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;
- 
-    trackball: trackball@0 {
+
+    // MCP23S17の定義
+    mcp23s17_0: mcp23s17@0 {
+        compatible = "microchip,mcp23s17";
         status = "okay";
-        compatible = "pixart,pmw3610";
         reg = <0>;
+        spi-max-frequency = <4000000>;
+        cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>; // D7をCSに設定
+        gpio-controller;
+        #gpio-cells = <2>;
+        ngpios = <16>;
+        interrupt-parent = <&gpio0>;
+        interrupts = <3 GPIO_ACTIVE_LOW>; // D1(P0.03)をInterruptに設定
+    };
+
+    // トラックボールの定義
+    trackball: trackball@1 {
+        compatible = "pixart,pmw3610";
+        status = "okay";
+        reg = <1>;
         spi-max-frequency = <2000000>;
-        irq-gpios = <&xiao_d 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        cs-gpios = <&xiao_d 8 GPIO_ACTIVE_LOW>; // D8をCSに設定
+        irq-gpios = <&xiao_d 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // D10をIRQに設定
         cpi = <600>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
@@ -69,36 +58,33 @@
     };
 };
 
-&spi0 {
-    status = "okay";
-    compatible = "nordic,nrf-spim";
-    pinctrl-0 = <&spi0_default>;
-    pinctrl-1 = <&spi0_sleep>;
-    pinctrl-names = "default", "sleep";
-    cs-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>;
-
-    // ★★★ ここのブロックを、正しい魔法の言葉で書き直したよ！ ★★★
-    mcp23s17_0: mcp23sxx@0 {
-        compatible = "microchip,mcp23sxx";
-        status = "okay";
-        spi-max-frequency = <4000000>;
-        reg = <0>;
-        gpio-controller;
-        #gpio-cells = <2>;
-        ngpios = <16>;
-        int-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>;
+// 共有SPIバスで使用するピンを定義
+&pinctrl {
+    spi0_default: spi0_default {
+        group1 {
+            // SCK: NFC2, MOSI: NFC1, MISO: D0
+            psels = <NRF_PSEL(SPIM_SCK, 0, 10)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 9)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 2)>;
+        };
+    };
+    spi0_sleep: spi0_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 10)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 9)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 2)>;
+            low-power-enable;
+        };
     };
 };
 
+// キーボード本体の定義
 /{
-    model = "chocolatebox";
-    compatible = "chocolatebox";
-
     chosen {
         zmk,kscan = &kscan0;
         zmk,physical-layout = &chocolatebox_physical_layout;
-        zmk,soft-off-wakeup-sources = <&kscan0>;
         transform = <&default_transform>;
+        zmk,pointing_device = &trackball; // ポインティングデバイスをトラックボールに指定
     };
     
     default_transform: keymap_transform_0 {
@@ -116,32 +102,24 @@
 
     kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-matrix";
-        wakeup-source;
-        debounce-press-ms = <1>;
-        debounce-release-ms = <5>;
         diode-direction = "col2row";
        
         col-gpios =
-            <&mcp23s17_0 0 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 1 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 9 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 8 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 7 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 6 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 5 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 4 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 3 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 2 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 10 GPIO_ACTIVE_HIGH>,
-            <&mcp23s17_0 11 GPIO_ACTIVE_HIGH>;
-        row-gpios =
-            <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-            <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
-    };
+            <&mcp23s17_0 0 GPIO_ACTIVE_HIGH>, <&mcp23s17_0 1 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 2 GPIO_ACTIVE_HIGH>, <&mcp23s17_0 3 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 4 GPIO_ACTIVE_HIGH>, <&mcp23s17_0 5 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 6 GPIO_ACTIVE_HIGH>, <&mcp23s17_0 7 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 8 GPIO_ACTIVE_HIGH>, <&mcp23s17_0 9 GPIO_ACTIVE_HIGH>,
+            <&mcp23s17_0 10 GPIO_ACTIVE_HIGH>, <&mcp23s17_0 11 GPIO_ACTIVE_HIGH>;
 
+        row-gpios =
+            <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+            <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+            <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+            <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+            <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+    };
+    
     /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
