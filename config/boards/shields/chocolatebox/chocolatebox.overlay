@@ -38,8 +38,7 @@
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-        interrupt-parent = <&gpio0>;
-        interrupts = <3 GPIO_ACTIVE_LOW>; // D1(P0.03)をInterruptに設定
+        int-gpios = <&xiao_d 1 GPIO_ACTIVE_LOW>;
     };
 
     // トラックボールの定義
