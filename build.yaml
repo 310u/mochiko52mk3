@@ -1,4 +1,4 @@
 ---
 include:
   - board: seeeduino_xiao_ble
-    shield: chocolatebox rgb_led
+    shield: chocolatebox rgbled_adapter
