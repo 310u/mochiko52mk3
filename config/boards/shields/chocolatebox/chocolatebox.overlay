@@ -144,22 +144,41 @@
             <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
     };
 
-    /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
+    zip_temp_layer: zip_temp_layer {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
         require-prior-idle-ms = <200>;
     };
 
+    zip_xy_scaler: zip_xy_scaler {
+        compatible = "zmk,input-processor-scaler";
+        scale-x = <2>;
+        scale-y = <3>;
+    };
+
+    zip_scroll_scaler: zip_scroll_scaler {
+        compatible = "zmk,input-processor-scaler";
+        scale-x = <1>;
+        scale-y = <20>;
+    };
+
+    zip_xy_to_scroll_mapper: zip_xy_to_scroll_mapper {
+        compatible = "zmk,input-mapper-xy-to-scroll";
+    };
+
+    zip_scroll_transform: zip_scroll_transform {
+        compatible = "zmk,input-transform";
+        transform = <INPUT_TRANSFORM_Y_INVERT>;
+    };
+
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        // ★ここを、一行にまとめたよ！
         input-processors = <&zip_xy_scaler 2 3 &zip_temp_layer 2 1000>;
+    };
 
-        scroll_layer_override {
-            layers = <3>;
-            // ★こっちも、一行にまとめたよ！
-            input-processors = <&zip_xy_to_scroll_mapper,&zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT),&zip_scroll_scaler 1 20>;
-        };
+    scroll_layer_override {
+        layers = <3>;
+        input-processors = <&zip_xy_to_scroll_mapper &zip_scroll_transform &zip_scroll_scaler>;
     };
 };
