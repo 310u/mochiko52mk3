@@ -3,12 +3,10 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 /*
- * ライスが全部書き直したよ！
- * これで、見えないオバケもいなくなってるはず…！
+ * これが、ライスと、お兄様の、最後の共同作業…！
  */
 
 &gpio0 {
-    
     interrupt-controller;
     #interrupt-cells = <2>;
 };
@@ -100,11 +98,10 @@
 
     chosen {
         zmk,kscan = &kscan0;
-        zmk,physical-layout = &chocolatebox_physical_layout; // ★これを復活！
-        transform = <&default_transform>;                     // ★これも復活！
+        zmk,physical-layout = &chocolatebox_physical_layout;
+        transform = <&default_transform>;
     };
     
-    // ★このブロックもぜんぶ復活！
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         rows = <5>;
@@ -144,5 +141,26 @@
             <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
             <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
             <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+    };
+
+    // リスナー周りの設定は、お兄様の元のファイルから持ってきたよ！
+    /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
+        compatible = "zmk,input-processor-temp-layer";
+        #input-processor-cells = <2>;
+        require-prior-idle-ms = <200>;
+    };
+
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+        input-processors = <&zip_xy_scaler 2 3 
+                              &zip_temp_layer 2 1000>;
+
+        scroll_layer_override {
+            layers = <3>;
+            input-processors = <&zip_xy_to_scroll_mapper
+                                &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
+                                &zip_scroll_scaler 1 20>;
+        };
     };
 };
