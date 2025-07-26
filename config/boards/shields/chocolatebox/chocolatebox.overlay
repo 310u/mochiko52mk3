@@ -7,6 +7,11 @@
  * これで、見えないオバケもいなくなってるはず…！
  */
 
+&gpio0 {
+    
+    interrupt-controller;
+    #interrupt-cells = <2>;
+};
 
 &xiao_serial {
     status = "disabled";
@@ -84,7 +89,8 @@
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-        interrupt-gpios = <&xiao_d 8 (GPIO_ACTIVE_LOW)>;
+        interrupt-parent = <&gpio0>;
+        interrupts = <8 GPIO_ACTIVE_LOW>;
     };
 };
 
