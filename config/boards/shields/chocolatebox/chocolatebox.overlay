@@ -8,10 +8,6 @@
  * これが、ライスと、お兄様の、本当の共同作業の完成形…！
  */
 
-&gpio0 {
-    interrupt-controller;
-    #interrupt-cells = <2>;
-};
 
 &xiao_serial {
     status = "disabled";
@@ -82,16 +78,15 @@
     cs-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>;
 
     // ★★★ ここのブロックを、正しい魔法の言葉で書き直したよ！ ★★★
-    mcp23s17_0: mcp23s17@0 {
-        compatible = "microchip,mcp23s17";
+    mcp23s17_0: mcp23sxx@0 {
+        compatible = "microchip,mcp23sxx";
         status = "okay";
         spi-max-frequency = <4000000>;
         reg = <0>;
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-        interrupt-parent = <&gpio0>;
-        interrupts = <8 GPIO_ACTIVE_LOW>;
+        int-gpios = <&xiao_d 8 GPIO_ACTIVE_LOW>;
     };
 };
 
