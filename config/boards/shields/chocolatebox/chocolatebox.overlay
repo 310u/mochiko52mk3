@@ -78,14 +78,16 @@
 
     // ここをMCP23S17の定義に書き換える
     mcp23s17_0: mcp23s17@0 {
-        compatible = "microchip,mcp23s17"; // ★ 互換性のあるデバイス名に変更
+        compatible = "microchip,mcp23s17";
         status = "okay";
         spi-max-frequency = <4000000>;
-        reg = <0>; // MCP23S17のハードウェアアドレス(A0-A2)を0に設定した場合
+        reg = <0>;
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-        interrupts = <&xiao_d 8 (GPIO_ACTIVE_LOW)>; // ★ 割り込みピンの指定を追加
+        // 下の2行が新しい書き方だよ
+        interrupt-parent = <&gpio0>;
+        interrupts = <8 GPIO_ACTIVE_LOW>;
     };
 };
 
