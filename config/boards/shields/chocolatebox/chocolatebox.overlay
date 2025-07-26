@@ -8,10 +8,6 @@
  * これが、ライスと、お兄様の、最後の共同作業…！
  */
 
-&gpio0 {
-    interrupt-controller;
-    #interrupt-cells = <2>;
-};
 
 &xiao_serial {
     status = "disabled";
