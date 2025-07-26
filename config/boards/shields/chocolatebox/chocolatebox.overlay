@@ -4,11 +4,12 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
-&xiao_serial { status = "disabled"; };
 &gpio0 {
-    interrupt-controller; // ★★★ ライスが忘れてた、大事な宣言！
+    interrupt-controller;
     #interrupt-cells = <2>;
 };
+
+&xiao_serial { status = "disabled"; };
 
 &pinctrl {
     // spi1 (トラックボール用) の設定は変更なし
