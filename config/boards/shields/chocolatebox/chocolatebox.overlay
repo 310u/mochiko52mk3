@@ -86,7 +86,7 @@
         gpio-controller;
         #gpio-cells = <2>;
         ngpios = <16>;
-        int-gpios = <&xiao_d 8 GPIO_ACTIVE_LOW>;
+        int-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>;
     };
 };
 
