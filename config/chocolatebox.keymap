@@ -4,6 +4,8 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
+#define JP_HANZEN       GRAVE   
+
 #define BASE   0
 #define MOD1   1
 #define MOD2   2
@@ -110,7 +112,7 @@
             &kp Q        &kp W     &kp E   &kp R      &kp T      &kp Y                      &kp U     &kp I      &kp O     &kp P             &kp ENTER
             &mt LCTRL A  &kp S     &kp D   &kp F      &kp G      &kp H                      &kp J     &kp K      &kp L     &kp SEMICOLON
 &kp LSHIFT  &kp Z        &kp X     &kp C   &kp V      &kp B      &kp N                      &kp M     &kp COMMA  &kp DOT   &mt RSHIFT SLASH
-            &kp LGUI     &kp LALT          &kp SPACE  &lt 1 TAB  &lt 1 LANG_ZENKAKUHANKAKU  &kp BSPC             &kp RALT  &kp RCTRL
+            &kp LGUI     &kp LALT          &kp SPACE  &lt 1 TAB  &lt 1 JP_HANZEN  &kp BSPC             &kp RALT  &kp RCTRL
             >;
         };
 
@@ -121,7 +123,7 @@
         &kp TAB    &kp HOME  &kp UP    &kp PG_UP  &kp KP_NLCK  &kp KP_NUMBER_7  &kp KP_N8        &kp KP_NUMBER_9  &kp LBKT  &kp RBKT    &trans
         &kp LCTRL  &kp LEFT  &kp DOWN  &kp RIGHT  &trans       &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &trans    &kp SQT
 &trans  &trans     &kp END   &kp INS   &kp PG_DN  &mo 3        &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp N0    &kp RSHIFT
-        &kp CAPS   &trans              &trans     &kp TAB      &atok            &kp DELETE                        &trans    &trans
+        &kp CAPS   &trans              &trans     &kp TAB      &kp JP_HANZEN    &kp DELETE                        &trans    &trans
             >;
         };
 
