@@ -2,9 +2,8 @@
 #include <zephyr/device.h>
 #include <zephyr/kernel.h>
 #include <zephyr/sys/util.h>
-
-// ★ これを追加（behavior_driver_api の定義元）
-#include <drivers/behavior.h>
+#include <zephyr/logging/log.h>   // ★ 追加（LOG_MODULE_REGISTER 用）
+#include <drivers/behavior.h>     // ★ 追加（behavior_driver_api の定義）
 
 #include <zmk/behavior.h>
 #include <zmk/event_manager.h>
