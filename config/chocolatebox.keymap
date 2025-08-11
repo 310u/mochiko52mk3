@@ -33,15 +33,6 @@
             #binding-cells = <0>;
             hold-time-ms = <3000>;
         };
-
-        lt_atok: lt_atok {
-            compatible = "zmk,behavior-hold-tap";
-            label = "LT_ATOK";
-            #binding-cells = <0>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <250>;
-            bindings = <&atok &mo MOD1>;
-        };
     };
 
     combos {
@@ -133,7 +124,7 @@
             &kp Q        &kp W     &kp E   &kp R      &kp T      &kp Y         &kp U     &kp I      &kp O     &kp P             &kp ENTER
             &mt LCTRL A  &kp S     &kp D   &kp F      &kp G      &kp H         &kp J     &kp K      &kp L     &kp SEMICOLON
 &kp LSHIFT  &kp Z        &kp X     &kp C   &kp V      &kp B      &kp N         &kp M     &kp COMMA  &kp DOT   &mt RSHIFT SLASH
-            &kp LGUI     &kp LALT          &kp SPACE  &lt 1 TAB  &lt_atok      &kp BSPC             &kp RALT  &kp RCTRL
+            &kp LGUI     &kp LALT          &kp SPACE  &lt 1 TAB  &lt MOD1 &atok      &kp BSPC             &kp RALT  &kp RCTRL
             >;
         };
 
