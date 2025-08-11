@@ -110,6 +110,19 @@
 
             label = "ATOK";
         };
+
+        shift_mb3: shift_mb3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&macro_press>,
+                <&kp LSHFT &mkp MB3>,
+                <&macro_pause_for_release>,
+                <&macro_release>,
+                <&kp LSHFT &mkp MB3>;
+
+            label = "SHIFT_MB3";
+        };
     };
 
     keymap {
@@ -165,6 +178,17 @@
               &trans        &trans        &trans        &trans  &trans      &trans         &trans         &trans         &trans         &trans
 &trans        &trans        &trans        &trans        &trans  &trans      &trans         &trans         &trans         &trans         &trans
               &trans        &trans                      &trans  &trans      &trans         &trans                        &trans         &trans
+            >;
+        };
+
+        layer_5 {
+            display-name = "MOUSE";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans      &trans    &trans  &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &trans  &trans      &trans    &trans  &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &trans  &shift_mb3  &mkp MB3  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &mo 3       &trans    &trans  &trans  &trans  &trans
+        &trans  &trans          &trans  &mkp MB1    &mkp MB2  &trans          &trans  &trans
             >;
         };
     };
