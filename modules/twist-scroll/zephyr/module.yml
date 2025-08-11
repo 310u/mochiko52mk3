@@ -1,3 +1,0 @@
-name: twist_scroll
-build:
-  cmake: app
