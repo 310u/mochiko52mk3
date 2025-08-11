@@ -75,13 +75,12 @@ lt_atok: lt_atok {
             bindings = <&mo 4>;
             key-positions = <47 48>;
         };
-// いまの scroll_layer コンボを差し替え
-scroll_layer {
-  // MOUSE(=3)にいる時だけ、SCROLL(=4)を一時的に有効化
-  bindings = <&mo SCROLL>;         // ※ &mo 4 と同義
-  key-positions = <38 47>;          // この2キーを同時押しで発火
-  layers = <MOUSE>;                 // ここがポイント：「MOUSEのときだけ」
-}
+
+        scroll_layer {
+            bindings = <&mo SCROLL>;         // ※ &mo 4 と同義
+            key-positions = <38 47>;          // この2キーを同時押しで発火
+            layers = <MOUSE>;                 // ここがポイント：「MOUSEのときだけ」
+        };
 
         esc_mouse {
             bindings = <&kp ESCAPE>;
