@@ -1,8 +1,11 @@
 // modules/twist-scroll/app/src/processors/twist_processor.c
+// まずはビルドを通すための安全な最小骨格。
+// （ZMK 内部の pointing ヘッダに依存させず、将来ここに処理を足せる形）
+
 #include <zephyr/device.h>
 #include <zephyr/kernel.h>
 #include <zephyr/sys/util.h>
-#include <zephyr/logging/log.h>   // ★ 追加
+#include <zephyr/logging/log.h>
 
 #include <zephyr/input/input.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
@@ -11,65 +14,41 @@
 #include <zmk/hid.h>
 #include <zmk/hid_indicators.h>
 
-// ★ 不在ヘッダは使わない
-// #include <zmk/events/mouse_movement_state_changed.h>
-
-#include <zmk/pointing/input_listener.h>
-#include <zmk/pointing/input_processor.h>
-
 #include "twist_scroll.h"
 
 LOG_MODULE_REGISTER(twist_processor, CONFIG_ZMK_LOG_LEVEL);
 
-// ねじりモードの簡易状態
-static bool twist_mode_enabled;
+// 状態（将来ここで移動量→スクロール変換を行う）
 static int32_t acc_x, acc_y;
 static int64_t last_ts;
 
-void twist_scroll_enable(bool en)
+static void reset_acc(void)
 {
-    twist_mode_enabled = en;
-    acc_x = acc_y = 0;
+    acc_x = 0;
+    acc_y = 0;
     last_ts = 0;
 }
 
-static void process_rel_event(uint16_t code, int32_t value, int64_t timestamp)
-{
-    if (!twist_mode_enabled) return;
-
-    if (code == INPUT_REL_X) acc_x += value;
-    if (code == INPUT_REL_Y) acc_y += value;
-
-    const int32_t th = 8;
-    if (ABS(acc_x) + ABS(acc_y) < th) return;
-
-    int32_t scroll_delta = 0;
-    if ((acc_x > 0 && acc_y < 0) || (acc_x < 0 && acc_y > 0)) {
-        scroll_delta = (acc_x - acc_y) / 4;   // 調整係数
-    } else {
-        scroll_delta = (acc_x + acc_y) / 8;   // 調整係数
-    }
-
-    if (scroll_delta != 0) {
-        struct zmk_hid_mouse_report *mr = zmk_hid_mouse_get_report();
-        int16_t new_wheel = (int16_t)mr->wheel + scroll_delta;
-        if (new_wheel > 127) new_wheel = 127;
-        if (new_wheel < -127) new_wheel = -127;
-        mr->wheel = (int8_t)new_wheel;
-        zmk_hid_mouse_set_report(mr);
-        zmk_endpoints_send_mouse_report();
-    }
-
-    acc_x = acc_y = 0;
-    last_ts = timestamp;
-}
-
+// Zephyr の input_event を受け取って処理する想定の関数骨格。
+// 現状は twist 有効時のみ簡単に累積し、何もしなければ即 return。
 int twist_processor_handle_event(struct input_event *ev)
 {
-    if (ev->type == INPUT_EV_REL &&
-        (ev->code == INPUT_REL_X || ev->code == INPUT_REL_Y)) {
-        process_rel_event(ev->code, ev->value, ev->timestamp);
+    if (!twist_scroll_is_enabled()) {
         return 0;
     }
+
+    if (ev->type == INPUT_EV_REL) {
+        if (ev->code == INPUT_REL_X) acc_x += ev->value;
+        if (ev->code == INPUT_REL_Y) acc_y += ev->value;
+        last_ts = ev->timestamp;
+
+        // ここに閾値やスクロール送出処理を後で実装予定
+        // 例:
+        // struct zmk_hid_mouse_report *mr = zmk_hid_mouse_get_report();
+        // mr->wheel = CLAMP(mr->wheel + delta, -127, 127);
+        // zmk_hid_mouse_set_report(mr);
+        // zmk_endpoints_send_mouse_report();
+    }
+
     return 0;
 }
