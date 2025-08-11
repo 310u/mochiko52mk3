@@ -1,12 +1,12 @@
 // modules/twist-scroll/app/src/behaviors/behavior_twist.c
 // DT の compatible: "zmk,behavior-twist" を想定
 // もし binding の compatible が違う場合は、ここを合わせてください。
-#define DT_DRV_COMPAT zmk_behavior_twist
+#define DT_DRV_COMPAT zmk_behavior_twist_toggle
 
 #include <zephyr/device.h>
 #include <zephyr/kernel.h>
 #include <zephyr/sys/util.h>
-#include <zephyr/logging/log.h>
+#include <zephyr/logging/log.h> 
 #include <drivers/behavior.h>
 
 #include <zmk/behavior.h>

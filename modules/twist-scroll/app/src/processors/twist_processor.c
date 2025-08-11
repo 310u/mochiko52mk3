@@ -40,7 +40,7 @@ int twist_processor_handle_event(struct input_event *ev)
     if (ev->type == INPUT_EV_REL) {
         if (ev->code == INPUT_REL_X) acc_x += ev->value;
         if (ev->code == INPUT_REL_Y) acc_y += ev->value;
-        last_ts = ev->timestamp;
+        last_ts = k_uptime_get();
 
         // ここに閾値やスクロール送出処理を後で実装予定
         // 例:
