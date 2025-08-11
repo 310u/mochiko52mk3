@@ -4,7 +4,7 @@
 #include <zmk/behavior.h>
 #include "twist_scroll.h"
 
-/* トグル用ビヘイビア。押すたびにON/OFF切替 */
+/* トグル用ビヘイビア：押すたびにON/OFF */
 LOG_MODULE_REGISTER(beh_twist, LOG_LEVEL_INF);
 
 struct behavior_twist_config {};
@@ -16,7 +16,7 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     mode = !mode;
     twist_set_mode(mode);
     LOG_INF("Twist mode: %s", mode ? "ON" : "OFF");
-    return ZMK_BEHAVIOR_OPAQUE; /* 他へは流さない */
+    return ZMK_BEHAVIOR_OPAQUE; /* 他へ流さない */
 }
 
 static const struct behavior_driver_api behavior_api = {

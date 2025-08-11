@@ -1,6 +1,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/sys/atomic.h>
 #include <zephyr/logging/log.h>
+#include <math.h>
 #include <zmk/hid.h>
 #include <zmk/event_manager.h>
 #include <zmk/events/mouse_movement_state_changed.h>
@@ -13,15 +14,15 @@ LOG_MODULE_REGISTER(twist_proc, LOG_LEVEL_INF);
 #define MIN_SPEED        2.0f    /* 微小ノイズ無視 */
 #define MAX_SPEED        100.0f
 #define TWIST_THRESHOLD  6.0f    /* “回転っぽさ”外積しきい値 */
-#define TWIST_DECAY_MS   40      /* 回転停止後の余韻 */
+#define TWIST_DECAY_MS   40      /* 回転停止後の余韻(ms) */
 #define SCROLL_SCALE     0.12f   /* スクロール感度 */
-#define SCROLL_CLAMP     6       /* 1イベントの最大段数 */
+#define SCROLL_CLAMP     6       /* 1イベント最大段数 */
 
-/* ==== トグル状態 ==== */
+/* ==== トグル状態（ビヘイビアと共有） ==== */
 static atomic_t g_twist_mode = ATOMIC_INIT(0);
 void twist_set_mode(bool en) { atomic_set(&g_twist_mode, en ? 1 : 0); }
 
-/* 追従するデバイスを限定（overlayの “trackball:” ノード）*/
+/* 既存 overlay の "trackball:" ノードだけを対象にする（他デバイス無視） */
 #if DT_NODE_HAS_STATUS(DT_NODELABEL(trackball), okay)
 static const struct device *const trackball_dev = DEVICE_DT_GET(DT_NODELABEL(trackball));
 #else
@@ -43,8 +44,8 @@ static int64_t last_twist_ms = 0;
 
 /* イベントを受けて、必要ならスクロールに置換 */
 static int on_mouse_move(const zmk_mouse_movement_state_changed *ev) {
-    if (!atomic_get(&g_twist_mode)) return 0;       /* OFFなら何もしない */
-    if (trackball_dev && ev->device != trackball_dev) return 0; /* 他デバイスは無視 */
+    if (!atomic_get(&g_twist_mode)) return 0;                 /* OFFなら無視 */
+    if (trackball_dev && ev->device != trackball_dev) return 0; /* 他デバイス無視 */
 
     const float dx = (float)ev->dx;
     const float dy = (float)ev->dy;
@@ -67,7 +68,7 @@ static int on_mouse_move(const zmk_mouse_movement_state_changed *ev) {
         float steps_f = clampf(z * SCROLL_SCALE, -(float)SCROLL_CLAMP, (float)SCROLL_CLAMP);
         int8_t steps = clampi8((int)lroundf(steps_f), -SCROLL_CLAMP, SCROLL_CLAMP);
         if (steps) {
-            /* 垂直スクロールのみ。逆向きが好みなら -steps に */
+            /* 垂直スクロールのみ。逆向きなら -steps に */
             zmk_hid_mouse_scroll(steps, 0);
             /* この移動は“消費”してポインタに流さない */
             return 1; /* consumed */
@@ -78,4 +79,4 @@ static int on_mouse_move(const zmk_mouse_movement_state_changed *ev) {
 
 /* リスナー登録 */
 ZMK_LISTENER(twist_scroll_listener, on_mouse_move);
-ZMK_SUBSCRIPTION(twist_scroll_listener, mouse_movement_state_changed);
+ZMK_SUBSCRIPTION(twist_scroll_listener, mouse_movement_state_changed)
