@@ -40,7 +40,7 @@
             #binding-cells = <0>;
             flavor = "tap-preferred";
             tapping-term-ms = <250>;
-            bindings = <&atok>, <&mo MOD1>;
+            bindings = <&atok &mo MOD1>;
         };
     };
 
