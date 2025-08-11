@@ -1,82 +1,95 @@
+// modules/twist-scroll/app/src/processors/twist_processor.c
+#include <zephyr/device.h>
 #include <zephyr/kernel.h>
-#include <zephyr/sys/atomic.h>
-#include <zephyr/logging/log.h>
-#include <math.h>
+#include <zephyr/sys/util.h>
+
+#include <zephyr/input/input.h>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+
+#include <zmk/endpoints.h>
 #include <zmk/hid.h>
-#include <zmk/event_manager.h>
-#include <zmk/events/mouse_movement_state_changed.h>
+#include <zmk/hid_indicators.h>
+#include <zmk/logging.h>
+
+// ★ 不在ヘッダは削除：<zmk/events/mouse_movement_state_changed.h>
+
+// 入力プロセッサ API（プリセット dtsi を使う側では不要だが、独自実装で参照）
+#include <zmk/pointing/input_listener.h>
+#include <zmk/pointing/input_processor.h>
+
 #include "twist_scroll.h"
 
-LOG_MODULE_REGISTER(twist_proc, LOG_LEVEL_INF);
+LOG_MODULE_REGISTER(twist_processor, CONFIG_ZMK_LOG_LEVEL);
 
-/* ==== 調整パラメータ ==== */
-#define LPF_ALPHA        0.12f   /* 平均ベクトルの滑らかさ */
-#define MIN_SPEED        2.0f    /* 微小ノイズ無視 */
-#define MAX_SPEED        100.0f
-#define TWIST_THRESHOLD  6.0f    /* “回転っぽさ”外積しきい値 */
-#define TWIST_DECAY_MS   40      /* 回転停止後の余韻(ms) */
-#define SCROLL_SCALE     0.12f   /* スクロール感度 */
-#define SCROLL_CLAMP     6       /* 1イベント最大段数 */
+// ねじり検出のための簡易状態（実装を最小限：X/Y の相関で「捻りっぽい」判定）
+static bool twist_mode_enabled;
+static int32_t acc_x, acc_y;
+static int64_t last_ts;
 
-/* ==== トグル状態（ビヘイビアと共有） ==== */
-static atomic_t g_twist_mode = ATOMIC_INIT(0);
-void twist_set_mode(bool en) { atomic_set(&g_twist_mode, en ? 1 : 0); }
-
-/* 既存 overlay の "trackball:" ノードだけを対象にする（他デバイス無視） */
-#if DT_NODE_HAS_STATUS(DT_NODELABEL(trackball), okay)
-static const struct device *const trackball_dev = DEVICE_DT_GET(DT_NODELABEL(trackball));
-#else
-static const struct device *const trackball_dev = NULL;
-#endif
-
-static inline float clampf(float v, float lo, float hi) {
-    return v < lo ? lo : (v > hi ? hi : v);
-}
-static inline int8_t clampi8(int v, int lo, int hi) {
-    if (v < lo) v = lo;
-    if (v > hi) v = hi;
-    return (int8_t)v;
+void twist_scroll_enable(bool en)
+{
+    twist_mode_enabled = en;
+    acc_x = acc_y = 0;
+    last_ts = 0;
 }
 
-/* 状態（LPF平均、最終ツイスト時刻） */
-static float mx = 0.0f, my = 0.0f;
-static int64_t last_twist_ms = 0;
+// 入力イベントの処理本体
+static void process_rel_event(uint16_t code, int32_t value, int64_t timestamp)
+{
+    if (!twist_mode_enabled) {
+        // ねじりモードでないときは何もしない（素通しにしたい場合は return せず forward する）
+        return;
+    }
 
-/* イベントを受けて、必要ならスクロールに置換 */
-static int on_mouse_move(const zmk_mouse_movement_state_changed *ev) {
-    if (!atomic_get(&g_twist_mode)) return 0;                 /* OFFなら無視 */
-    if (trackball_dev && ev->device != trackball_dev) return 0; /* 他デバイス無視 */
+    // 累積（シンプルにしてまずは動かす）
+    if (code == INPUT_REL_X) acc_x += value;
+    if (code == INPUT_REL_Y) acc_y += value;
 
-    const float dx = (float)ev->dx;
-    const float dy = (float)ev->dy;
-    const float speed = sqrtf(dx*dx + dy*dy);
+    // ざっくり「回転っぽさ」を X と Y の符号差/比率で見る
+    // 最初は閾値小さめ、必要なら後で調整
+    const int32_t th = 8;
+    if (ABS(acc_x) + ABS(acc_y) < th) {
+        return;
+    }
 
-    /* 平均ベクトル(LPF)更新 */
-    mx = (1.0f - LPF_ALPHA) * mx + LPF_ALPHA * dx;
-    my = (1.0f - LPF_ALPHA) * my + LPF_ALPHA * dy;
+    // X と Y が同時に動いていて、かつ比率がある程度大きい＝回転っぽいとみなす
+    int32_t scroll_delta = 0;
 
-    /* “擬似Z軸” = v × m */
-    const float z = dx * my - dy * mx;
+    // Kensington SlimBlade の「ボールを捻って縦スクロール」に寄せる：
+    // X を重めに見て縦スクロールへ変換
+    if ((acc_x > 0 && acc_y < 0) || (acc_x < 0 && acc_y > 0)) {
+        // 斜め成分（クロス）をスクロール量へ
+        scroll_delta = (acc_x - acc_y) / 4; // 調整パラメータ
+    } else {
+        scroll_delta = (acc_x + acc_y) / 8;
+    }
 
-    const bool twist_like = (speed >= MIN_SPEED) && (speed <= MAX_SPEED) && (fabsf(z) >= TWIST_THRESHOLD);
-    const int64_t now = k_uptime_get();
-    const bool twist_active = twist_like || (now - last_twist_ms) < TWIST_DECAY_MS;
-    if (twist_like) last_twist_ms = now;
+    // ZMK の HID スクロール出力（垂直スクロール）
+    if (scroll_delta != 0) {
+        struct zmk_hid_mouse_report *mr = zmk_hid_mouse_get_report();
+        // 垂直スクロール（ホイール）に加算。ZMK は 8bit 単位なのでクリップ
+        int16_t new_wheel = (int16_t)mr->wheel + scroll_delta;
+        if (new_wheel > 127) new_wheel = 127;
+        if (new_wheel < -127) new_wheel = -127;
+        mr->wheel = (int8_t)new_wheel;
+        zmk_hid_mouse_set_report(mr);
+        zmk_endpoints_send_mouse_report();
+    }
 
-    if (twist_active) {
-        /* スクロール化（符号が回転方向） */
-        float steps_f = clampf(z * SCROLL_SCALE, -(float)SCROLL_CLAMP, (float)SCROLL_CLAMP);
-        int8_t steps = clampi8((int)lroundf(steps_f), -SCROLL_CLAMP, SCROLL_CLAMP);
-        if (steps) {
-            /* 垂直スクロールのみ。逆向きなら -steps に */
-            zmk_hid_mouse_scroll(steps, 0);
-            /* この移動は“消費”してポインタに流さない */
-            return 1; /* consumed */
-        }
+    // 使い切ったのでリセット（慣性を入れたいならここを変える）
+    acc_x = acc_y = 0;
+    last_ts = timestamp;
+}
+
+// ZMK の input-listener から呼ばれる想定のフック
+int twist_processor_handle_event(struct input_event *ev)
+{
+    if (ev->type == INPUT_EV_REL &&
+        (ev->code == INPUT_REL_X || ev->code == INPUT_REL_Y)) {
+        process_rel_event(ev->code, ev->value, ev->timestamp);
+        // 自分で消費してホストへは「スクロールだけ」送るなら 1 を返して止める手もある
+        // まずは他のプロセッサ/デフォルト経路に任せるなら 0 を返す
+        return 0;
     }
     return 0;
 }
-
-/* リスナー登録 */
-ZMK_LISTENER(twist_scroll_listener, on_mouse_move);
-ZMK_SUBSCRIPTION(twist_scroll_listener, mouse_movement_state_changed)
