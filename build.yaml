@@ -3,5 +3,5 @@ include:
   - board: seeeduino_xiao_ble
     shield: chocolatebox rgbled_adapter
     snippet: studio-rpc-usb-uart
-
+    cmake-args: -DZMK_EXTRA_MODULES="${{ github.workspace }}/modules/twist-scroll"
   

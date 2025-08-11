@@ -108,6 +108,14 @@
         >;
     };
 
+    behaviors {
+        twist_tgl: twist_toggle {
+            compatible = "zmk,behavior-twist-toggle";
+            label = "TWIST_TOGGLE";
+            #binding-cells = <0>;
+        };
+    };
+    
     kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
