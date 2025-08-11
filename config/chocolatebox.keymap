@@ -123,6 +123,20 @@
                 <&macro_release>,
                 <&mkp MB3 &kp LSHFT>;
         };
+
+        tab_fwd: tab_fwd {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LALT &kp LSHIFT &kp PAGE_DOWN>;
+            label = "TAB_FWD";
+        };
+
+        tab_back: tab_back {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_ALT &kp LSHIFT &kp PG_UP>;
+            label = "TAB_BACK";
+        };
     };
 
     keymap {
@@ -163,11 +177,11 @@
         scroll_layer {
             display-name = "SCROLL";
             bindings = <
-&trans  &trans  &trans  &trans  &trans      &trans    &trans    &trans  &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &trans      &trans    &trans    &trans  &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &shift_mb3  &mkp MB3  &mkp MB4  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans      &trans    &trans    &trans  &trans  &trans  &trans
-        &trans  &trans          &trans      &mkp MB1  &mkp MB2  &trans          &trans  &trans
+&trans  &trans  &trans  &trans  &trans      &trans    &trans     &trans    &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &trans      &trans    &trans     &trans    &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &shift_mb3  &mkp MB3  &tab_back  &tab_fwd  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans      &trans    &trans     &trans    &trans  &trans  &trans
+        &trans  &trans          &trans      &mkp MB1  &mkp MB2   &trans            &trans  &trans
             >;
         };
 
