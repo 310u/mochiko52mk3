@@ -48,55 +48,55 @@
         Combo1 {
             bindings = <&kp ESCAPE>;
             key-positions = <0 1>;
-            layers = <BASE>;
+            layers = <0>;
         };
 
         rbkt {
             bindings = <&kp RBKT>;
             key-positions = <20 21>;
-            layers = <BASE>;
+            layers = <0>;
         };
 
         lbkt {
             bindings = <&kp LBKT>;
             key-positions = <19 20>;
-            layers = <BASE>;
+            layers = <0>;
         };
 
         grave {
             bindings = <&kp GRAVE>;
             key-positions = <9 10>;
-            layers = <BASE>;
+            layers = <0>;
         };
 
         backslash {
             bindings = <&kp BSLH>;
             key-positions = <10 11>;
-            layers = <BASE>;
+            layers = <0>;
         };
 
         bt_layer {
-            bindings = <&mo BT_LAYER>;
+            bindings = <&mo 4>;
             key-positions = <47 48>;
-            layers = <BASE>;
+            layers = <0>;
         };
 
         scroll_layer {
-            bindings = <&mo SCROLL>;
+            bindings = <&mo 3>;
             key-positions = <38 47>;
-            layers = <MOUSE>;
+            layers = <2>;
         };
 
         esc_mouse {
             bindings = <&kp ESCAPE>;
             key-positions = <0 1>;
-            layers = <MOUSE>;
+            layers = <2>;
         };
 
         codeclick {
             bindings = <&kp F4>;
             key-positions = <27 28>;
-            layers = <MOUSE>;
+            layers = <2>;
         };
     };
 
@@ -130,11 +130,11 @@
 
         default_layer {
             bindings = <
-&kp N1      &kp N2       &kp N3    &kp N4  &kp N5     &kp N6     &kp N7           &kp N8    &kp N9     &kp N0    &kp MINUS         &kp EQUAL
-            &kp Q        &kp W     &kp E   &kp R      &kp T      &kp Y            &kp U     &kp I      &kp O     &kp P             &kp ENTER
-            &mt LCTRL A  &kp S     &kp D   &kp F      &kp G      &kp H            &kp J     &kp K      &kp L     &kp SEMICOLON
-&kp LSHIFT  &kp Z        &kp X     &kp C   &kp V      &kp B      &kp N            &kp M     &kp COMMA  &kp DOT   &mt RSHIFT SLASH
-            &kp LGUI     &kp LALT          &kp SPACE  &lt 1 TAB  &lt_atok MOD1 0  &kp BSPC             &kp RALT  &kp RCTRL
+&kp N1      &kp N2       &kp N3    &kp N4  &kp N5     &kp N6     &kp N7        &kp N8    &kp N9     &kp N0    &kp MINUS         &kp EQUAL
+            &kp Q        &kp W     &kp E   &kp R      &kp T      &kp Y         &kp U     &kp I      &kp O     &kp P             &kp ENTER
+            &mt LCTRL A  &kp S     &kp D   &kp F      &kp G      &kp H         &kp J     &kp K      &kp L     &kp SEMICOLON
+&kp LSHIFT  &kp Z        &kp X     &kp C   &kp V      &kp B      &kp N         &kp M     &kp COMMA  &kp DOT   &mt RSHIFT SLASH
+            &kp LGUI     &kp LALT          &kp SPACE  &lt 1 TAB  &lt_atok 1 0  &kp BSPC             &kp RALT  &kp RCTRL
             >;
         };
 
@@ -163,32 +163,21 @@
         scroll_layer {
             display-name = "SCROLL";
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans  &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &trans  &trans    &trans    &trans  &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &trans  &mkp MB3  &mkp MB4  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans  &trans  &trans  &trans
-        &trans  &trans          &trans  &mkp MB1  &mkp MB2  &trans          &trans  &trans
+&trans  &trans  &trans  &trans  &trans      &trans    &trans    &trans  &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &trans      &trans    &trans    &trans  &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &shift_mb3  &mkp MB3  &mkp MB4  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans      &trans    &trans    &trans  &trans  &trans  &trans
+        &trans  &trans          &trans      &mkp MB1  &mkp MB2  &trans          &trans  &trans
             >;
         };
 
         bt_layer {
             bindings = <
-&bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &bt BT_CLR  &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4  &bt BT_DISC 0  &bt BT_SEL 0
-              &trans        &trans        &trans        &trans  &trans      &trans         &trans         &trans         &trans         &trans         &trans
-              &trans        &trans        &trans        &trans  &trans      &trans         &trans         &trans         &trans         &trans
-&trans        &trans        &trans        &trans        &trans  &trans      &trans         &trans         &trans         &trans         &trans
-              &trans        &trans                      &trans  &trans      &trans         &trans                        &trans         &trans
-            >;
-        };
-
-        layer_5 {
-            display-name = "CAD_MOUSE";
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans      &trans    &trans  &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &trans  &trans      &trans    &trans  &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &trans  &shift_mb3  &mkp MB3  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &mo 3       &trans    &trans  &trans  &trans  &trans
-        &trans  &trans          &trans  &mkp MB1    &mkp MB2  &trans          &trans  &trans
+&bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans     &bt BT_CLR  &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4  &bt BT_DISC 0  &bt BT_SEL 0
+              &trans        &trans        &trans        &soft_off  &trans      &trans         &trans         &trans         &trans         &trans         &trans
+              &trans        &trans        &trans        &trans     &trans      &trans         &trans         &trans         &trans         &trans
+&trans        &trans        &trans        &trans        &trans     &trans      &trans         &trans         &trans         &trans         &trans
+              &trans        &trans                      &trans     &trans      &trans         &trans                        &trans         &trans
             >;
         };
     };
