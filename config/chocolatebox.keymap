@@ -182,8 +182,8 @@
             bindings = <
 &trans  &trans  &trans  &trans  &trans      &trans    &trans     &trans    &trans  &trans  &trans  &trans
         &trans  &trans  &trans  &trans      &trans    &trans     &trans    &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &shift_mb3  &mkp MB3  &tab_back  &tab_fwd  &trans  &trans  &trans
-&trans  &mo 3   &trans  &trans  &ctrl_mb3   &mo 3     &trans     &trans    &trans  &trans  &trans
+        &trans  &trans  &trans  &ctrl_mb3   &mkp MB3  &tab_back  &tab_fwd  &trans  &trans  &trans
+&trans  &mo 3   &trans  &trans  &shift_mb3  &mo 3     &trans     &trans    &trans  &trans  &trans
         &trans  &trans          &trans      &mkp MB1  &mkp MB2   &trans            &trans  &trans
             >;
         };
@@ -193,8 +193,8 @@
             bindings = <
 &trans  &trans  &trans  &trans  &trans      &trans    &trans    &trans  &trans  &trans  &trans  &trans
         &trans  &trans  &trans  &trans      &trans    &trans    &trans  &trans  &trans  &trans  &trans
-        &trans  &trans  &trans  &shift_mb3  &mkp MB3  &trans    &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans      &trans    &trans    &trans  &trans  &trans  &trans
+        &trans  &trans  &trans  &ctrl_mb3   &mkp MB3  &trans    &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &shift_mb3  &trans    &trans    &trans  &trans  &trans  &trans
         &trans  &trans          &trans      &mkp MB1  &mkp MB2  &trans          &trans  &trans
             >;
         };
