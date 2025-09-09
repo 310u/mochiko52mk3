@@ -1,11 +1,12 @@
 #include <dt-bindings/zmk/matrix_transform.h>
-#include "./chocolatebox-layouts.dtsi"
+// #include "./chocolatebox-layouts.dtsi"
 #include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
-/* --- sanity marker: overlay header ok --- */
 
 &xiao_serial { status = "disabled"; };
+
 
 &pinctrl {
     spi1_default: spi1_default {
@@ -23,7 +24,7 @@
             low-power-enable;
         };
     };
-
+    
     spi0_default: spi0_default {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 0, 10)>,
@@ -41,7 +42,6 @@
         };
     };
 };
-
 
 &spi1 {
     status = "okay";
