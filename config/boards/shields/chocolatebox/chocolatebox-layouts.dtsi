@@ -2,88 +2,105 @@
 #include <physical_layouts.dtsi>
 
 / {
-  chocolatebox_physical_layout: chocolatebox_physical_layout {
-    compatible = "zmk,physical-layout";
-    display-name = "Chocolatebox";
-    transform = <&default_transform>;
-    kscan = <&kscan0>;
+    chocolatebox_physical_layout: chocolatebox_physical_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "Chocolatebox";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
 
-    /* ---- 非回転エリア（上段の 1,2 と 右端の - =、左右の縦列など） ---- */
-    keys =
-      /* 上段 左端 */
-      <&key_physical_attrs 100 100   75   0   0   0    0>,  /* 0: "1"  (x=0.75u) */
-      <&key_physical_attrs 100 100  175   0   0   0    0>,  /* 1: "2"  */
-      /* 上段 右端（x:9u 分のギャップ後に -,=） */
-      <&key_physical_attrs 100 100 1000   0   0   0    0>,  /* 10: "-" */
-      <&key_physical_attrs 100 100 1100   0   0   0    0>,  /* 11: "=" */
+        /*
+         * 1u = 100
+         * 回転ブロック：
+         *  - 左ブロック:  rot=10,  支点(rx,ry)=(2000,300)  ← KLE {r:10, rx:20, ry:3} を ×100
+         *  - 右ブロック:  rot=350, 支点(rx,ry)=(3175,300) ← KLE {r:-10, rx:11.75} を 360度正規化＆X+2000
+         */
 
-      /* 左縦列 Q / A / SHIFT / CTRL（x=150,y=100間隔の例） */
-      <&key_physical_attrs 150 100    0 100  0  0 0>,      /* Q が1.5u */
-      <&key_physical_attrs 175 100    0 200  0  0 0>,      /* A が1.75u */
-      <&key_physical_attrs 125 100    0 300  0  0 0>,      /* SHIFT 1.25u */
-      <&key_physical_attrs 125 100   75 400  0  0 0>,      /* CTRL 1.25u (x=0.75u) */
+        keys =
+        /* ---------------- 上段（非回転） ---------------- */
+        /* 1,2 ……(大きめスペース)…… -,= */
+          <&key_physical_attrs 100 100   75    0     0     0     0>   /*  0: "1" (x=0.75u) */
+        , <&key_physical_attrs 100 100  175    0     0     0     0>   /*  1: "2" */
+        , <&key_physical_attrs 100 100  275    0     0     0     0>   /*  2 */
+        , <&key_physical_attrs 100 100  375    0     0     0     0>   /*  3 */
+        , <&key_physical_attrs 100 100  475    0     0     0     0>   /*  4 */
+        , <&key_physical_attrs 100 100  575    0     0     0     0>   /*  5 */
+        , <&key_physical_attrs 100 100  975    0     0     0     0>   /*  6: "-"  (x:9u相当へジャンプ) */
+        , <&key_physical_attrs 100 100 1075    0     0     0     0>   /*  7: "="  */
+        /* 2段目（非回転：左縦列Q、右にP/;、Enterは2u高） */
+        , <&key_physical_attrs 150 100  100  100     0     0     0>   /*  8: "Q"   1.5u */
+        , <&key_physical_attrs 100 100  900  100     0     0     0>   /*  9: "P"   */
+        , <&key_physical_attrs 100 100  925  200     0     0     0>   /* 10: ";"  (x:+0.25u) */
+        , <&key_physical_attrs 125 200  925  100     0     0     0>   /* 11: "ENTER" 1.25u×2u */
 
-      /* 右縦列群（P / ; / Enter, SHIFT, CTRL）は適宜 例: */
-      <&key_physical_attrs 100 100  900 100  0 0 0>,       /* P */
-      <&key_physical_attrs 100 100  925 200  0 0 0>,       /* ; (x=+0.25u) */
-      /* Enter は 1.25u幅×2u高：w=125,h=200, 2行占有するなら y は同じでOK */
-      <&key_physical_attrs 125 200  925 100  0 0 0>,       /* ENTER */
-      <&key_physical_attrs 225 100  925 300  0 0 0>,       /* SHIFT 2.25u */
-      <&key_physical_attrs 125 100  950 400  0 0 0>,       /* CTRL 1.25u */
+        /* 3段目（非回転：左A、右SHIFT） */
+        , <&key_physical_attrs 175 100   50  200     0     0     0>   /* 12: "A"   1.75u */
+        , <&key_physical_attrs 225 100  925  300     0     0     0>   /* 13: "SHIFT" 2.25u */
 
-      /* ---- 左 10° ブロック（回転中の支点を固定）---- */
-      /* 支点：rx=20u, ry=3u → 2000, 300 */
-      <&key_physical_attrs 100 100  -1675  300  10  2000 300>, /* "3"  x=-16.75u, y=3u */
-      <&key_physical_attrs 100 100  -1575  300  10  2000 300>, /* "4" */
-      <&key_physical_attrs 100 100  -1475  300  10  2000 300>, /* "5" */
-      <&key_physical_attrs 100 100  -1375  300  10  2000 300>, /* "6" */
+        /* 4段目（非回転：左SHIFT/Z、右CTRL） */
+        , <&key_physical_attrs 125 100   25  300     0     0     0>   /* 14: "SHIFT" 1.25u */
+        , <&key_physical_attrs 100 100  175  300     0     0     0>   /* 15: "Z" */
+        , <&key_physical_attrs 100 100  950  400     0     0     0>   /* 16: "CTRL" */
 
-      <&key_physical_attrs 100 100  -1675  400  10  2000 300>, /* "W" */
-      <&key_physical_attrs 100 100  -1575  400  10  2000 300>, /* "E" */
-      <&key_physical_attrs 100 100  -1475  400  10  2000 300>, /* "R" */
-      <&key_physical_attrs 100 100  -1375  400  10  2000 300>, /* "T" */
+        /* 5段目（非回転：左CTRL、右CTRL） */
+        , <&key_physical_attrs 125 100   75  400     0     0     0>   /* 17: "CTRL" 1.25u */
+        , <&key_physical_attrs 125 100  925  400     0     0     0>   /* 18: "CTRL" 1.25u */
 
-      <&key_physical_attrs 100 100  -1675  500  10  2000 300>, /* "S" */
-      <&key_physical_attrs 100 100  -1575  500  10  2000 300>, /* "D" */
-      <&key_physical_attrs 100 100  -1475  500  10  2000 300>, /* "F" */
-      <&key_physical_attrs 100 100  -1375  500  10  2000 300>, /* "G" */
+        /* -------- 左 10° 回転ブロック（KLE {r:10, rx:20, ry:3}） -------- */
+        /* 支点(rx,ry)=(2000,300) すべてこの支点・回転を共有 */
+        , <&key_physical_attrs 100 100   325  300    10  2000   300>  /* 19: "3"   （基準近辺に並べ替え） */
+        , <&key_physical_attrs 100 100   425  300    10  2000   300>  /* 20: "4" */
+        , <&key_physical_attrs 100 100   525  300    10  2000   300>  /* 21: "5" */
+        , <&key_physical_attrs 100 100   625  300    10  2000   300>  /* 22: "6" */
 
-      <&key_physical_attrs 100 100  -1675  600  10  2000 300>, /* "X" */
-      <&key_physical_attrs 100 100  -1575  600  10  2000 300>, /* "C" */
-      <&key_physical_attrs 100 100  -1475  600  10  2000 300>, /* "V" */
-      <&key_physical_attrs 100 100  -1375  600  10  2000 300>, /* "B" */
+        , <&key_physical_attrs 100 100   325  400    10  2000   300>  /* 23: "W" */
+        , <&key_physical_attrs 100 100   425  400    10  2000   300>  /* 24: "E" */
+        , <&key_physical_attrs 100 100   525  400    10  2000   300>  /* 25: "R" */
+        , <&key_physical_attrs 100 100   625  400    10  2000   300>  /* 26: "T" */
 
-      <&key_physical_attrs 125 100  -1675  700  10  2000 300>, /* "ALT" 1.25u */
-      <&key_physical_attrs 225 100  -1550  700  10  2000 300>, /* "SPACE" 2.25u */
-      <&key_physical_attrs 100 100  -1325  700  10  2000 300>, /* "Fn" */
+        , <&key_physical_attrs 100 100   325  500    10  2000   300>  /* 27: "S" */
+        , <&key_physical_attrs 100 100   425  500    10  2000   300>  /* 28: "D" */
+        , <&key_physical_attrs 100 100   525  500    10  2000   300>  /* 29: "F" */
+        , <&key_physical_attrs 100 100   625  500    10  2000   300>  /* 30: "G" */
 
-      /* ---- 右 -10° ブロック（支点 rx=11.75u → 1175, ry=0）---- */
-      <&key_physical_attrs 100 100  -425   300  -10  1175 0>,  /* "7"  (x:-4.25u, y:3u と同様の置き方に合わせる) */
-      <&key_physical_attrs 100 100  -325   300  -10  1175 0>,  /* "8" */
-      <&key_physical_attrs 100 100  -225   300  -10  1175 0>,  /* "9" */
-      <&key_physical_attrs 100 100  -125   300  -10  1175 0>,  /* "0" */
+        , <&key_physical_attrs 100 100   325  600    10  2000   300>  /* 31: "X" */
+        , <&key_physical_attrs 100 100   425  600    10  2000   300>  /* 32: "C" */
+        , <&key_physical_attrs 100 100   525  600    10  2000   300>  /* 33: "V" */
+        , <&key_physical_attrs 100 100   625  600    10  2000   300>  /* 34: "B" */
 
-      <&key_physical_attrs 100 100  -425   400  -10  1175 0>,  /* "Y" */
-      <&key_physical_attrs 100 100  -325   400  -10  1175 0>,  /* "U" */
-      <&key_physical_attrs 100 100  -225   400  -10  1175 0>,  /* "I" */
-      <&key_physical_attrs 100 100  -125   400  -10  1175 0>,  /* "O" */
+        , <&key_physical_attrs 125 100   300  700    10  2000   300>  /* 35: "ALT" 1.25u */
+        , <&key_physical_attrs 225 100   425  700    10  2000   300>  /* 36: "SPACE" 2.25u */
+        , <&key_physical_attrs 100 100   650  700    10  2000   300>  /* 37: "Fn" */
 
-      <&key_physical_attrs 100 100  -425   500  -10  1175 0>,  /* "H" */
-      <&key_physical_attrs 100 100  -325   500  -10  1175 0>,  /* "J" */
-      <&key_physical_attrs 100 100  -225   500  -10  1175 0>,  /* "K" */
-      <&key_physical_attrs 100 100  -125   500  -10  1175 0>,  /* "L" */
+        /* -------- 右 350° 回転ブロック（KLE {r:-10, rx:11.75}→ rot=350） -------- */
+        /* 元のXがマイナスになるレイアウトを X+2000 で正にシフト。支点rxも +2000。
+           支点(rx,ry)=(3175,300) ＝ (1175+2000, 300) */
+        , <&key_physical_attrs 100 100  1575  300   350  3175   300>  /* 38: "7"  (≒ x:-4.25u → +2000) */
+        , <&key_physical_attrs 100 100  1675  300   350  3175   300>  /* 39: "8" */
+        , <&key_physical_attrs 100 100  1775  300   350  3175   300>  /* 40: "9" */
+        , <&key_physical_attrs 100 100  1875  300   350  3175   300>  /* 41: "0" */
 
-      <&key_physical_attrs 100 100  -500   600  -10  1175 0>,  /* "N" (x:-4.75u の例) */
-      <&key_physical_attrs 100 100  -400   600  -10  1175 0>,  /* "M" */
-      <&key_physical_attrs 100 100  -300   600  -10  1175 0>,  /* "," */
-      <&key_physical_attrs 100 100  -200   600  -10  1175 0>,  /* "." */
+        , <&key_physical_attrs 100 100  1575  400   350  3175   300>  /* 42: "Y" */
+        , <&key_physical_attrs 100 100  1675  400   350  3175   300>  /* 43: "U" */
+        , <&key_physical_attrs 100 100  1775  400   350  3175   300>  /* 44: "I" */
+        , <&key_physical_attrs 100 100  1875  400   350  3175   300>  /* 45: "O" */
 
-      <&key_physical_attrs 100 100  -475   700  -10  1175 0>,  /* "Fn" */
-      <&key_physical_attrs 225 100  -350   700  -10  1175 0>,  /* "BSPC" 2.25u */
-      <&key_physical_attrs 125 100  -125   700  -10  1175 0>   /* "ALT" 1.25u */
-      ;
-  };
+        , <&key_physical_attrs 100 100  1575  500   350  3175   300>  /* 46: "H" */
+        , <&key_physical_attrs 100 100  1675  500   350  3175   300>  /* 47: "J" */
+        , <&key_physical_attrs 100 100  1775  500   350  3175   300>  /* 48: "K" */
+        , <&key_physical_attrs 100 100  1875  500   350  3175   300>  /* 49: "L" */
+
+        , <&key_physical_attrs 100 100  1525  600   350  3175   300>  /* 50: "N" (≒ x:-4.75u → +2000-50) */
+        , <&key_physical_attrs 100 100  1625  600   350  3175   300>  /* 51: "M" */
+        , <&key_physical_attrs 100 100  1725  600   350  3175   300>  /* 52: "," */
+        , <&key_physical_attrs 100 100  1825  600   350  3175   300>  /* 53: "." */
+
+        , <&key_physical_attrs 100 100  1550  700   350  3175   300>  /* 54: "Fn" */
+        , <&key_physical_attrs 225 100  1675  700   350  3175   300>  /* 55: "BSPC" 2.25u */
+        , <&key_physical_attrs 125 100  1900  700   350  3175   300>  /* 56: "ALT" 1.25u */
+        ;
+    };
 };
+
 
 
 &layouts_chocolatebox_position_map {
