@@ -72,7 +72,7 @@
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
 
-    cs-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>;
+ //   cs-gpios = <&xiao_d 10 GPIO_ACTIVE_LOW>;
         shift_reg: 595@0 {
             compatible = "zmk,gpio-595";
             status = "okay";
@@ -81,6 +81,7 @@
             reg = <0>;
             #gpio-cells = <2>;
             ngpios = <16>;
+            latch-gpios = <%xiao_d 10 GPIO_ACTIVE_HIGH>;
     };
 };
 
