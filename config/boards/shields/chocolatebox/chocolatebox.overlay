@@ -81,7 +81,7 @@
             reg = <0>;
             #gpio-cells = <2>;
             ngpios = <16>;
-            latch-gpios = <%xiao_d 10 GPIO_ACTIVE_HIGH>;
+            latch-gpios = <&xiao_d 10 GPIO_ACTIVE_HIGH>;
     };
 };
 
