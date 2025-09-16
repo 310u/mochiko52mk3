@@ -58,7 +58,7 @@
             , <&key_physical_attrs              100  100  1000   330  35000   1050    380> /* C7  m  */
             , <&key_physical_attrs              100  100  1100   330  35000   1150    380> /* C8  ,  */
             , <&key_physical_attrs
-
+         ;
 
     };
 };
