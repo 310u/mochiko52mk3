@@ -7,68 +7,68 @@
         display-name = "Chocolatebox";
         transform = <&default_transform>;
         kscan = <&kscan0>;
-               keys  //                     w    h     x     y   rot  rx  ry
-            /* Row0: RC(0,0..11) */
-            = <&key_physical_attrs 100 100     0     0     0   300  0>  /* C0 */
-            , <&key_physical_attrs 100 100   100     0    10   300  0>  /* C1 */
-            , <&key_physical_attrs 100 100   200     0    10   300  0>  /* C2 */
-            , <&key_physical_attrs 100 100   300     0    10   300  0>  /* C3 */
-            , <&key_physical_attrs 100 100   400     0    10   300  0>  /* C4 */
-            , <&key_physical_attrs 100 100   500     0    10   300  0>  /* C5 */
-            , <&key_physical_attrs 100 100   800     0   350   900  0>  /* C6 */
-            , <&key_physical_attrs 100 100   900     0   350   900  0>  /* C7 */
-            , <&key_physical_attrs 100 100  1000     0   350   900  0>  /* C8 */
-            , <&key_physical_attrs 100 100  1100     0   350   900  0>  /* C9 */
-            , <&key_physical_attrs 100 100  1200     0   350   900  0>  /* C10 */
-            , <&key_physical_attrs 100 100  1300     0     0   900  0>  /* C11 = 右小指列 */
+               keys  //                              w    h     x     y   rot  rx   ry
+            /* Row0: RC(0,0..11) → 1 2 3 4 5 6 | 7 8 9 0 - =  */
+            = <&key_physical_attrs            100  100    75     0     0  300   0>  /* C0  1   (左小指=水平, 左端+0.75u) */
+            , <&key_physical_attrs            100  100   175     0     0  300   0>  /* C1  2   (左小指=水平) */
+            , <&key_physical_attrs            100  100   275     0    10  300   0>  /* C2  3   */
+            , <&key_physical_attrs            100  100   375     0    10  300   0>  /* C3  4   */
+            , <&key_physical_attrs            100  100   475     0    10  300   0>  /* C4  5   */
+            , <&key_physical_attrs            100  100   575     0    10  300   0>  /* C5  6   */
+            , <&key_physical_attrs            100  100   900     0   350  900   0>  /* C6  7   */
+            , <&key_physical_attrs            100  100  1000     0   350  900   0>  /* C7  8   */
+            , <&key_physical_attrs            100  100  1100     0   350  900   0>  /* C8  9   */
+            , <&key_physical_attrs            100  100  1200     0   350  900   0>  /* C9  0   */
+            , <&key_physical_attrs            100  100  1300     0     0  900   0>  /* C10 -   (右小指=水平) */
+            , <&key_physical_attrs            100  100  1325     0     0  900   0>  /* C11 =   (右端-0.75u に配置) */
 
-            /* Row1: RC(1,1..11) */
-            , <&key_physical_attrs 150 100     0   110   10    300  0>  /* C1: Q 1.5u */
-            , <&key_physical_attrs 100 100   150   110   10    300  0>  /* C2 */
-            , <&key_physical_attrs 100 100   250   110   10    300  0>  /* C3 */
-            , <&key_physical_attrs 100 100   350   110   10    300  0>  /* C4 */
-            , <&key_physical_attrs 100 100   450   110   10    300  0>  /* C5 */
-            , <&key_physical_attrs 100 100   800   110  350    900  0>  /* C6 */
-            , <&key_physical_attrs 100 100   900   110  350    900  0>  /* C7 */
-            , <&key_physical_attrs 100 100  1000   110  350    900  0>  /* C8 */
-            , <&key_physical_attrs 100 100  1100   110  350    900  0>  /* C9 */
-            , <&key_physical_attrs 100 100  1200   110  350    900  0>  /* C10 */
-            , <&key_physical_attrs 100 200  1300   110    0    900  0>  /* C11: Enter 縦2u（右小指列） */
+            /* Row1: RC(1,1..11) → q w e r t | y u i o p enter(ISO) */
+            , <&key_physical_attrs            150  100   100   110     0  300   0>  /* C1  q 1.5u (左小指=水平, 左端+1u) */
+            , <&key_physical_attrs            100  100   250   110    10  300   0>  /* C2  w   */
+            , <&key_physical_attrs            100  100   350   110    10  300   0>  /* C3  e   */
+            , <&key_physical_attrs            100  100   450   110    10  300   0>  /* C4  r   */
+            , <&key_physical_attrs            100  100   550   110    10  300   0>  /* C5  t   */
+            , <&key_physical_attrs            100  100   900   110   350  900   0>  /* C6  y   */
+            , <&key_physical_attrs            100  100  1000   110   350  900   0>  /* C7  u   */
+            , <&key_physical_attrs            100  100  1100   110   350  900   0>  /* C8  i   */
+            , <&key_physical_attrs            100  100  1200   110   350  900   0>  /* C9  o   */
+            , <&key_physical_attrs            100  100  1300   110     0  900   0>  /* C10 p   (右小指=水平) */
+            , <&key_physical_attrs            125  200  1375   110     0  900   0>  /* C11 Enter ISO(1.25u×2u, 右端揃え) */
 
-            /* Row2: RC(2,1..10) */
-            , <&key_physical_attrs 100 100     0   220   10    300  0>  /* C1 */
-            , <&key_physical_attrs 100 100   100   220   10    300  0>  /* C2 */
-            , <&key_physical_attrs 100 100   200   220   10    300  0>  /* C3 */
-            , <&key_physical_attrs 100 100   300   220   10    300  0>  /* C4 */
-            , <&key_physical_attrs 100 100   400   220   10    300  0>  /* C5 */
-            , <&key_physical_attrs 100 100   800   220  350    900  0>  /* C6 */
-            , <&key_physical_attrs 100 100   900   220  350    900  0>  /* C7 */
-            , <&key_physical_attrs 100 100  1000   220  350    900  0>  /* C8 */
-            , <&key_physical_attrs 100 100  1100   220  350    900  0>  /* C9 */
-            , <&key_physical_attrs 100 100  1200   220    0    900  0>  /* C10 = 右小指列 */
+            /* Row2: RC(2,1..10) → a s d f g | h j k l ; */
+            , <&key_physical_attrs            175  100    50   220     0  300   0>  /* C1  a 1.75u (左小指=水平, 左端+0.5u) */
+            , <&key_physical_attrs            100  100   225   220    10  300   0>  /* C2  s   */
+            , <&key_physical_attrs            100  100   325   220    10  300   0>  /* C3  d   */
+            , <&key_physical_attrs            100  100   425   220    10  300   0>  /* C4  f   */
+            , <&key_physical_attrs            100  100   525   220    10  300   0>  /* C5  g   */
+            , <&key_physical_attrs            100  100   900   220   350  900   0>  /* C6  h   */
+            , <&key_physical_attrs            100  100  1000   220   350  900   0>  /* C7  j   */
+            , <&key_physical_attrs            100  100  1100   220   350  900   0>  /* C8  k   */
+            , <&key_physical_attrs            100  100  1200   220   350  900   0>  /* C9  l   */
+            , <&key_physical_attrs            100  100  1300   220     0  900   0>  /* C10 ;   (右小指=水平) */
 
-            /* Row3: RC(3,0..10) */
-            , <&key_physical_attrs 125 100     0   330    0    300  0>  /* C0: LShift 1.25u（左小指列） */
-            , <&key_physical_attrs 100 100   150   330   10    300  0>  /* C1 */
-            , <&key_physical_attrs 100 100   250   330   10    300  0>  /* C2 */
-            , <&key_physical_attrs 100 100   350   330   10    300  0>  /* C3 */
-            , <&key_physical_attrs 100 100   450   330   10    300  0>  /* C4 */
-            , <&key_physical_attrs 100 100   800   330  350    900  0>  /* C5 */
-            , <&key_physical_attrs 100 100   900   330  350    900  0>  /* C6 */
-            , <&key_physical_attrs 100 100  1000   330  350    900  0>  /* C7 */
-            , <&key_physical_attrs 100 100  1100   330  350    900  0>  /* C8 */
-            , <&key_physical_attrs 100 100  1200   330  350    900  0>  /* C9 */
-            , <&key_physical_attrs 225 100  1300   330    0    900  0>  /* C10: RShift 2.25u（右小指列） */
+            /* Row3: RC(3,0..10) → Shift z x c v | b n m , . Shift */
+            , <&key_physical_attrs            125  100     0   330     0  300   0>  /* C0  LShift 1.25u (左端揃え) */
+            , <&key_physical_attrs            100  100   125   330     0  300   0>  /* C1  z   (左小指=水平) */
+            , <&key_physical_attrs            100  100   225   330    10  300   0>  /* C2  x   */
+            , <&key_physical_attrs            100  100   325   330    10  300   0>  /* C3  c   */
+            , <&key_physical_attrs            100  100   425   330    10  300   0>  /* C4  v   */
+            , <&key_physical_attrs            100  100   900   330   350  900   0>  /* C5  b   */
+            , <&key_physical_attrs            100  100  1000   330   350  900   0>  /* C6  n   */
+            , <&key_physical_attrs            100  100  1100   330   350  900   0>  /* C7  m   */
+            , <&key_physical_attrs            100  100  1200   330   350  900   0>  /* C8  , ' 等 */
+            , <&key_physical_attrs            100  100  1300   330   350  900   0>  /* C9  .   */
+            , <&key_physical_attrs            225  100  1275   330     0  900   0>  /* C10 RShift 2.25u (右端揃え) */
 
-            /* Row4: RC(4,1),2,4,5,6,7,9,10 */
-            , <&key_physical_attrs 100 100     0   440    0    300  0>  /* C1: GUI（左小指側列扱い） */
-            , <&key_physical_attrs 125 100   100   440   10    300  0>  /* C2: LAlt 1.25u */
-            , <&key_physical_attrs 225 100   250   440   10    300  0>  /* C4: Space 2.25u */
-            , <&key_physical_attrs 100 100   500   440   10    300  0>  /* C5 */
-            , <&key_physical_attrs 100 100   800   440  350    900  0>  /* C6 */
-            , <&key_physical_attrs 100 100   900   440  350    900  0>  /* C7 */
-            , <&key_physical_attrs 100 100  1100   440  350    900  0>  /* C9 */
-            , <&key_physical_attrs 100 100  1200   440    0    900  0>  /* C10: 右端（右小指列） */
+            /* Row4: RC(4,1,2,4,5,6,7,9,10) → GUI ALT SPACE Fn | Fn BSPC ALT CTRL */
+            , <&key_physical_attrs            125  100    75   440     0  300   0>  /* C1  GUI 1.25u (左小指=水平, 左端+0.75u) */
+            , <&key_physical_attrs            125  100   200   440    10  300   0>  /* C2  LAlt 1.25u */
+            , <&key_physical_attrs            225  100   325   440    10  300   0>  /* C4  Space 2.25u */
+            , <&key_physical_attrs            100  100   550   440    10  300   0>  /* C5  Fn */
+            , <&key_physical_attrs            100  100   900   440   350  900   0>  /* C6  Fn */
+            , <&key_physical_attrs            225  100  1000   440   350  900   0>  /* C7  Bspc 2.25u */
+            , <&key_physical_attrs            125  100  1100   440   350  900   0>  /* C9  RAlt 1.25u */
+            , <&key_physical_attrs            125  100  1300   440     0  900   0>  /* C10 RCtrl 1.25u (右端-0.75u) */
         ;
 
     };
