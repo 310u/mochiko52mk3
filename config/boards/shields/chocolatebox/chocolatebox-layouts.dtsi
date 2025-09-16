@@ -7,64 +7,60 @@
         display-name = "Chocolatebox";
         transform = <&default_transform>;
         kscan = <&kscan0>;
-        keys  //                     w   h    x    y     rot    rx    ry
-            = <&key_physical_attrs 100 100    0    0       0     0     0>
-            , <&key_physical_attrs 100 100  100    0       0     0     0>
-            , <&key_physical_attrs 100 100  200    0       0     0     0>
-            , <&key_physical_attrs 100 100  300    0       0     0     0>
-            , <&key_physical_attrs 100 100  400    0       0     0     0>
-            , <&key_physical_attrs 100 100  600    0       0     0     0>
-            , <&key_physical_attrs 100 100  700    0       0     0     0>
-            , <&key_physical_attrs 100 100  800    0       0     0     0>
-            , <&key_physical_attrs 100 100  900    0       0     0     0>
-            , <&key_physical_attrs 100 100  1000    0       0     0     0>
-            , <&key_physical_attrs 100 100  1100    0       0     0     0>
-            , <&key_physical_attrs 100 100  1200    0       0     0     0>
-            
-            , <&key_physical_attrs 100 100    0  100       0     0     0>
-            , <&key_physical_attrs 100 100  100  100       0     0     0>
-            , <&key_physical_attrs 100 100  200  100       0     0     0>
-            , <&key_physical_attrs 100 100  300  100       0     0     0>
-            , <&key_physical_attrs 100 100  400  100       0     0     0>
-            , <&key_physical_attrs 100 100  600  100       0     0     0>
-            , <&key_physical_attrs 100 100  700  100       0     0     0>
-            , <&key_physical_attrs 100 100  800  100       0     0     0>
-            , <&key_physical_attrs 100 100  900  100       0     0     0>
-            , <&key_physical_attrs 100 100  1000  100       0     0     0>
-            , <&key_physical_attrs 100 100  1100  100       0     0     0>
+                keys  //                     w    h     x     y   rot   rx   ry
+            /* 左手ブロック (+10°) */
+            = <&key_physical_attrs 100 100     0     0    10   300   0>
+            , <&key_physical_attrs 100 100   100     0    10   300   0>
+            , <&key_physical_attrs 100 100   200     0    10   300   0>
+            , <&key_physical_attrs 100 100   300     0    10   300   0>
+            , <&key_physical_attrs 100 100   400     0    10   300   0>
+            , <&key_physical_attrs 150 100    50   100    10   300   0>  /* Q 1.5u */
+            , <&key_physical_attrs 100 100   150   100    10   300   0>
+            , <&key_physical_attrs 100 100   250   100    10   300   0>
+            , <&key_physical_attrs 100 100   350   100    10   300   0>
+            , <&key_physical_attrs 100 100   450   100    10   300   0>
+            , <&key_physical_attrs 100 100     0   200    10   300   0>
+            , <&key_physical_attrs 100 100   100   200    10   300   0>
+            , <&key_physical_attrs 100 100   200   200    10   300   0>
+            , <&key_physical_attrs 100 100   300   200    10   300   0>
+            , <&key_physical_attrs 100 100   400   200    10   300   0>
+            , <&key_physical_attrs 125 100   -25   300    10   300   0>  /* Shift 1.25u */
+            , <&key_physical_attrs 100 100   100   300    10   300   0>
+            , <&key_physical_attrs 100 100   200   300    10   300   0>
+            , <&key_physical_attrs 100 100   300   300    10   300   0>
+            , <&key_physical_attrs 100 100   400   300    10   300   0>
+            , <&key_physical_attrs 100 100     0   400    10   300   0>  /* GUI */
+            , <&key_physical_attrs 125 100   100   400    10   300   0>  /* Alt 1.25u */
+            , <&key_physical_attrs 225 100   250   400    10   300   0>  /* Space 2.25u */
+            , <&key_physical_attrs 100 100   475   400    10   300   0>  /* Fn */
 
-            , <&key_physical_attrs 100 100    0  200       0     0     0>
-            , <&key_physical_attrs 100 100  100  200       0     0     0>
-            , <&key_physical_attrs 100 100  200  200       0     0     0>
-            , <&key_physical_attrs 100 100  300  200       0     0     0>
-            , <&key_physical_attrs 100 100  400  200       0     0     0>
-            , <&key_physical_attrs 100 100  600  200       0     0     0>
-            , <&key_physical_attrs 100 100  700  200       0     0     0>
-            , <&key_physical_attrs 100 100  800  200       0     0     0>
-            , <&key_physical_attrs 100 100  900  200       0     0     0>
-            , <&key_physical_attrs 100 100  1000  200       0     0     0>
-           
-            
-            , <&key_physical_attrs 100 100    0  300       0     0     0>
-            , <&key_physical_attrs 100 100  100  300       0     0     0>
-            , <&key_physical_attrs 100 100  200  300       0     0     0>
-            , <&key_physical_attrs 100 100  300  300       0     0     0>
-            , <&key_physical_attrs 100 100  400  300       0     0     0>
-            , <&key_physical_attrs 100 100  600  300       0     0     0>
-            , <&key_physical_attrs 100 100  700  300       0     0     0>
-            , <&key_physical_attrs 100 100  800  300       0     0     0>
-            , <&key_physical_attrs 100 100  900  300       0     0     0>
-            , <&key_physical_attrs 100 100  1000  300       0     0     0>
-            , <&key_physical_attrs 100 100  1100  300       0     0     0>
-            
-            , <&key_physical_attrs 100 100    0  400       0     0     0>
-            , <&key_physical_attrs 100 100  100  400       0     0     0>
-            , <&key_physical_attrs 100 100  200  400       0     0     0>
-            , <&key_physical_attrs 100 100  300  400       0     0     0>
-            , <&key_physical_attrs 100 100  400  400       0     0     0>
-            , <&key_physical_attrs 100 100  600  400       0     0     0>
-            , <&key_physical_attrs 100 100  700  400       0     0     0>
-            , <&key_physical_attrs 100 100  800  400       0     0     0>
+            /* 右手ブロック (350° = -10°) */
+            , <&key_physical_attrs 100 100   700     0   350   900   0>
+            , <&key_physical_attrs 100 100   800     0   350   900   0>
+            , <&key_physical_attrs 100 100   900     0   350   900   0>
+            , <&key_physical_attrs 100 100  1000     0   350   900   0>
+            , <&key_physical_attrs 100 100  1100     0   350   900   0>
+            , <&key_physical_attrs 100 100   700   100   350   900   0>
+            , <&key_physical_attrs 100 100   800   100   350   900   0>
+            , <&key_physical_attrs 100 100   900   100   350   900   0>
+            , <&key_physical_attrs 100 100  1000   100   350   900   0>
+            , <&key_physical_attrs 100 100  1100   100   350   900   0>
+            , <&key_physical_attrs 100 100   700   200   350   900   0>
+            , <&key_physical_attrs 100 100   800   200   350   900   0>
+            , <&key_physical_attrs 100 100   900   200   350   900   0>
+            , <&key_physical_attrs 100 100  1000   200   350   900   0>
+            , <&key_physical_attrs 100 100  1100   200   350   900   0>
+            , <&key_physical_attrs 100 100   700   300   350   900   0>
+            , <&key_physical_attrs 100 100   800   300   350   900   0>
+            , <&key_physical_attrs 100 100   900   300   350   900   0>
+            , <&key_physical_attrs 100 100  1000   300   350   900   0>
+            , <&key_physical_attrs 100 100  1100   300   350   900   0>
+            , <&key_physical_attrs 225 100   975   400   350   900   0>  /* Shift 2.25u */
+            , <&key_physical_attrs 100 200  1200   100   350   900   0>  /* Enter 2u高 */
+            , <&key_physical_attrs 100 100   700   400   350   900   0>  /* BkSp */
+            , <&key_physical_attrs 125 100   800   400   350   900   0>  /* AltGr 1.25u */
+            , <&key_physical_attrs 100 100   900   400   350   900   0>  /* Ctrl */bbbb
+
 
             ;
     };
