@@ -7,7 +7,7 @@
         display-name = "Chocolatebox";
         transform = <&default_transform>;
         kscan = <&kscan0>;
-                     keys  //                                w    h     x     y    rot    rx    ry
+           keys  //                                w    h     x     y    rot    rx    ry
             /* Row0: RC(0,0..11) → 1 2 3 4 5 6 | 7 8 9 0 - = */
             = <&key_physical_attrs              100  100    75     0      0    300     0>  /* C0  1  小指=水平, 左端+0.75u */
             , <&key_physical_attrs              100  100   175     0      0    300     0>  /* C1  2  小指=水平 */
@@ -57,8 +57,20 @@
             , <&key_physical_attrs              100  100   900   330  35000    950    380> /* C6  n  */
             , <&key_physical_attrs              100  100  1000   330  35000   1050    380> /* C7  m  */
             , <&key_physical_attrs              100  100  1100   330  35000   1150    380> /* C8  ,  */
-            , <&key_physical_attrs
-         ;
+            , <&key_physical_attrs              100  100  1200   330  35000   1250    380> /* C9  .  */
+            , <&key_physical_attrs              225  100  1275   330      0   1387    380> /* C10 RShift 2.25u 右端 */
+
+            /* Row4: RC(4,1,2,4,5,6,7,9,10) → GUI ALT SPACE Fn | Fn BSPC ALT CTRL */
+            , <&key_physical_attrs              125  100    75   440      0    300     0>  /* C1  GUI 1.25u 小指=水平, 左端+0.75u */
+            , <&key_physical_attrs              125  100   200   440   1000    300     0>  /* C2  LAlt 1.25u */
+            , <&key_physical_attrs              225  100   325   440   1000    300     0>  /* C4  Space 2.25u */
+            , <&key_physical_attrs              100  100   550   440   1000    300     0>  /* C5  Fn */
+            , <&key_physical_attrs              100  100   900   440  35000    950    490> /* C6  Fn */
+            , <&key_physical_attrs              225  100  1000   440  35000   1112    490> /* C7  Bspc 2.25u */
+            , <&key_physical_attrs              125  100  1100   440  35000   1162    490> /* C9  RAlt 1.25u */
+            , <&key_physical_attrs              125  100  1300   440      0   1362    490> /* C10 RCtrl 1.25u 小指=水平(右端-0.75u) */
+        ;
+
 
     };
 };
