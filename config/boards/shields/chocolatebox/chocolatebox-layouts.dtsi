@@ -44,7 +44,7 @@
             , <&key_physical_attrs              100  100   950   220  (-1000)  1175    220> /* C6  h  */
             , <&key_physical_attrs              100  100  1050   220  (-1000)  1175    220> /* C7  j  */
             , <&key_physical_attrs              100  100  1150   220  (-1000)  1175    220> /* C8  k  */
-            , <&key_physical_attrs              100  100  1250   220  (-1000)  1325    220> /* C9  l  */
+            , <&key_physical_attrs              100  100  1250   220  (-1000)  1175    220> /* C9  l  */
             , <&key_physical_attrs              100  100  1350   220      0    1475    220> /* C10 ; 小指=水平 */
 
             /* Row3: RC(3,0..10) → Shift z x c v b | n m , . RShift */
