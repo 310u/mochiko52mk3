@@ -28,12 +28,12 @@
             , <&key_physical_attrs              100  100   350   110   1000    300     0>  /* C3  e  */
             , <&key_physical_attrs              100  100   450   110   1000    300     0>  /* C4  r  */
             , <&key_physical_attrs              100  100   550   110   1000    300     0>  /* C5  t  */
-            , <&key_physical_attrs              100  100   900   110  (-1000)   900    160> /* C6  y  */
-            , <&key_physical_attrs              100  100  1000   110  (-1000)   900    160> /* C7  u  */
-            , <&key_physical_attrs              100  100  1100   110  (-1000)   900    160> /* C8  i  */
-            , <&key_physical_attrs              100  100  1200   110  (-1000)   900    160> /* C9  o  */
-            , <&key_physical_attrs              100  100  1300   110      0   900    110> /* C10 p 小指=水平 */
-            , <&key_physical_attrs              125  200  1375   110      0   900    210> /* C11 Enter ISO 1.25u×2u */
+            , <&key_physical_attrs              100  100   925   110  (-1000)   900    160> /* C6  y  */
+            , <&key_physical_attrs              100  100  1025   110  (-1000)   900    160> /* C7  u  */
+            , <&key_physical_attrs              100  100  1125   110  (-1000)   900    160> /* C8  i  */
+            , <&key_physical_attrs              100  100  1225   110  (-1000)   900    160> /* C9  o  */
+            , <&key_physical_attrs              100  100  1325   110      0   900    110> /* C10 p 小指=水平 */
+            , <&key_physical_attrs              125  200  1325   110      0   900    210> /* C11 Enter ISO 1.25u×2u */
 
             /* Row2: RC(2,1..10) → a s d f g | h j k l ; */
             , <&key_physical_attrs              175  100    50   220      0    300     0>  /* C1  a 1.75u 小指=水平, 左端+0.5u */
@@ -41,11 +41,11 @@
             , <&key_physical_attrs              100  100   325   220   1000    300     0>  /* C3  d  */
             , <&key_physical_attrs              100  100   425   220   1000    300     0>  /* C4  f  */
             , <&key_physical_attrs              100  100   525   220   1000    300     0>  /* C5  g  */
-            , <&key_physical_attrs              100  100   900   220  (-1000)   900    270> /* C6  h  */
-            , <&key_physical_attrs              100  100  1000   220  (-1000)   900    270> /* C7  j  */
-            , <&key_physical_attrs              100  100  1100   220  (-1000)   900    270> /* C8  k  */
-            , <&key_physical_attrs              100  100  1200   220  (-1000)   900    270> /* C9  l  */
-            , <&key_physical_attrs              100  100  1300   220      0   900    220> /* C10 ; 小指=水平 */
+            , <&key_physical_attrs              100  100   950   220  (-1000)   900    270> /* C6  h  */
+            , <&key_physical_attrs              100  100  1050   220  (-1000)   900    270> /* C7  j  */
+            , <&key_physical_attrs              100  100  1150   220  (-1000)   900    270> /* C8  k  */
+            , <&key_physical_attrs              100  100  1250   220  (-1000)   900    270> /* C9  l  */
+            , <&key_physical_attrs              100  100  1350   220      0   900    220> /* C10 ; 小指=水平 */
 
             /* Row3: RC(3,0..10) → Shift z x c v b | n m , . RShift */
             , <&key_physical_attrs              125  100     0   330      0    300     0>  /* C0  LShift 1.25u 左端 */
@@ -54,21 +54,21 @@
             , <&key_physical_attrs              100  100   350   330   1000    300     0>  /* C3  c  */
             , <&key_physical_attrs              100  100   450   330   1000    300     0>  /* C4  v  */
             , <&key_physical_attrs              100  100   550   330   1000    300     0>  /* C5  b（左手） */
-            , <&key_physical_attrs              100  100   900   330  (-1000)    900    380> /* C6  n  */
-            , <&key_physical_attrs              100  100  1000   330  (-1000)    900    380> /* C7  m  */
-            , <&key_physical_attrs              100  100  1100   330  (-1000)    900    380> /* C8  ,  */
-            , <&key_physical_attrs              100  100  1200   330  (-1000)    900    380> /* C9  .  */
-            , <&key_physical_attrs              225  100  1275   330      0   900      380> /* C10 RShift 2.25u 右端 */
+            , <&key_physical_attrs              100  100   975   330  (-1000)    900    380> /* C6  n  */
+            , <&key_physical_attrs              100  100  1075   330  (-1000)    900    380> /* C7  m  */
+            , <&key_physical_attrs              100  100  1175   330  (-1000)    900    380> /* C8  ,  */
+            , <&key_physical_attrs              100  100  1275   330  (-1000)    900    380> /* C9  .  */
+            , <&key_physical_attrs              225  100  1375   330      0   900      380> /* C10 RShift 2.25u 右端 */
 
             /* Row4: RC(4,1,2,4,5,6,7,9,10) → GUI ALT SPACE Fn | Fn BSPC ALT CTRL */
             , <&key_physical_attrs              125  100    75   440      0    300     0>  /* C1  GUI 1.25u 小指=水平, 左端+0.75u */
             , <&key_physical_attrs              125  100   200   440   1000    300     0>  /* C2  LAlt 1.25u */
             , <&key_physical_attrs              225  100   325   440   1000    300     0>  /* C4  Space 2.25u */
             , <&key_physical_attrs              100  100   550   440   1000    300     0>  /* C5  Fn */
-            , <&key_physical_attrs              100  100   900   440  (-1000)  900    490> /* C6  Fn */
-            , <&key_physical_attrs              225  100  1000   440  (-1000)  900    490> /* C7  Bspc 2.25u */
-            , <&key_physical_attrs              125  100  1100   440  (-1000)  900    490> /* C9  RAlt 1.25u */
-            , <&key_physical_attrs              125  100  1300   440      0   900    490> /* C10 RCtrl 1.25u 小指=水平(右端-0.75u) */
+            , <&key_physical_attrs              100  100  1000   440  (-1000)  900    490> /* C6  Fn */
+            , <&key_physical_attrs              225  100  1100   440  (-1000)  900    490> /* C7  Bspc 2.25u */
+            , <&key_physical_attrs              125  100  1200   440  (-1000)  900    490> /* C9  RAlt 1.25u */
+            , <&key_physical_attrs              125  100  1400   440      0   900    490> /* C10 RCtrl 1.25u 小指=水平(右端-0.75u) */
         ;
 
 
