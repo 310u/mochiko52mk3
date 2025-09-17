@@ -69,7 +69,7 @@
             , <&key_physical_attrs              225  100  1050   440  (-1000)  1225    440> /* C7  Bspc 2.25u */
             , <&key_physical_attrs              125  100  1275   440  (-1000)  1225    440> /* C9  RAlt 1.25u */
             , <&key_physical_attrs              125  100  1400   440      0    1425    440> /* C10 RCtrl 1.25u 小指=水平(右端-0.75u) */
-        ;p
+        ;
 
 
     };
