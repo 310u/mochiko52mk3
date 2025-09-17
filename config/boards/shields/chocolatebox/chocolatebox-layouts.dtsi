@@ -45,7 +45,7 @@
             , <&key_physical_attrs              100  100  1050   220  (-1000)   900    270> /* C7  j  */
             , <&key_physical_attrs              100  100  1150   220  (-1000)   900    270> /* C8  k  */
             , <&key_physical_attrs              100  100  1250   220  (-1000)   900    270> /* C9  l  */
-            , <&key_physical_attrs              100  100  1375   220      0   900    220> /* C10 ; 小指=水平 */
+            , <&key_physical_attrs              100  100  1350   220      0   900    220> /* C10 ; 小指=水平 */
 
             /* Row3: RC(3,0..10) → Shift z x c v b | n m , . RShift */
             , <&key_physical_attrs              125  100     0   330      0    300     0>  /* C0  LShift 1.25u 左端 */
@@ -68,7 +68,7 @@
             , <&key_physical_attrs              100  100   950   440  (-1000)  900    490> /* C6  Fn */
             , <&key_physical_attrs              225  100  1050   440  (-1000)  900    490> /* C7  Bspc 2.25u */
             , <&key_physical_attrs              125  100  1275   440  (-1000)  900    490> /* C9  RAlt 1.25u */
-            , <&key_physical_attrs              125  100  1425   440      0   900    490> /* C10 RCtrl 1.25u 小指=水平(右端-0.75u) */
+            , <&key_physical_attrs              125  100  1400   440      0   900    490> /* C10 RCtrl 1.25u 小指=水平(右端-0.75u) */
         ;
 
 
