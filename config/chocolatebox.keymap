@@ -202,8 +202,8 @@
         bt_layer {
             bindings = <
 &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans     &bt BT_CLR  &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4  &bt BT_DISC 0  &bt BT_SEL 0
-              &soff         &trans        &trans        &soft_off  &trans      &trans         &trans         &trans         &trans         &trans         &trans
-              &trans        &trans        &trans        &trans     &trans      &trans         &trans         &trans         &out OUT_BLE   &out OUT_USB
+              &soff         &trans        &trans        &soft_off  &trans      &kp F13        &kp F14        &kp F15        &kp F16        &kp F17        &trans
+              &trans        &trans        &trans        &trans     &trans      &kp F18        &kp F19        &kp F20        &out OUT_BLE   &out OUT_USB
 &trans        &trans        &trans        &trans        &trans     &trans      &trans         &trans         &trans         &trans         &trans
               &trans        &trans                      &trans     &trans      &trans         &trans                        &trans         &trans
             >;
