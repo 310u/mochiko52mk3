@@ -3,7 +3,7 @@ id: chocolatebox
 name: CHOCOLATEBOX
 type: shield
 url: https://github.com/310u/mochiko52mk3
-requires: [seeeduino_xiao_ble]
+requires: [seeed_xiao]
 features:
   - keys
   - pointer
